@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { Lock, User, ShieldCheck, ArrowRight } from "lucide-react";
+import { Lock, User, Shield, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LoginPage() {
@@ -54,7 +54,7 @@ export default function LoginPage() {
         <div className="glass-card p-8 md:p-10 border-white/10">
           <div className="text-center mb-10">
             <div className="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 border border-primary/30 shadow-[0_0_50px_rgba(34,211,238,0.2)]">
-              <ShieldCheck className="w-10 h-10 text-primary" />
+              <Shield className="w-10 h-10 text-primary" />
             </div>
             <h1 className="text-3xl font-black text-white tracking-tighter mb-2">
               MASTER <span className="text-primary">PORTAL</span>

@@ -14,10 +14,14 @@ export async function encrypt(payload: any) {
 }
 
 export async function decrypt(input: string): Promise<any> {
-  const { payload } = await jwtVerify(input, key, {
-    algorithms: ["HS256"],
-  });
-  return payload;
+  try {
+    const { payload } = await jwtVerify(input, key, {
+      algorithms: ["HS256"],
+    });
+    return payload;
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function login(username: string) {
@@ -35,16 +39,20 @@ export async function logout() {
 }
 
 export async function getSession(req?: NextRequest) {
-  let session;
-  
-  if (req) {
-    session = req.cookies.get("auth_token")?.value;
-  } else {
-    session = cookies().get("auth_token")?.value;
-  }
+  try {
+    let session;
+    
+    if (req) {
+      session = req.cookies.get("auth_token")?.value;
+    } else {
+      session = cookies().get("auth_token")?.value;
+    }
 
-  if (!session) return null;
-  return await decrypt(session);
+    if (!session) return null;
+    return await decrypt(session);
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function updateSession(request: NextRequest) {
