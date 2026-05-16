@@ -7,10 +7,15 @@ export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
 
-    // 1. Check if admin exists in DB
-    let admin = await prisma.admin.findUnique({
-      where: { username },
-    });
+    // 1. Check if admin exists in DB (Wrapped in try/catch for Vercel SQLite compatibility)
+    let admin = null;
+    try {
+      admin = await prisma.admin.findUnique({
+        where: { username },
+      });
+    } catch (dbError) {
+      console.log("Database connection failed, falling back to stateless mode.");
+    }
 
     // 2. Initial Credential Bypass (Vercel SQLite Read-Only fix)
     const INITIAL_USERNAME = "raffiq_sr";
