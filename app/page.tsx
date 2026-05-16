@@ -105,6 +105,52 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Premium Trust Section */}
+      <section className="relative -mt-12 mb-24 z-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="glass-card p-8 md:p-12 border-white/5 bg-[#050505]/80"
+          >
+            <div className="text-center mb-16">
+              <p className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4">Established Excellence</p>
+              <h2 className="text-2xl md:text-4xl font-black text-white tracking-tighter mb-4">Starting Your Technology Company<br /><span className="text-white/30">Has Never Been Easier</span></h2>
+            </div>
+
+            {/* Partners Logo Grid */}
+            <div className="mb-20">
+              <p className="text-center text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] mb-10">Trusted Technology Partners</p>
+              <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-10 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                {["Angel One", "Groww", "Alice Blue", "NSE", "MCX", "SEBI", "Shoonya", "Zerodha"].map((partner) => (
+                  <div key={partner} className="text-xl font-black text-white tracking-tighter hover:text-primary transition-colors cursor-default whitespace-nowrap">
+                    {partner}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Performance Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+              {[
+                { label: "Experience", value: "12+ Years", sub: "Since 2012" },
+                { label: "Clients Served", value: "65+", sub: "Since 2024" },
+                { label: "Projects Delivered", value: "100+", sub: "Global Reach" },
+                { label: "Technical Support", value: "24/7", sub: "Expert Response" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center group">
+                  <div className="text-2xl md:text-4xl font-black text-white mb-2 group-hover:text-primary transition-colors">{stat.value}</div>
+                  <div className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] mb-1">{stat.label}</div>
+                  <div className="text-[9px] font-bold text-white/10 uppercase tracking-[0.1em]">{stat.sub}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Broker Integration Section */}
       <section className="bg-[#080B14] border-y border-white/[0.03] py-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 opacity-40" />
@@ -172,6 +218,41 @@ export default function Home() {
               <h3 className="text-lg font-bold text-white mb-2">Multi-Broker</h3>
               <p className="text-sm text-white/35 leading-relaxed">One dashboard for AliceBlue, Angel One, Shoonya, and 15+ more. Switch brokers in seconds.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enterprise Solutions Section */}
+      <section className="py-24 px-6 bg-[#050505] border-y border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -z-10" />
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
+            <div className="max-w-2xl">
+              <p className="text-xs font-black text-secondary mb-4 uppercase tracking-[0.4em]">Scaling Technology</p>
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">Institutional Grade<br /><span className="text-white/30">Custom Development</span></h2>
+            </div>
+            <Link href="/contact" className="group flex items-center gap-3 text-xs font-black text-white uppercase tracking-widest hover:text-primary transition-colors pb-2 border-b border-white/10 hover:border-primary/50">
+              Inquire for Custom Work <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { title: "Shoonya API Software", slug: "shoonya-api-trading-software", desc: "Automate zero-brokerage trading with professional API bridges." },
+              { title: "White Label Platform", slug: "white-label-trading-platform", desc: "Launch your branded trading platform with our core engine." },
+              { title: "Backtesting Engines", slug: "backtesting-engine-development", desc: "High-precision testing systems with tick-by-tick analysis." },
+              { title: "Forex Automation", slug: "forex-trading-software-development", desc: "Global currency trading infrastructure and MT4/5 bridges." },
+              { title: "Zerodha Kite Connect", slug: "zerodha-kite-connect-development", desc: "Scalable integrations for India's largest trading ecosystem." },
+              { title: "Mobile Trading Apps", slug: "mobile-app-development", desc: "Native Android & iOS apps with real-time data streaming." },
+            ].map((service) => (
+              <Link key={service.slug} href={`/services/${service.slug}`} className="glass-card p-8 border-white/5 hover:border-primary/20 hover:bg-white/[0.02] transition-all group">
+                <h3 className="text-lg font-black text-white mb-3 tracking-tight group-hover:text-primary transition-colors">{service.title}</h3>
+                <p className="text-sm text-white/40 leading-relaxed mb-6">{service.desc}</p>
+                <div className="flex items-center gap-2 text-[10px] font-black text-white/20 uppercase tracking-widest group-hover:text-white transition-colors">
+                  Explore Solution <ArrowRight className="w-3 h-3" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

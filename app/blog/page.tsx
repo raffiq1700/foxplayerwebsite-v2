@@ -1,18 +1,20 @@
-import { getAllPosts } from "@/lib/mdx";
+import prisma from "@/lib/db";
 import { Newsletter } from "@/components/blog/Newsletter";
 import { BlogList } from "@/components/blog/BlogList";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Academy | Foxplayer Algo Technologies",
+  title: "Blog | FoxPlayer Algo Technologies",
   description: "Master algorithmic trading, market psychology, and stock market automation with our premium guides built for the modern Indian trader.",
 };
 
 export default async function BlogPage() {
-  const allPosts = await getAllPosts();
-  const featuredPost =
-    allPosts.find((p) => p.slug === "what-is-a-demat-account-beginner-guide") ||
-    allPosts[0];
+  const allPosts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { date: "desc" }
+  });
+
+  const featuredPost = allPosts[0];
 
   return (
     <div className="min-h-screen pt-48 bg-background relative overflow-hidden">
@@ -22,7 +24,15 @@ export default async function BlogPage() {
         <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
-      <BlogList posts={allPosts} featuredPost={featuredPost} />
+      <BlogList posts={allPosts.map(p => ({
+        ...p,
+        date: p.date.toISOString(),
+        tags: p.tags ? JSON.parse(p.tags) : []
+      }))} featuredPost={featuredPost ? {
+        ...featuredPost,
+        date: featuredPost.date.toISOString(),
+        tags: featuredPost.tags ? JSON.parse(featuredPost.tags) : []
+      } : undefined} />
 
       <Newsletter />
     </div>

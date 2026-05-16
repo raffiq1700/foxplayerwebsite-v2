@@ -36,11 +36,11 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-3 pl-8 border-l border-white/5">
             <a href="http://app.foxplayer.co.in" className="text-[13px] font-medium text-white/50 hover:text-white transition-colors px-3 py-1.5">
-              Log in
+              Dashboard
             </a>
-            <a href="http://app.foxplayer.co.in" className="text-[13px] font-semibold bg-white text-background px-5 py-2 rounded-lg hover:bg-white/90 transition-all active:scale-95">
-              Get Started
-            </a>
+            <Link href="/contact" className="text-[13px] font-bold bg-primary text-background px-5 py-2.5 rounded-xl hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all active:scale-95">
+              Free Consultation
+            </Link>
           </div>
         </div>
 

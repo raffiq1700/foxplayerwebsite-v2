@@ -20,6 +20,20 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Simple Redirect Manager
+  const redirects: Record<string, string> = {
+    "/strategies": "/academy",
+    "/guide": "/academy",
+    "/training": "/academy",
+    "/about-us": "/about",
+    "/contact-us": "/contact",
+    "/faq-page": "/faq",
+  };
+
+  if (redirects[request.nextUrl.pathname]) {
+    return NextResponse.redirect(new URL(redirects[request.nextUrl.pathname], request.url), 301);
+  }
+
   return NextResponse.next();
 }
 

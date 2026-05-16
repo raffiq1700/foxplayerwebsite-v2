@@ -11,15 +11,26 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 export const metadata: Metadata = {
   title: "Foxplayer Algo Technologies | Premium Algo Trading Platform India",
   description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade with AliceBlue, Shoonya, Angel One, and Upstox.",
-  keywords: ["algo trading platform India", "copy trading software India", "TradingView webhook India", "automated trading platform India", "strategy marketplace India"],
+  keywords: ["algo trading platform India", "copy trading software India", "TradingView webhook India", "automated trading platform India", "strategy marketplace India", "Shoonya API trading", "Zerodha Kite Connect automation"],
+  metadataBase: new URL("https://www.foxplayer.co.in"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Foxplayer Algo Technologies | Premium Algo Trading Platform India",
     description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade.",
-    url: "https://foxplayer.in",
+    url: "https://www.foxplayer.co.in",
     siteName: "Foxplayer Algo Technologies",
+    images: ["/logo.png"],
     locale: "en_IN",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Foxplayer Algo Technologies | Premium Algo Trading Platform India",
+    description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade.",
+    images: ["/logo.png"],
+  }
 };
 
 export default function RootLayout({
@@ -30,6 +41,60 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground min-h-screen flex flex-col">
+        <Script id="org-schema" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "FoxPlayer Algo Technologies",
+            "url": "https://www.foxplayer.co.in",
+            "logo": "https://www.foxplayer.co.in/logo.png",
+            "founder": {
+              "@type": "Person",
+              "name": "Mohamed Raffiq"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91-9983168522",
+              "contactType": "customer service",
+              "areaServed": "IN",
+              "availableLanguage": ["en", "ta", "hi"]
+            },
+            "sameAs": [
+              "https://twitter.com/foxplayer_algo",
+              "https://linkedin.com/company/foxplayer-algo"
+            ]
+          })}
+        </Script>
+        <Script id="local-schema" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "FoxPlayer Algo Technologies",
+            "image": "https://www.foxplayer.co.in/logo.png",
+            "@id": "https://www.foxplayer.co.in",
+            "url": "https://www.foxplayer.co.in",
+            "telephone": "+91-9983168522",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Expert Delivery Center",
+              "addressLocality": "Coimbatore",
+              "addressRegion": "TN",
+              "postalCode": "641001",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 11.0168,
+              "longitude": 76.9558
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              "opens": "09:00",
+              "closes": "18:00"
+            }
+          })}
+        </Script>
         {/* Affiliate Banner — static, not sticky */}
         <div className="relative z-[60] bg-[#0C0C0C] border-b border-white/5 text-center py-2 px-4">
           <span className="text-[11px] text-white/80">Start your automated trading journey today!</span>

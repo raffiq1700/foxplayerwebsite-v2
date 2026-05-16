@@ -39,7 +39,20 @@ export default function Footer() {
               <li><Link href="/features" className="hover:text-white/70 transition-colors">Features</Link></li>
               <li><Link href="/pricing" className="hover:text-white/70 transition-colors">Pricing</Link></li>
               <li><Link href="/marketplace" className="hover:text-white/70 transition-colors">Marketplace</Link></li>
-              <li><Link href="/blog" className="hover:text-white/70 transition-colors">Academy</Link></li>
+              <li><Link href="/academy" className="hover:text-white/70 transition-colors">Academy</Link></li>
+              <li><Link href="/blog" className="hover:text-white/70 transition-colors">Blog</Link></li>
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div className="md:col-span-2">
+            <h4 className="text-[11px] font-bold text-white/40 uppercase tracking-wider mb-5">Services</h4>
+            <ul className="space-y-3 text-sm text-white/30">
+              <li><Link href="/services/algorithmic-trading-software-development" className="hover:text-white/70 transition-colors">Algo Software</Link></li>
+              <li><Link href="/services/white-label-trading-platform" className="hover:text-white/70 transition-colors">White Label</Link></li>
+              <li><Link href="/services/options-trading-automation" className="hover:text-white/70 transition-colors">Options Auto</Link></li>
+              <li><Link href="/services/web-development" className="hover:text-white/70 transition-colors">Web Dev</Link></li>
+              <li><Link href="/services/mobile-app-development" className="hover:text-white/70 transition-colors">App Dev</Link></li>
             </ul>
           </div>
 
@@ -47,9 +60,9 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h4 className="text-[11px] font-bold text-white/40 uppercase tracking-wider mb-5">Company</h4>
             <ul className="space-y-3 text-sm text-white/30">
-              <li><Link href="/about" className="hover:text-white/70 transition-colors">About</Link></li>
-              <li><a href="mailto:raffiq_sr@yahoo.co.in" className="hover:text-white/70 transition-colors">Support Email</a></li>
-              <li><Link href="/faq" className="hover:text-white/70 transition-colors">Help Center</Link></li>
+              <li><Link href="/about" className="hover:text-white/70 transition-colors">About Us</Link></li>
+              <li><Link href="/contact" className="hover:text-white/70 transition-colors">Contact</Link></li>
+              <li><Link href="/faq" className="hover:text-white/70 transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
@@ -59,21 +72,8 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white/30">
               <li><Link href="/disclaimer" className="hover:text-white/70 transition-colors">Disclaimer</Link></li>
               <li><Link href="/terms" className="hover:text-white/70 transition-colors">Terms</Link></li>
-              <li><Link href="/refund-policy" className="hover:text-white/70 transition-colors">Refund Policy</Link></li>
+              <li><Link href="/refund-policy" className="hover:text-white/70 transition-colors">Refund</Link></li>
               <li><Link href="/privacy-policy" className="hover:text-white/70 transition-colors">Privacy</Link></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-2">
-            <h4 className="text-[11px] font-bold text-white/40 uppercase tracking-wider mb-5">Brokers</h4>
-            <ul className="space-y-3 text-sm text-white/30">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> AliceBlue</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Angel One</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Shoonya</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Groww</li>
-              <li className="opacity-40">Upstox (Soon)</li>
-              <li className="opacity-40">IIFL (Soon)</li>
-              <li className="opacity-40">5Paisa (Soon)</li>
             </ul>
           </div>
         </div>
