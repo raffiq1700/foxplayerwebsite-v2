@@ -108,9 +108,9 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   Get a Free Quote <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
-              <button className="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-white/10 transition-all">
+              <a href="/brochure.pdf" download className="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center">
                 Download Brochure
-              </button>
+              </a>
             </div>
           </div>
           <div className="relative">

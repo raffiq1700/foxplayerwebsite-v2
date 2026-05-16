@@ -39,9 +39,7 @@ export default function Navbar() {
             <a href="http://app.foxplayer.co.in" className="text-[13px] font-medium text-white/50 hover:text-white transition-colors px-3 py-1.5">
               Dashboard
             </a>
-            <a href="/brochure.pdf" download className="text-[13px] font-bold border border-white/20 text-white px-5 py-2.5 rounded-xl hover:bg-white/10 transition-all">
-              Brochure
-            </a>
+
             <Link href="/contact" className="text-[13px] font-bold bg-primary text-background px-5 py-2.5 rounded-xl hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all active:scale-95">
               Free Consultation
             </Link>
@@ -65,7 +63,7 @@ export default function Navbar() {
           <Link href="/blog" className="block text-sm text-white hover:text-primary">Blog</Link>
           <div className="pt-4 border-t border-white/5 space-y-3">
             <a href="http://app.foxplayer.co.in" className="block text-sm text-white/50">Log in</a>
-            <a href="/brochure.pdf" download className="w-full text-center block text-sm font-semibold border border-white/20 text-white px-5 py-2.5 rounded-lg mb-3">Download Brochure</a>
+
             <a href="http://app.foxplayer.co.in" className="w-full text-center block text-sm font-semibold bg-white text-background px-5 py-2.5 rounded-lg">Get Started</a>
           </div>
         </div>
