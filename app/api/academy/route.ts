@@ -5,13 +5,18 @@ import { getSession } from "@/lib/auth";
 
 export async function GET() {
   try {
-    const academyQuery = query(collection(db, "academy"), orderBy("createdAt", "desc"));
-    const querySnapshot = await getDocs(academyQuery);
-    const articles = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      createdAt: doc.data().createdAt?.toDate() || new Date(),
-    }));
+    const querySnapshot = await getDocs(collection(db, "academy"));
+    const articles = querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date(),
+      };
+    });
+    
+    // Sort in JS to avoid "missing field" exclusion
+    articles.sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime());
     return NextResponse.json(articles);
   } catch (error) {
     console.error("Fetch academy error:", error);

@@ -14,17 +14,20 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   let allPosts = [];
   try {
-    // We remove the 'where' clause to avoid needing a composite index for now
-    // We'll filter the results in memory to ensure the page doesn't crash on Vercel
-    const postsQuery = query(collection(db, "posts"), orderBy("date", "desc"));
-    const querySnapshot = await getDocs(postsQuery);
+    const querySnapshot = await getDocs(collection(db, "posts"));
     allPosts = querySnapshot.docs
-      .map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        date: doc.data().date?.toDate() || new Date(),
-      }))
-      .filter((post: any) => post.published !== false); // Simple memory filter
+      .map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          date: data.date?.toDate ? data.date.toDate() : new Date(),
+        };
+      })
+      .filter((post: any) => post.published !== false);
+      
+    // Sort in JS
+    allPosts.sort((a: any, b: any) => b.date.getTime() - a.date.getTime());
   } catch (error) {
     console.error("Blog listing error:", error);
   }
