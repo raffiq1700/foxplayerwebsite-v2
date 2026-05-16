@@ -2,62 +2,71 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, ArrowRight, BookOpen, Clock, Tag, LayoutGrid } from "lucide-react";
+import { Search, ArrowRight, BookOpen, Clock, Tag, LayoutGrid, ArrowRightCircle } from "lucide-react";
 import Link from "next/link";
-
-const categories = ["All", "Options", "Candlesticks", "Automation", "Methodology", "Concepts", "Methods", "Risk Management", "Basics"];
+import ReactMarkdown from "react-markdown";
 
 export default function AcademyIndex() {
   const [articles, setArticles] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchArticles();
+    const fetchData = async () => {
+      try {
+        const [articlesRes, categoriesRes] = await Promise.all([
+          fetch("/api/academy"),
+          fetch("/api/academy/categories")
+        ]);
+        
+        const articlesData = await articlesRes.json();
+        const categoriesData = await categoriesRes.json();
+        
+        setArticles(Array.isArray(articlesData) ? articlesData : []);
+        setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
-  const fetchArticles = async () => {
-    try {
-      const res = await fetch("/api/academy");
-      if (res.ok) {
-        const data = await res.json();
-        setArticles(data.filter((a: any) => a.status === "published"));
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const filteredArticles = articles.filter(article => {
+    const matchesCategory = activeCategory === "All" || article.category === activeCategory;
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          article.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || article.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return matchesCategory && matchesSearch;
   });
 
-  return (
-    <main className="bg-background min-h-screen pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <p className="text-primary text-xs font-bold uppercase tracking-[0.3em] mb-4">Trading Academy</p>
-            <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">Master the <span className="text-white/40">Market</span></h1>
-            <p className="text-white/40 max-w-2xl mx-auto text-lg leading-relaxed">
-              Explore our comprehensive library of institutional trading strategies, technical analysis, and automation guides.
-            </p>
-          </motion.div>
-        </div>
+  const currentCategoryData = categories.find(c => c.name.toLowerCase() === activeCategory.toLowerCase()) || categories.find(c => c.name === "All");
 
-        {/* Search and Filters */}
-        <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between">
-          <div className="relative w-full md:max-w-md group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/20 group-focus-within:text-primary transition-colors" />
-            <input 
-              type="text" 
+  // Schema Generation
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.foxplayer.co.in" },
+      { "@type": "ListItem", "position": 2, "name": "Academy", "item": "https://www.foxplayer.co.in/academy" },
+      activeCategory !== "All" ? { "@type": "ListItem", "position": 3, "name": activeCategory, "item": `https://www.foxplayer.co.in/academy?category=${activeCategory.toLowerCase()}` } : null
+    ].filter(Boolean)
+  };
+
+  const articleSchema = currentCategoryData ? {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": currentCategoryData.metaTitle || currentCategoryData.name,
+    "description": currentCategoryData.metaDescription,
+    "author": { "@type": "Organization", "name": "FoxPlayer Algo Technologies" },
+    "publisher": { "@type": "Organization", "name": "FoxPlayer Algo Technologies", "logo": { "@type": "ImageObject", "url": "https://www.foxplayer.co.in/logo.png" } },
+    "datePublished": currentCategoryData.createdAt,
+    "dateModified": currentCategoryData.updatedAt
+  } : null;
+
+  return (
     <main className="min-h-screen pt-48 pb-24 bg-background relative overflow-hidden">
       {articleSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
