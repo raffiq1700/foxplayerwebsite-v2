@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { notFound } from "next/navigation";
 import { Clock, User, ChevronRight, Share2, Shield, Globe, ArrowRight, FileText, MessageCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -9,52 +10,50 @@ interface Props {
   params: { slug: string };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+async function getArticleBySlug(slug: string) {
   try {
-    const article = await prisma.academyArticle.findUnique({
-      where: { slug: params.slug },
-    });
-
-    if (!article) return { title: "Article Not Found" };
-
-    const baseUrl = "https://www.foxplayer.co.in";
-    
-    return {
-      title: article.metaTitle || article.title,
-      description: article.metaDescription || article.excerpt,
-      alternates: {
-        canonical: `${baseUrl}/academy/${article.slug}`,
-      },
-      openGraph: {
-        title: article.metaTitle || article.title,
-        description: article.metaDescription || article.excerpt,
-        url: `${baseUrl}/academy/${article.slug}`,
-        type: "article",
-        images: article.featuredImage ? [{ url: article.featuredImage }] : [],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: article.metaTitle || article.title,
-        description: article.metaDescription || article.excerpt,
-        images: article.featuredImage ? [article.featuredImage] : [],
-      },
-    };
+    const q = query(collection(db, "academy"), where("slug", "==", slug), limit(1));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) return null;
+    const doc = querySnapshot.docs[0];
+    return { id: doc.id, ...doc.data() } as any;
   } catch (error) {
-    console.error("Metadata error:", error);
-    return { title: "Error" };
+    console.error("Firestore fetch error:", error);
+    return null;
   }
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const article = await getArticleBySlug(params.slug);
+
+  if (!article) return { title: "Article Not Found" };
+
+  const baseUrl = "https://www.foxplayer.co.in";
+  
+  return {
+    title: article.metaTitle || article.title,
+    description: article.metaDescription || article.excerpt,
+    alternates: {
+      canonical: `${baseUrl}/academy/${article.slug}`,
+    },
+    openGraph: {
+      title: article.metaTitle || article.title,
+      description: article.metaDescription || article.excerpt,
+      url: `${baseUrl}/academy/${article.slug}`,
+      type: "article",
+      images: article.featuredImage ? [{ url: article.featuredImage }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.metaTitle || article.title,
+      description: article.metaDescription || article.excerpt,
+      images: article.featuredImage ? [article.featuredImage] : [],
+    },
+  };
+}
+
 export default async function AcademyArticlePage({ params }: Props) {
-  let article = null;
-  try {
-    article = await prisma.academyArticle.findUnique({
-      where: { slug: params.slug },
-    });
-  } catch (error) {
-    console.error("Academy Page Error:", error);
-    // On Vercel with SQLite, this will fail. We handle it gracefully.
-  }
+  const article = await getArticleBySlug(params.slug);
 
   if (!article) notFound();
 
@@ -62,6 +61,8 @@ export default async function AcademyArticlePage({ params }: Props) {
   try {
     faqs = JSON.parse(article.faqJson || "[]");
   } catch (e) {}
+
+  const postDate = article.publishedAt?.toDate ? article.publishedAt.toDate() : (article.createdAt?.toDate ? article.createdAt.toDate() : new Date());
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -72,8 +73,8 @@ export default async function AcademyArticlePage({ params }: Props) {
       "@type": "Person",
       "name": article.author,
     },
-    "datePublished": article.publishedAt || article.createdAt,
-    "dateModified": article.updatedAt,
+    "datePublished": postDate.toISOString(),
+    "dateModified": article.updatedAt?.toDate ? article.updatedAt.toDate().toISOString() : postDate.toISOString(),
     "category": article.category,
   };
 
@@ -142,7 +143,7 @@ export default async function AcademyArticlePage({ params }: Props) {
               </div>
               <div className="hidden sm:block">
                 <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Last Updated</p>
-                <p className="text-sm font-bold text-white">{new Date(article.updatedAt).toLocaleDateString()}</p>
+                <p className="text-sm font-bold text-white">{postDate.toLocaleDateString()}</p>
               </div>
             </div>
             
@@ -207,3 +208,4 @@ export default async function AcademyArticlePage({ params }: Props) {
     </main>
   );
 }
+

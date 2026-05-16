@@ -1,25 +1,30 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
 import { login } from "@/lib/auth";
 import bcrypt from "bcryptjs";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where, addDoc, limit } from "firebase/firestore";
 
 export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
 
-    // 1. Check if admin exists in DB (Wrapped in try/catch for Vercel SQLite compatibility)
-    let admin = null;
-    try {
-      admin = await prisma.admin.findUnique({
-        where: { username },
-      });
-    } catch (dbError) {
-      console.log("Database connection failed, falling back to stateless mode.");
-    }
-
-    // 2. Initial Credential Bypass (Vercel SQLite Read-Only fix)
+    // 1. Initial Credentials for first-time setup
     const INITIAL_USERNAME = "raffiq_sr";
     const INITIAL_PASSWORD = "Tree_sr9";
+
+    // 2. Check Firestore for user
+    let admin = null;
+    try {
+      const usersQuery = query(collection(db, "users"), where("username", "==", username), limit(1));
+      const querySnapshot = await getDocs(usersQuery);
+      
+      if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0];
+        admin = { id: userDoc.id, ...userDoc.data() } as any;
+      }
+    } catch (dbError) {
+      console.error("Firebase connection error:", dbError);
+    }
 
     let isAuthorized = false;
 
@@ -27,14 +32,17 @@ export async function POST(request: Request) {
       isAuthorized = await bcrypt.compare(password, admin.password);
     } else if (username === INITIAL_USERNAME && password === INITIAL_PASSWORD) {
       isAuthorized = true;
-      // Try to seed the admin in DB, but don't crash if it fails (Vercel read-only)
+      // Seed the admin in Firestore
       try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        await prisma.admin.create({
-          data: { username: INITIAL_USERNAME, password: hashedPassword },
+        await addDoc(collection(db, "users"), {
+          username: INITIAL_USERNAME,
+          password: hashedPassword,
+          role: "admin",
+          createdAt: new Date()
         });
       } catch (e) {
-        console.log("DB Seed skipped - running in stateless mode");
+        console.error("Firebase seed failed:", e);
       }
     }
 
@@ -51,3 +59,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 }
+

@@ -1,4 +1,5 @@
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import { Newsletter } from "@/components/blog/Newsletter";
 import { BlogList } from "@/components/blog/BlogList";
 import { Metadata } from "next";
@@ -11,10 +12,13 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   let allPosts = [];
   try {
-    allPosts = await prisma.post.findMany({
-      where: { published: true },
-      orderBy: { date: "desc" }
-    });
+    const postsQuery = query(collection(db, "posts"), where("published", "==", true), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(postsQuery);
+    allPosts = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      date: doc.data().date?.toDate() || new Date(),
+    }));
   } catch (error) {
     console.error("Blog listing error:", error);
   }
@@ -29,17 +33,18 @@ export default async function BlogPage() {
         <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
-      <BlogList posts={allPosts.map(p => ({
+      <BlogList posts={allPosts.map((p: any) => ({
         ...p,
-        date: p.date.toISOString(),
-        tags: p.tags ? JSON.parse(p.tags) : []
+        date: p.date instanceof Date ? p.date.toISOString() : new Date().toISOString(),
+        tags: p.tags ? (typeof p.tags === 'string' ? JSON.parse(p.tags) : p.tags) : []
       }))} featuredPost={featuredPost ? {
         ...featuredPost,
-        date: featuredPost.date.toISOString(),
-        tags: featuredPost.tags ? JSON.parse(featuredPost.tags) : []
+        date: featuredPost.date instanceof Date ? featuredPost.date.toISOString() : new Date().toISOString(),
+        tags: featuredPost.tags ? (typeof featuredPost.tags === 'string' ? JSON.parse(featuredPost.tags) : featuredPost.tags) : []
       } : undefined} />
 
       <Newsletter />
     </div>
   );
 }
+

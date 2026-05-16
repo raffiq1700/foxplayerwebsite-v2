@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -48,27 +49,26 @@ export async function POST(request: Request) {
       console.error("Failed to send admin notification email:", emailErr);
     }
 
-    // 2. Try to save to database (will fail on Vercel SQLite but that's okay)
-    let enquiry = null;
+    // 2. Save to Firebase Firestore
+    let docRef = null;
     try {
-      enquiry = await prisma.enquiry.create({
-        data: {
-          name,
-          email,
-          subject,
-          message,
-          status: "new",
-        },
+      docRef = await addDoc(collection(db, "enquiries"), {
+        name,
+        email,
+        subject,
+        message,
+        status: "new",
+        createdAt: serverTimestamp(),
       });
     } catch (dbErr) {
-      console.error("Database save failed (expected on Vercel SQLite):", dbErr);
+      console.error("Firebase save failed:", dbErr);
     }
 
-    if (!emailSent && !enquiry) {
+    if (!emailSent && !docRef) {
       throw new Error("Both email and database failed");
     }
 
-    return NextResponse.json({ success: true, data: enquiry || { name, email } }, { status: 201 });
+    return NextResponse.json({ success: true, id: docRef?.id }, { status: 201 });
   } catch (error) {
     console.error("Contact form error:", error);
     return NextResponse.json(
@@ -77,3 +77,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

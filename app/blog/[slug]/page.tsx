@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Clock, User, Calendar, ArrowLeft } from "lucide-react";
@@ -9,15 +10,21 @@ interface Props {
   params: { slug: string };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  let post = null;
+async function getPostBySlug(slug: string) {
   try {
-    post = await prisma.post.findUnique({
-      where: { slug: params.slug },
-    });
+    const q = query(collection(db, "posts"), where("slug", "==", slug), limit(1));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) return null;
+    const doc = querySnapshot.docs[0];
+    return { id: doc.id, ...doc.data() } as any;
   } catch (error) {
-    console.error("Blog metadata error:", error);
+    console.error("Firestore fetch error:", error);
+    return null;
   }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
 
   if (!post) return { title: "Post Not Found" };
 
@@ -34,16 +41,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  let post = null;
-  try {
-    post = await prisma.post.findUnique({
-      where: { slug: params.slug },
-    });
-  } catch (error) {
-    console.error("Blog post page error:", error);
-  }
+  const post = await getPostBySlug(params.slug);
 
   if (!post) notFound();
+
+  const postDate = post.date?.toDate ? post.date.toDate() : new Date();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -55,8 +57,8 @@ export default async function BlogPostPage({ params }: Props) {
       "@type": "Person",
       "name": post.author,
     },
-    "datePublished": post.date,
-    "dateModified": post.updatedAt,
+    "datePublished": postDate.toISOString(),
+    "dateModified": post.updatedAt?.toDate ? post.updatedAt.toDate().toISOString() : postDate.toISOString(),
   };
 
   return (
@@ -77,7 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.category}
             </span>
             <span className="text-[10px] text-white/30 font-bold uppercase tracking-widest flex items-center gap-2">
-              <Calendar className="w-3.5 h-3.5" /> {new Date(post.date).toLocaleDateString()}
+              <Calendar className="w-3.5 h-3.5" /> {postDate.toLocaleDateString()}
             </span>
           </div>
           
@@ -103,3 +105,4 @@ export default async function BlogPostPage({ params }: Props) {
     </main>
   );
 }
+

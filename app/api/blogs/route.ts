@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { getSession } from "@/lib/auth";
 
 export async function GET() {
   try {
-    const posts = await prisma.post.findMany({
-      orderBy: { date: "desc" },
-    });
+    const postsQuery = query(collection(db, "posts"), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(postsQuery);
+    const posts = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      date: doc.data().date?.toDate() || new Date(),
+    }));
     return NextResponse.json(posts);
   } catch (error) {
+    console.error("Fetch blogs error:", error);
     return NextResponse.json({ message: "Error fetching posts" }, { status: 500 });
   }
 }
@@ -19,24 +25,25 @@ export async function POST(request: Request) {
 
   try {
     const data = await request.json();
-    const post = await prisma.post.create({
-      data: {
-        slug: data.slug,
-        title: data.title,
-        content: data.content,
-        excerpt: data.excerpt,
-        author: data.author || "Raffiq SR",
-        category: data.category || "Trading",
-        date: data.date ? new Date(data.date) : new Date(),
-        readTime: data.readTime || "5 min read",
-        metaTitle: data.metaTitle,
-        metaDescription: data.metaDescription,
-        published: data.published ?? true,
-      },
+    const docRef = await addDoc(collection(db, "posts"), {
+      slug: data.slug,
+      title: data.title,
+      content: data.content,
+      excerpt: data.excerpt,
+      author: data.author || "Raffiq SR",
+      category: data.category || "Trading",
+      date: data.date ? new Date(data.date) : serverTimestamp(),
+      readTime: data.readTime || "5 min read",
+      metaTitle: data.metaTitle,
+      metaDescription: data.metaDescription,
+      published: data.published ?? true,
+      createdAt: serverTimestamp(),
     });
-    return NextResponse.json(post);
+    
+    return NextResponse.json({ id: docRef.id });
   } catch (error) {
     console.error("Create blog error:", error);
     return NextResponse.json({ message: "Error creating post" }, { status: 500 });
   }
 }
+

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, orderBy, where, addDoc, serverTimestamp, doc, updateDoc, getDoc } from "firebase/firestore";
 import { getSession } from "@/lib/auth";
 import nodemailer from "nodemailer";
 
@@ -9,7 +10,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // TLS
   auth: {
     user: "raffiq_sr@yahoo.co.in",
-    pass: "Tree_sr9", // In a real app, use process.env.YAHOO_SMTP_PASSWORD
+    pass: "Tree_sr9",
   },
   tls: {
     rejectUnauthorized: false
@@ -29,37 +30,41 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
-    const enquiries = await prisma.enquiry.findMany({
-      where: { id: { in: enquiryIds } },
-    });
+    // Fetch enquiries from Firestore
+    const enquiries: any[] = [];
+    for (const id of enquiryIds) {
+      try {
+        const docSnap = await getDoc(doc(db, "enquiries", id));
+        if (docSnap.exists()) {
+          enquiries.push({ id: docSnap.id, ...docSnap.data() });
+        }
+      } catch (err) {
+        console.error(`Error fetching enquiry ${id}:`, err);
+      }
+    }
 
     if (enquiries.length === 0) {
       return NextResponse.json({ message: "No valid contacts found" }, { status: 400 });
     }
 
-    // Create campaign record
-    const campaign = await prisma.emailCampaign.create({
-      data: {
-        subject,
-        messageTemplate,
-        recipientsCount: enquiries.length,
-        status: "sending",
-      },
+    // Create campaign record in Firestore
+    const campaignRef = await addDoc(collection(db, "campaigns"), {
+      subject,
+      messageTemplate,
+      recipientsCount: enquiries.length,
+      status: "sending",
+      createdAt: serverTimestamp(),
     });
 
-    // We can run the sending process in the background, but for simplicity
-    // in serverless, we'll wait for it if the list isn't huge.
-    // NOTE: On Vercel, requests time out after 10-60s depending on the plan.
     let sentCount = 0;
     let failedCount = 0;
 
     for (const enquiry of enquiries) {
-      // Personalize message
       let personalizedHtml = messageTemplate
-        .replace(/{name}/g, enquiry.name)
-        .replace(/{email}/g, enquiry.email)
-        .replace(/{service}/g, enquiry.subject)
-        .replace(/{submitted_date}/g, new Date(enquiry.createdAt).toLocaleDateString());
+        .replace(/{name}/g, enquiry.name || "")
+        .replace(/{email}/g, enquiry.email || "")
+        .replace(/{service}/g, enquiry.subject || "")
+        .replace(/{submitted_date}/g, enquiry.createdAt && typeof enquiry.createdAt.toDate === 'function' ? enquiry.createdAt.toDate().toLocaleDateString() : new Date().toLocaleDateString());
 
       let deliveryStatus = "failed";
       let errorMessage = null;
@@ -79,35 +84,30 @@ export async function POST(request: Request) {
         failedCount++;
       }
 
-      // Log delivery status
+      // Log delivery status in Firestore
       try {
-        await prisma.emailCampaignLog.create({
-          data: {
-            campaignId: campaign.id,
-            enquiryId: enquiry.id,
-            recipientEmail: enquiry.email,
-            recipientName: enquiry.name,
-            deliveryStatus,
-            errorMessage,
-          },
+        await addDoc(collection(db, "campaign_logs"), {
+          campaignId: campaignRef.id,
+          enquiryId: enquiry.id,
+          recipientEmail: enquiry.email,
+          recipientName: enquiry.name,
+          deliveryStatus,
+          errorMessage,
+          sentAt: serverTimestamp(),
         });
       } catch (logErr) {
         console.error("Failed to save log:", logErr);
       }
 
-      // Short delay to avoid rate limits (200ms)
       await delay(200);
     }
 
-    // Update campaign status
-    await prisma.emailCampaign.update({
-      where: { id: campaign.id },
-      data: {
-        sentCount,
-        failedCount,
-        status: "completed",
-        sentAt: new Date(),
-      },
+    // Update campaign status in Firestore
+    await updateDoc(doc(db, "campaigns", campaignRef.id), {
+      sentCount,
+      failedCount,
+      status: "completed",
+      sentAt: serverTimestamp(),
     });
 
     return NextResponse.json({
@@ -127,11 +127,17 @@ export async function GET(request: Request) {
   if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
   try {
-    const campaigns = await prisma.emailCampaign.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    const campaignsQuery = query(collection(db, "campaigns"), orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(campaignsQuery);
+    const campaigns = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt?.toDate() || new Date(),
+    }));
     return NextResponse.json(campaigns);
   } catch (error) {
+    console.error("Fetch campaigns error:", error);
     return NextResponse.json({ message: "Error fetching campaigns" }, { status: 500 });
   }
 }
+

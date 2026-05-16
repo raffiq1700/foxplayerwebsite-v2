@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, orderBy, where, doc, deleteDoc } from "firebase/firestore";
 import { getSession } from "@/lib/auth";
 
 export async function GET(request: Request) {
@@ -10,15 +11,23 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status");
 
-    const where = status && status !== "all" ? { status } : {};
+    let enquiriesQuery;
+    if (status && status !== "all") {
+      enquiriesQuery = query(collection(db, "enquiries"), where("status", "==", status), orderBy("createdAt", "desc"));
+    } else {
+      enquiriesQuery = query(collection(db, "enquiries"), orderBy("createdAt", "desc"));
+    }
 
-    const enquiries = await prisma.enquiry.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-    });
+    const querySnapshot = await getDocs(enquiriesQuery);
+    const enquiries = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt?.toDate() || new Date(),
+    }));
 
     return NextResponse.json(enquiries);
   } catch (error) {
+    console.error("Fetch enquiries error:", error);
     return NextResponse.json({ message: "Error fetching enquiries" }, { status: 500 });
   }
 }
@@ -33,10 +42,11 @@ export async function DELETE(request: Request) {
 
     if (!id) return NextResponse.json({ message: "ID is required" }, { status: 400 });
 
-    await prisma.enquiry.delete({ where: { id } });
+    await deleteDoc(doc(db, "enquiries", id));
 
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ message: "Error deleting enquiry" }, { status: 500 });
   }
 }
+
