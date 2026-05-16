@@ -12,35 +12,33 @@ export async function POST(request: Request) {
       where: { username },
     });
 
-    // 2. If no admin in DB, check for initial credentials
-    // Note: In a real app, you'd seed the DB. For now, we allow the initial credentials.
+    // 2. Initial Credential Bypass (Vercel SQLite Read-Only fix)
     const INITIAL_USERNAME = "raffiq_sr";
     const INITIAL_PASSWORD = "Tree_sr9";
 
-    if (!admin && username === INITIAL_USERNAME && password === INITIAL_PASSWORD) {
-      // Create the admin in DB if it's the first login
-      const hashedPassword = await bcrypt.hash(password, 10);
-      admin = await prisma.admin.create({
-        data: {
-          username: INITIAL_USERNAME,
-          password: hashedPassword,
-        },
-      });
+    let isAuthorized = false;
+
+    if (admin) {
+      isAuthorized = await bcrypt.compare(password, admin.password);
+    } else if (username === INITIAL_USERNAME && password === INITIAL_PASSWORD) {
+      isAuthorized = true;
+      // Try to seed the admin in DB, but don't crash if it fails (Vercel read-only)
+      try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await prisma.admin.create({
+          data: { username: INITIAL_USERNAME, password: hashedPassword },
+        });
+      } catch (e) {
+        console.log("DB Seed skipped - running in stateless mode");
+      }
     }
 
-    if (!admin) {
-      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
-    }
-
-    // 3. Verify password
-    const isPasswordValid = await bcrypt.compare(password, admin.password);
-
-    if (!isPasswordValid) {
+    if (!isAuthorized) {
       return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
     }
 
     // 4. Create session
-    await login(admin.username);
+    await login(username);
 
     return NextResponse.json({ success: true });
   } catch (error) {
