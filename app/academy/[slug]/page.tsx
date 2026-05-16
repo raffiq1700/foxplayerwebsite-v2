@@ -6,6 +6,8 @@ import { Clock, User, ChevronRight, Share2, Shield, Globe, ArrowRight, FileText,
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: { slug: string };
 }

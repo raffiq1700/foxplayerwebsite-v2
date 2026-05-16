@@ -6,6 +6,8 @@ import ReactMarkdown from "react-markdown";
 import { Clock, User, Calendar, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: { slug: string };
 }

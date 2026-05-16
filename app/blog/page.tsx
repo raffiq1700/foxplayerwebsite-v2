@@ -4,6 +4,8 @@ import { Newsletter } from "@/components/blog/Newsletter";
 import { BlogList } from "@/components/blog/BlogList";
 import { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Blog | FoxPlayer Algo Technologies",
   description: "Master algorithmic trading, market psychology, and stock market automation with our premium guides built for the modern Indian trader.",
