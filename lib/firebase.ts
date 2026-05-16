@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { initializeFirestore, getFirestore } from "firebase/firestore";
+import { initializeFirestore, getFirestore, Firestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAxD0ncgLn7kCSH-9vPkc-NSQA3NiAhToA",
@@ -10,20 +10,30 @@ const firebaseConfig = {
   appId: "1:405976626891:web:981455f2751012a3560d4e"
 };
 
+// Global augmentation for TypeScript
+declare global {
+  var firebaseApp: any;
+  var firebaseDb: Firestore;
+}
+
 // Initialize Firebase App
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const app = global.firebaseApp || (getApps().length > 0 ? getApp() : initializeApp(firebaseConfig));
+if (process.env.NODE_ENV !== "production") global.firebaseApp = app;
 
 // Initialize Firestore with long-polling (Crucial for Vercel stability)
-// We use a singleton pattern to ensure it's only initialized once
-let db: any;
+let db: Firestore;
 
-try {
-  db = initializeFirestore(app, {
-    experimentalForceLongPolling: true,
-  });
-} catch (e) {
-  // If already initialized, get the existing instance
-  db = getFirestore(app);
+if (global.firebaseDb) {
+  db = global.firebaseDb;
+} else {
+  try {
+    db = initializeFirestore(app, {
+      experimentalForceLongPolling: true,
+    });
+  } catch (e) {
+    db = getFirestore(app);
+  }
+  if (process.env.NODE_ENV !== "production") global.firebaseDb = db;
 }
 
 export { app, db };
