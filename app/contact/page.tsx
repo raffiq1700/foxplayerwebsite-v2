@@ -1,9 +1,40 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, MessageCircle, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle, Clock, CheckCircle, Loader2 } from "lucide-react";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "Algorithmic Trading Software", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess(false);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setSuccess(true);
+        setFormData({ name: "", email: "", subject: "Algorithmic Trading Software", message: "" });
+      } else {
+        const data = await res.json();
+        setError(data.message || "Failed to send message");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <main className="bg-background min-h-screen pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -65,20 +96,38 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className="lg:col-span-7">
             <div className="glass-card p-8 md:p-12 border-white/5">
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-3 ml-1">Your Name</label>
-                    <input type="text" className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all" placeholder="Mohamed Raffiq" />
+                    <input 
+                      type="text" 
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all" 
+                      placeholder="Mohamed Raffiq" 
+                    />
                   </div>
                   <div>
                     <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-3 ml-1">Email Address</label>
-                    <input type="email" className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all" placeholder="name@company.com" />
+                    <input 
+                      type="email" 
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all" 
+                      placeholder="name@company.com" 
+                    />
                   </div>
                 </div>
                 <div>
                   <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-3 ml-1">Subject</label>
-                  <select className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all appearance-none">
+                  <select 
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all appearance-none"
+                  >
                     <option className="bg-[#050505]">Algorithmic Trading Software</option>
                     <option className="bg-[#050505]">White Label Solutions</option>
                     <option className="bg-[#050505]">Custom API Development</option>
@@ -87,10 +136,30 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-3 ml-1">Message</label>
-                  <textarea rows={6} className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all resize-none" placeholder="How can we help you automate your trading?"></textarea>
+                  <textarea 
+                    rows={6} 
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-6 py-4 bg-white/[0.03] border border-white/10 rounded-2xl text-white outline-none focus:border-primary/50 transition-all resize-none" 
+                    placeholder="How can we help you automate your trading?"
+                  ></textarea>
                 </div>
-                <button type="submit" className="w-full py-5 bg-primary text-background font-black uppercase tracking-widest rounded-2xl hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-3 group">
-                  Send Message <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+
+                {error && <p className="text-red-500 text-sm font-bold">{error}</p>}
+                {success && (
+                  <p className="text-green-500 text-sm font-bold flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4" /> Message sent successfully! We will contact you soon.
+                  </p>
+                )}
+
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full py-5 bg-primary text-background font-black uppercase tracking-widest rounded-2xl hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-3 group disabled:opacity-50"
+                >
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Send Message"} 
+                  {!loading && <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
                 </button>
               </form>
             </div>

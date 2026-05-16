@@ -6,9 +6,11 @@ import { Edit, Trash, Plus, FileText, Settings, Loader2, LogOut, ExternalLink, S
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import EnquiriesTab from "@/components/admin/EnquiriesTab";
+import CampaignsTab from "@/components/admin/CampaignsTab";
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<"blogs" | "academy">("blogs");
+  const [activeTab, setActiveTab] = useState<"blogs" | "academy" | "enquiries" | "campaigns">("blogs");
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -21,6 +23,7 @@ export default function AdminPage() {
   }, [activeTab]);
 
   const fetchData = async () => {
+    if (activeTab === "enquiries" || activeTab === "campaigns") return;
     setLoading(true);
     try {
       const endpoint = activeTab === "blogs" ? "/api/blogs" : "/api/academy";
@@ -124,6 +127,21 @@ export default function AdminPage() {
               >
                 <Globe className="w-5 h-5" /> Academy
               </button>
+              <div className="my-2 border-t border-white/5" />
+              <button 
+                onClick={() => setActiveTab("enquiries")}
+                className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all text-sm uppercase tracking-wider ${activeTab === "enquiries" ? "bg-primary text-background shadow-[0_0_20px_rgba(34,211,238,0.3)]" : "hover:bg-white/5 text-white/40 hover:text-white"}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Enquiries
+              </button>
+              <button 
+                onClick={() => setActiveTab("campaigns")}
+                className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all text-sm uppercase tracking-wider ${activeTab === "campaigns" ? "bg-primary text-background shadow-[0_0_20px_rgba(34,211,238,0.3)]" : "hover:bg-white/5 text-white/40 hover:text-white"}`}
+              >
+                <Mail className="w-5 h-5" /> Campaigns
+              </button>
+              <div className="my-2 border-t border-white/5" />
               <Link 
                 href="/admin/settings"
                 className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all text-sm uppercase tracking-wider hover:bg-white/5 text-white/40 hover:text-white`}
@@ -139,6 +157,18 @@ export default function AdminPage() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex-1 min-w-0"
           >
+            {activeTab === "enquiries" ? (
+              <EnquiriesTab onSelectForCampaign={(ids) => {
+                // To pass ids to campaign tab, we can store them in state or context. 
+                // Since this is a simple tab switch, we'll store them in localStorage temporarily.
+                localStorage.setItem("selectedEnquiryIds", JSON.stringify(ids));
+                setActiveTab("campaigns");
+              }} />
+            ) : activeTab === "campaigns" ? (
+              <CampaignsTab initialSelectedIds={
+                typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("selectedEnquiryIds") || "[]") : []
+              } />
+            ) : (
             <div className="glass-card border-white/5 overflow-hidden">
               <div className="p-8 border-b border-white/5 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1">
@@ -237,6 +267,7 @@ export default function AdminPage() {
                 )}
               </div>
             </div>
+            )}
           </motion.div>
         </div>
       </div>
