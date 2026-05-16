@@ -42,7 +42,10 @@ export default function AcademyIndex() {
     return matchesCategory && matchesSearch;
   });
 
-  const currentCategoryData = categories.find(c => c.name.toLowerCase() === activeCategory.toLowerCase()) || categories.find(c => c.name === "All");
+  const currentCategoryData = categories.find(c => 
+    c.name.toLowerCase() === activeCategory.toLowerCase() || 
+    c.slug?.toLowerCase() === activeCategory.toLowerCase()
+  ) || (activeCategory === "All" ? null : categories.find(c => c.name === "All" || c.slug === "all"));
 
   // Schema Generation
   const breadcrumbSchema = {
@@ -132,7 +135,14 @@ export default function AcademyIndex() {
         </div>
 
         {/* Category Description Content (SEO Rich) */}
-        {currentCategoryData && (
+        {loading ? (
+          <div className="mb-24 p-10 md:p-16 bg-white/[0.01] border border-white/5 rounded-[3rem] animate-pulse">
+            <div className="h-10 bg-white/10 rounded-full w-1/3 mb-8" />
+            <div className="h-4 bg-white/5 rounded-full w-full mb-4" />
+            <div className="h-4 bg-white/5 rounded-full w-5/6 mb-4" />
+            <div className="h-4 bg-white/5 rounded-full w-4/6 mb-4" />
+          </div>
+        ) : currentCategoryData ? (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -143,7 +153,7 @@ export default function AcademyIndex() {
                <BookOpen className="w-64 h-64 text-white" />
             </div>
             
-            <div className="prose prose-invert max-w-none prose-p:text-white/60 prose-p:leading-relaxed prose-headings:text-white prose-headings:tracking-tight prose-li:text-white/60 prose-strong:text-white">
+            <div className="max-w-none prose-content">
               <ReactMarkdown>{currentCategoryData.description}</ReactMarkdown>
             </div>
 
@@ -159,7 +169,7 @@ export default function AcademyIndex() {
               </div>
             )}
           </motion.div>
-        )}
+        ) : null}
 
         {/* Article Grid */}
         <div className="mb-20">
