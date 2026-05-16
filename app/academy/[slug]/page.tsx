@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, where, limit } from "firebase/firestore";
+import { collection, getDoc, doc as firestoreDoc, query, where, limit, getDocs } from "firebase/firestore";
 import { notFound } from "next/navigation";
 import { Clock, User, ChevronRight, Share2, Shield, Globe, ArrowRight, FileText, MessageCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -15,18 +15,28 @@ interface Props {
 async function getArticleBySlug(slug: string) {
   try {
     console.log(`Fetching academy article with slug: ${slug}`);
+    
+    // 1. Try fetching by ID first (since our seeders use slug as ID)
+    const docRef = firestoreDoc(db, "academy", slug);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      console.log(`Found academy article by ID: ${slug}`);
+      return { id: docSnap.id, ...docSnap.data() } as any;
+    }
+    
+    // 2. Fallback to query by slug field (for manually created docs)
     const q = query(collection(db, "academy"), where("slug", "==", slug), limit(1));
     const querySnapshot = await getDocs(q);
     
-    if (querySnapshot.empty) {
-      console.log(`No academy article found for slug: ${slug}`);
-      return null;
+    if (!querySnapshot.empty) {
+      const doc = querySnapshot.docs[0];
+      console.log(`Found academy article by query: ${slug}`);
+      return { id: doc.id, ...doc.data() } as any;
     }
     
-    const doc = querySnapshot.docs[0];
-    const data = { id: doc.id, ...doc.data() } as any;
-    console.log(`Successfully fetched article: ${data.title}`);
-    return data;
+    console.log(`No academy article found for slug: ${slug}`);
+    return null;
   } catch (error) {
     console.error(`Firestore fetch error for slug ${slug}:`, error);
     return null;

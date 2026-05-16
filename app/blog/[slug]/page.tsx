@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, where, limit } from "firebase/firestore";
+import { collection, getDoc, doc as firestoreDoc, query, where, limit, getDocs } from "firebase/firestore";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Clock, User, Calendar, ArrowLeft } from "lucide-react";
@@ -15,18 +15,28 @@ interface Props {
 async function getPostBySlug(slug: string) {
   try {
     console.log(`Fetching blog post with slug: ${slug}`);
+    
+    // 1. Try fetching by ID first
+    const docRef = firestoreDoc(db, "posts", slug);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      console.log(`Found blog post by ID: ${slug}`);
+      return { id: docSnap.id, ...docSnap.data() } as any;
+    }
+    
+    // 2. Fallback to query by slug field
     const q = query(collection(db, "posts"), where("slug", "==", slug), limit(1));
     const querySnapshot = await getDocs(q);
     
-    if (querySnapshot.empty) {
-      console.log(`No blog post found for slug: ${slug}`);
-      return null;
+    if (!querySnapshot.empty) {
+      const doc = querySnapshot.docs[0];
+      console.log(`Found blog post by query: ${slug}`);
+      return { id: doc.id, ...doc.data() } as any;
     }
     
-    const doc = querySnapshot.docs[0];
-    const data = { id: doc.id, ...doc.data() } as any;
-    console.log(`Successfully fetched post: ${data.title}`);
-    return data;
+    console.log(`No blog post found for slug: ${slug}`);
+    return null;
   } catch (error) {
     console.error(`Firestore fetch error for slug ${slug}:`, error);
     return null;
