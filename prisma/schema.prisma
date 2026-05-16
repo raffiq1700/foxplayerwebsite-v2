@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+}
+
+model Post {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  content         String
+  excerpt         String?
+  author          String   @default("Raffiq SR")
+  category        String   @default("Trading")
+  date            DateTime @default(now())
+  readTime        String?  @default("5 min read")
+  metaTitle       String?
+  metaDescription String?
+  published       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model AcademyArticle {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  category        String
+  excerpt         String?
+  content         String
+  featuredImage   String?
+  metaTitle       String?
+  metaDescription String?
+  focusKeyword    String?
+  faqJson         String?  @default("[]") // Store as stringified JSON
+  author          String   @default("Raffiq SR")
+  readingTime     String?  @default("5 min read")
+  status          String   @default("published") // draft, published
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  publishedAt     DateTime? @default(now())
+}

@@ -1,0 +1,62 @@
+---
+title: "TradingView Automation Guide: From Alerts to Live Trades"
+date: "2025-12-01"
+excerpt: "Turn your TradingView indicators into a 24/7 trading machine using Foxplayer Webhooks."
+author: "Tutorial Desk"
+category: "Tutorial"
+readTime: "8 min read"
+---
+
+TradingView is arguably the best charting platform in the world. Its PineScript language allows traders to build incredibly accurate indicators. However, there is one huge problem: **TradingView cannot place trades directly in Indian broker accounts.**
+
+This is where **Foxplayer Algo Technologies** comes in. We allow you to bridge your TradingView alerts to your Indian broker in less than 5 minutes.
+
+---
+
+## 1. How the Bridge Works
+The technology that connects TradingView to Foxplayer is called a **Webhook**. A Webhook is a way for one website to send a "signal" to another website instantly.
+
+**The Workflow:**
+1.  Your indicator on TradingView hits a "Buy" condition.
+2.  TradingView sends a "Webhook" signal to Foxplayer's servers.
+3.  Foxplayer receives the signal, verifies your account, and instantly places the trade with your broker (AliceBlue, Zerodha, etc.).
+
+---
+
+## 2. Step-by-Step Setup
+
+### Step A: Prepare Your Strategy on TradingView
+Ensure your indicator or strategy is working exactly how you want it. Set up an alert on the indicator.
+
+### Step B: Get Your Foxplayer Webhook URL
+Log in to your Foxplayer dashboard and go to the "TradingView" section. You will see a unique URL specifically for your account. Copy it.
+
+### Step C: Configure the Alert
+In the TradingView Alert settings:
+1.  Go to the "Notifications" tab.
+2.  Check the **Webhook URL** box.
+3.  Paste your Foxplayer URL.
+4.  In the "Message" box, paste the JSON code provided by Foxplayer (this tells us which stock and how many lots to buy).
+
+---
+
+## 3. Why Use Webhooks?
+*   **Zero Coding:** You don't need to know Python or C++. If you can copy and paste, you can automate.
+*   **Cloud Reliability:** Your computer doesn't need to be on. Once the alert is set, TradingView's servers talk to Foxplayer's servers directly.
+*   **Versatility:** You can automate anything—from a simple Moving Average crossover to a complex multi-timeframe strategy.
+
+---
+
+## 4. Common Mistakes to Avoid
+1.  **Alert Frequency:** Ensure your alert is set to "Once Per Bar Close" to avoid "repainting" or multiple accidental trades.
+2.  **Internet Latency:** While Webhooks are fast, they depend on the TradingView servers. Using a professional bridge like Foxplayer ensures the lowest possible delay.
+
+---
+
+## Conclusion
+TradingView automation is the fastest way for a retail trader to go from "Manual" to "Algo." By using Foxplayer as your bridge, you combine the world's best charts with India's most reliable execution engine.
+
+**Ready to automate your TradingView alerts?**
+Connect your first strategy today.
+
+**[Start TradingView Automation](http://app.foxplayer.co.in)**

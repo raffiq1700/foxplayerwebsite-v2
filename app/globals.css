@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-syne: 'Syne', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-white selection:bg-primary/30 selection:text-primary overflow-x-hidden relative min-h-screen;
+    font-family: var(--font-inter);
+  }
+
+  /* Noise Overlay */
+  body::before {
+    content: "";
+    @apply fixed inset-0 z-[9999] pointer-events-none opacity-[0.03];
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    filter: contrast(150%) brightness(1000%);
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.02] backdrop-blur-2xl border border-white/[0.05];
+  }
+  
+  .glass-card {
+    @apply glass rounded-3xl transition-all duration-700 hover:bg-white/[0.04] hover:border-white/10 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] hover:-translate-y-1;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-secondary bg-[length:200%_auto] animate-gradient;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 rounded-full bg-primary text-background font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 rounded-full glass text-white font-bold transition-all duration-300 hover:bg-white/10 active:scale-95 flex items-center justify-center gap-2;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient 5s ease infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-primary/50 transition-colors;
+}
+
+/* 3D Transform Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
