@@ -27,10 +27,10 @@ const services = {
   },
   "white-label-trading-platform": {
     title: "White Label Trading Platform",
-    desc: "Launch your own branded trading platform in days, not months.",
+    desc: "Scale your trading business with our fully customizable white-label solutions.",
     icon: Globe,
     features: ["Complete rebranding", "Admin dashboard", "User management", "Broker agnostic"],
-    content: "Scale your trading business with our fully customizable white-label solutions. We provide the technology, you provide the brand. Perfect for sub-brokers and educational institutions."
+    content: "Scale your trading business with our fully customizable white-label trading platform solutions. We provide the complete technology infrastructure while you build and grow your own branded business. Our solutions are ideal for sub-brokers, PMS managers, SEBI-registered research analysts, investment advisors, option strategists, trading mentors, wealth managers, and fintech startups looking to launch professional trading platforms without developing the technology from scratch."
   },
   "backtesting-engine-development": {
     title: "Backtesting Engine Development",

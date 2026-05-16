@@ -239,7 +239,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { title: "Shoonya API Software", slug: "shoonya-api-trading-software", desc: "Automate zero-brokerage trading with professional API bridges." },
-              { title: "White Label Platform", slug: "white-label-trading-platform", desc: "Launch your branded trading platform with our core engine." },
+              { title: "White Label Platform", slug: "white-label-trading-platform", desc: "Scale your trading business with our fully customizable white-label solutions. We provide the technology, you build your brand. Ideal for sub-brokers." },
               { title: "Backtesting Engines", slug: "backtesting-engine-development", desc: "High-precision testing systems with tick-by-tick analysis." },
               { title: "Forex Automation", slug: "forex-trading-software-development", desc: "Global currency trading infrastructure and MT4/5 bridges." },
               { title: "Zerodha Kite Connect", slug: "zerodha-kite-connect-development", desc: "Scalable integrations for India's largest trading ecosystem." },
