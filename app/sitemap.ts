@@ -1,19 +1,34 @@
 import { MetadataRoute } from 'next';
-import prisma from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.foxplayer.co.in';
 
-  // Fetch dynamic slugs
-  const articles = await prisma.academyArticle.findMany({
-    where: { status: 'published' },
-    select: { slug: true, updatedAt: true }
-  });
+  // Fetch dynamic slugs from Firestore
+  let articles: any[] = [];
+  try {
+    const academyQuery = query(collection(db, "academy"), where("status", "==", "published"));
+    const querySnapshot = await getDocs(academyQuery);
+    articles = querySnapshot.docs.map(doc => ({
+      slug: doc.data().slug,
+      updatedAt: doc.data().updatedAt?.toDate() || new Date()
+    }));
+  } catch (e) {
+    console.error("Sitemap academy error:", e);
+  }
 
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    select: { slug: true, updatedAt: true }
-  });
+  let posts: any[] = [];
+  try {
+    const postsQuery = query(collection(db, "posts"), where("published", "==", true));
+    const querySnapshot = await getDocs(postsQuery);
+    posts = querySnapshot.docs.map(doc => ({
+      slug: doc.data().slug,
+      updatedAt: doc.data().updatedAt?.toDate() || new Date()
+    }));
+  } catch (e) {
+    console.error("Sitemap posts error:", e);
+  }
 
   const staticPages = [
     '',
@@ -61,3 +76,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return sitemapEntries;
 }
+

@@ -63,11 +63,40 @@ export default async function BlogPostPage({ params }: Props) {
     "dateModified": post.updatedAt?.toDate ? post.updatedAt.toDate().toISOString() : postDate.toISOString(),
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.foxplayer.co.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://www.foxplayer.co.in/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://www.foxplayer.co.in/blog/${post.slug}`
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen pt-40 pb-24 bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       
       <div className="max-w-4xl mx-auto px-6">
@@ -100,11 +129,27 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </header>
 
-        <div className="prose prose-invert max-w-none prose-p:text-white/60 prose-p:leading-relaxed prose-headings:text-white prose-headings:tracking-tight">
+        <div className="prose prose-invert max-w-none prose-p:text-white/60 prose-p:leading-relaxed prose-headings:text-white prose-headings:tracking-tight prose-li:text-white/60 mb-20">
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
+
+        {/* Internal Linking: Related Services */}
+        <section className="pt-16 border-t border-white/5">
+          <h3 className="text-xl font-bold text-white mb-8">Explore Our Trading Solutions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link href="/services/algorithmic-trading-software-development" className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-primary/30 transition-all group">
+              <h4 className="text-white font-bold mb-2 group-hover:text-primary">Algo Software Development</h4>
+              <p className="text-xs text-white/40 leading-relaxed">Custom high-frequency systems built for speed and precision.</p>
+            </Link>
+            <Link href="/services/options-trading-automation" className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-primary/30 transition-all group">
+              <h4 className="text-white font-bold mb-2 group-hover:text-primary">Options Automation</h4>
+              <p className="text-xs text-white/40 leading-relaxed">Automate complex Greeks-based strategies and multi-leg spreads.</p>
+            </Link>
+          </div>
+        </section>
       </div>
     </main>
   );
 }
+
 

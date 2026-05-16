@@ -93,11 +93,40 @@ export default async function AcademyArticlePage({ params }: Props) {
     })),
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.foxplayer.co.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Academy",
+        "item": "https://www.foxplayer.co.in/academy"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": article.title,
+        "item": `https://www.foxplayer.co.in/academy/${article.slug}`
+      }
+    ]
+  };
+
   return (
     <main className="bg-background min-h-screen pt-32 pb-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       {faqs.length > 0 && (
         <script

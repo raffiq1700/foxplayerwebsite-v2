@@ -85,21 +85,34 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
   const Icon = service.icon;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.title,
+    "description": service.desc,
+    "provider": {
+      "@type": "Organization",
+      "name": "FoxPlayer Algo Technologies",
+      "url": "https://www.foxplayer.co.in"
+    }
+  };
+
   return (
-    <main className="bg-background min-h-screen pt-32 pb-24">
+    <main className="bg-background pt-40 pb-24 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20">
-                <Icon className="w-6 h-6 text-primary" />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Expert Solutions</span>
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20">
+              <Icon className="w-8 h-8 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-[1.1]">
+            <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-[1.1] mb-8">
               {service.title}
             </h1>
-            <p className="text-lg text-white/40 leading-relaxed mb-10 max-w-xl">
+            <p className="text-xl text-white/60 mb-12 leading-relaxed">
               {service.content}
             </p>
             <div className="flex flex-wrap gap-4">
