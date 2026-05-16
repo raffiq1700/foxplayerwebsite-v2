@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
-import { Edit, Trash, Plus, FileText, Settings, Loader2, LogOut, ExternalLink, Shield, Globe } from "lucide-react";
+import { Edit, Trash, Plus, FileText, Settings, Loader2, LogOut, ExternalLink, Shield, Globe, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
