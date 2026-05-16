@@ -17,7 +17,7 @@ interface Post {
 
 interface BlogListProps {
   posts: Post[];
-  featuredPost: Post;
+  featuredPost?: Post;
 }
 
 const categories = ["All", "Beginner Guide", "Strategy", "Tutorial", "Industry", "Psychology", "Engineering"];
@@ -95,34 +95,37 @@ export function BlogList({ posts, featuredPost }: BlogListProps) {
       </div>
 
       {/* Featured Article */}
-      <div className="mb-32">
-        <Link href={`/blog/${featuredPost.slug}`}>
-          <GlowCard className="group overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center p-4">
-              <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#050505]">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
-                <Sparkles className="w-24 h-24 text-primary opacity-20 animate-pulse" />
-              </div>
-              <div>
-                <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] mb-6">
-                  <span className="text-primary">Featured</span>
-                  <span className="text-white/20">|</span>
-                  <span className="text-white/40">{featuredPost.category}</span>
+      {featuredPost && (
+        <div className="mb-32">
+          <Link href={`/blog/${featuredPost.slug}`}>
+            <GlowCard className="group overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center p-4">
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#050505]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
+                  <Sparkles className="w-24 h-24 text-primary opacity-20 animate-pulse" />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight group-hover:text-primary transition-colors">
-                  {featuredPost.title}
-                </h2>
-                <p className="text-lg text-white/50 font-medium mb-10 leading-relaxed">
-                  {featuredPost.excerpt}
-                </p>
-                <div className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
-                  Read Guide <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                <div>
+                  <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] mb-6">
+                    <span className="text-primary">Featured</span>
+                    <span className="text-white/20">|</span>
+                    <span className="text-white/40">{featuredPost.category}</span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight group-hover:text-primary transition-colors">
+                    {featuredPost.title}
+                  </h2>
+                  <p className="text-lg text-white/50 font-medium mb-10 leading-relaxed">
+                    {featuredPost.excerpt}
+                  </p>
+                  <div className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
+                    Read Guide <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </GlowCard>
-        </Link>
-      </div>
+            </GlowCard>
+          </Link>
+        </div>
+      )}
+
 
       {/* Articles Grid */}
       <h2 className="text-xs font-black uppercase tracking-[0.3em] text-white/30 mb-12">

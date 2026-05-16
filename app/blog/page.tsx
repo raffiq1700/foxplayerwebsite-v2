@@ -14,18 +14,30 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   let allPosts = [];
   try {
-    const postsQuery = query(collection(db, "posts"), where("published", "==", true), orderBy("date", "desc"));
+    // We remove the 'where' clause to avoid needing a composite index for now
+    // We'll filter the results in memory to ensure the page doesn't crash on Vercel
+    const postsQuery = query(collection(db, "posts"), orderBy("date", "desc"));
     const querySnapshot = await getDocs(postsQuery);
-    allPosts = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      date: doc.data().date?.toDate() || new Date(),
-    }));
+    allPosts = querySnapshot.docs
+      .map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        date: doc.data().date?.toDate() || new Date(),
+      }))
+      .filter((post: any) => post.published !== false); // Simple memory filter
   } catch (error) {
     console.error("Blog listing error:", error);
   }
 
-  const featuredPost = allPosts[0];
+  const featuredPost = allPosts.length > 0 ? allPosts[0] : null;
+
+  const safeParse = (str: string) => {
+    try {
+      return JSON.parse(str);
+    } catch (e) {
+      return [];
+    }
+  };
 
   return (
     <div className="min-h-screen pt-48 bg-background relative overflow-hidden">
@@ -38,15 +50,16 @@ export default async function BlogPage() {
       <BlogList posts={allPosts.map((p: any) => ({
         ...p,
         date: p.date instanceof Date ? p.date.toISOString() : new Date().toISOString(),
-        tags: p.tags ? (typeof p.tags === 'string' ? JSON.parse(p.tags) : p.tags) : []
+        tags: p.tags ? (typeof p.tags === 'string' ? safeParse(p.tags) : p.tags) : []
       }))} featuredPost={featuredPost ? {
         ...featuredPost,
         date: featuredPost.date instanceof Date ? featuredPost.date.toISOString() : new Date().toISOString(),
-        tags: featuredPost.tags ? (typeof featuredPost.tags === 'string' ? JSON.parse(featuredPost.tags) : featuredPost.tags) : []
+        tags: featuredPost.tags ? (typeof featuredPost.tags === 'string' ? safeParse(featuredPost.tags) : featuredPost.tags) : []
       } : undefined} />
 
       <Newsletter />
     </div>
   );
 }
+
 
