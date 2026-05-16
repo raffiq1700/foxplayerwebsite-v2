@@ -8,9 +8,11 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import EnquiriesTab from "@/components/admin/EnquiriesTab";
 import CampaignsTab from "@/components/admin/CampaignsTab";
+import AcademyCategoriesTab from "@/components/admin/AcademyCategoriesTab";
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<"blogs" | "academy" | "enquiries" | "campaigns">("blogs");
+  const [activeTab, setActiveTab] = useState<"blogs" | "academy" | "categories" | "enquiries" | "campaigns">("blogs");
+
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -127,6 +129,12 @@ export default function AdminPage() {
               >
                 <Globe className="w-5 h-5" /> Academy
               </button>
+              <button 
+                onClick={() => setActiveTab("categories")}
+                className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all text-sm uppercase tracking-wider ${activeTab === "categories" ? "bg-primary text-background shadow-[0_0_20px_rgba(34,211,238,0.3)]" : "hover:bg-white/5 text-white/40 hover:text-white"}`}
+              >
+                <Settings className="w-5 h-5" /> Categories
+              </button>
               <div className="my-2 border-t border-white/5" />
               <button 
                 onClick={() => setActiveTab("enquiries")}
@@ -168,6 +176,8 @@ export default function AdminPage() {
               <CampaignsTab initialSelectedIds={
                 typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("selectedEnquiryIds") || "[]") : []
               } />
+            ) : activeTab === "categories" ? (
+              <AcademyCategoriesTab />
             ) : (
             <div className="glass-card border-white/5 overflow-hidden">
               <div className="p-8 border-b border-white/5 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
