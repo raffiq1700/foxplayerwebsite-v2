@@ -46,14 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function AcademyArticlePage({ params }: Props) {
-  let article;
+  let article = null;
   try {
     article = await prisma.academyArticle.findUnique({
       where: { slug: params.slug },
     });
   } catch (error) {
     console.error("Academy Page Error:", error);
-    throw error;
+    // On Vercel with SQLite, this will fail. We handle it gracefully.
   }
 
   if (!article) notFound();

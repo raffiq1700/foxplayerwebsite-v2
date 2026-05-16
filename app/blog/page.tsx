@@ -9,10 +9,15 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const allPosts = await prisma.post.findMany({
-    where: { published: true },
-    orderBy: { date: "desc" }
-  });
+  let allPosts = [];
+  try {
+    allPosts = await prisma.post.findMany({
+      where: { published: true },
+      orderBy: { date: "desc" }
+    });
+  } catch (error) {
+    console.error("Blog listing error:", error);
+  }
 
   const featuredPost = allPosts[0];
 
