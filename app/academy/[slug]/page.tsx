@@ -14,16 +14,25 @@ interface Props {
 
 async function getArticleBySlug(slug: string) {
   try {
+    console.log(`Fetching academy article with slug: ${slug}`);
     const q = query(collection(db, "academy"), where("slug", "==", slug), limit(1));
     const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) return null;
+    
+    if (querySnapshot.empty) {
+      console.log(`No academy article found for slug: ${slug}`);
+      return null;
+    }
+    
     const doc = querySnapshot.docs[0];
-    return { id: doc.id, ...doc.data() } as any;
+    const data = { id: doc.id, ...doc.data() } as any;
+    console.log(`Successfully fetched article: ${data.title}`);
+    return data;
   } catch (error) {
-    console.error("Firestore fetch error:", error);
+    console.error(`Firestore fetch error for slug ${slug}:`, error);
     return null;
   }
 }
+
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getArticleBySlug(params.slug);
