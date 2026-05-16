@@ -182,10 +182,10 @@ export default function Home() {
           <div className="max-w-2xl mb-16">
             <p className="text-xs font-semibold text-primary mb-3 uppercase tracking-wider">Platform Capabilities</p>
             <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-5">
-              Built for every type of trader.
+              Built for every type of <span className="text-primary">Algo Trader.</span>
             </h2>
             <p className="text-base text-white/40 leading-relaxed">
-              Whether you use TradingView, write Python, or just want to copy a proven strategy — we have you covered.
+              Whether you are looking for the <span className="text-white/60">best trading strategy</span>, <span className="text-white/60">Nifty option selling strategy</span>, or <span className="text-white/60">Bank Nifty algo trading</span> — our platform is built for professional <span className="text-white/60">trading bot developers in India.</span>
             </p>
           </div>
 
@@ -195,30 +195,31 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary"><Zap className="w-6 h-6" /></div>
                 <ArrowUpRight className="w-5 h-5 text-white/10 group-hover:text-primary/40 transition-colors" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">TradingView Webhooks</h3>
-              <p className="text-sm text-white/40 leading-relaxed max-w-md">Turn any Pine Script alert into a live trade. Paste our webhook URL into your TradingView alert — your strategy is live in 60 seconds. No coding needed.</p>
+              <h3 className="text-2xl font-bold text-white mb-3">TradingView Webhook Automation</h3>
+              <p className="text-sm text-white/40 leading-relaxed max-w-md">Turn any Pine Script alert into a live trade using <span className="text-white/60 font-bold">TradingView webhook automation</span>. Our <span className="text-white/60 font-bold">automated trading software</span> bridges your strategy to the market in 60 seconds.</p>
             </div>
             <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-secondary/20 transition-colors">
               <Code2 className="w-8 h-8 text-secondary mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Python SDK</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Build complex bots with our Python SDK. Access tick data, option Greeks, and multi-leg execution.</p>
+              <h3 className="text-lg font-bold text-white mb-2">Python Algo Trading</h3>
+              <p className="text-sm text-white/35 leading-relaxed">Build complex bots with our <span className="text-white/50 font-bold">Python algo trading development</span> tools. Access tick data, option Greeks, and multi-leg execution.</p>
             </div>
             <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-accent/20 transition-colors">
               <Users className="w-8 h-8 text-accent mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Copy Trading</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Browse verified strategies. Subscribe with one click and mirror trades in your own account.</p>
+              <h3 className="text-lg font-bold text-white mb-2">Portfolio Management</h3>
+              <p className="text-sm text-white/35 leading-relaxed">Our <span className="text-white/50 font-bold">PMS software development</span> solutions allow you to manage multiple client accounts with institutional precision.</p>
             </div>
             <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-amber-500/20 transition-colors">
               <Shield className="w-8 h-8 text-amber-400 mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Risk Engine</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Daily loss limits, max order caps, and auto-square off. Your capital stays protected.</p>
+              <h3 className="text-lg font-bold text-white mb-2">Risk Management</h3>
+              <p className="text-sm text-white/35 leading-relaxed">Comprehensive <span className="text-white/50 font-bold">risk management in algorithmic trading</span>. Capital protection is our top priority.</p>
             </div>
             <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-pink-500/20 transition-colors">
               <Layers className="w-8 h-8 text-pink-400 mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Multi-Broker</h3>
-              <p className="text-sm text-white/35 leading-relaxed">One dashboard for AliceBlue, Angel One, Shoonya, and 15+ more. Switch brokers in seconds.</p>
+              <h3 className="text-lg font-bold text-white mb-2">Institutional Software</h3>
+              <p className="text-sm text-white/35 leading-relaxed">Scale with <span className="text-white/50 font-bold">institutional trading software</span> designed for high-frequency execution and reliability.</p>
             </div>
           </div>
+
         </div>
       </section>
 

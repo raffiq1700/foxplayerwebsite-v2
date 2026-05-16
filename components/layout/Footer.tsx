@@ -78,18 +78,34 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <div className="border-t border-white/10 pt-10 mb-10">
-          <p className="text-sm text-white/90 leading-relaxed max-w-4xl">
-            <strong className="text-white font-bold">Disclaimer:</strong> Foxplayer Algo Technologies is a technology platform and does not provide investment advisory, portfolio management, or trading tips. All trading involves risk. Past performance is not indicative of future results. We do not guarantee any profits. Trading in derivatives such as Futures & Options carries substantial risk and is not suitable for all investors. Please read all related documents carefully before trading.
-          </p>
+        {/* SEO & Regional Presence Section */}
+        <div className="border-t border-white/5 pt-12 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h5 className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-4">Serving Clients Across India</h5>
+              <p className="text-[11px] text-white/20 leading-relaxed font-medium">
+                Foxplayer Algo Technologies is a leading <span className="text-white/30 font-bold">algorithmic trading software development India</span> company. We specialize in <span className="text-white/30 font-bold">custom trading bot development</span>, <span className="text-white/30 font-bold">automated trading software</span>, and <span className="text-white/30 font-bold">broker API integration</span> for professionals in <span className="text-white/30 font-bold">Chennai</span>, <span className="text-white/30 font-bold">Coimbatore</span>, <span className="text-white/30 font-bold">Trichy</span>, <span className="text-white/30 font-bold">Bangalore</span>, and <span className="text-white/30 font-bold">Hyderabad</span>. From <span className="text-white/30 font-bold">Alice Blue free algo trading</span> to <span className="text-white/30 font-bold">Shoonya free algo trading</span> and <span className="text-white/30 font-bold">Zerodha free algo trading</span>, we empower traders nationwide with cutting-edge technology.
+              </p>
+            </div>
+            <div>
+              <h5 className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-4">Regulatory Disclaimer</h5>
+              <p className="text-[11px] text-white/20 leading-relaxed font-medium">
+                <strong className="text-white/40 font-bold">Disclaimer:</strong> Foxplayer Algo Technologies provides <span className="text-white/30 font-bold">quantitative trading software</span> and <span className="text-white/30 font-bold">strategy automation software</span>. We are a technology provider and do not offer investment advice, tips, or guaranteed returns. We provide <span className="text-white/30 font-bold">PMS software development</span> and <span className="text-white/30 font-bold">RIA software development</span> for SEBI registered entities. Trading in derivatives involves significant risk.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-white/80 font-medium">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] text-white/20 font-black uppercase tracking-widest py-8 border-t border-white/5">
           <span>© 2026 Foxplayer Algo Technologies. All rights reserved.</span>
-          <span className="text-primary">Foxplayer Algo Technologies — Made in India 🇮🇳</span>
+          <div className="flex items-center gap-4">
+             <span className="text-primary/50">Made in India 🇮🇳</span>
+             <span className="text-white/10">|</span>
+             <span>FoxPlayer Algo Technologies™</span>
+          </div>
         </div>
+
       </div>
     </footer>
   );

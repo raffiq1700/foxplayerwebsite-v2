@@ -5,40 +5,41 @@ import Link from "next/link";
 
 const services = {
   "algorithmic-trading-software-development": {
-    title: "Algorithmic Trading Software Development",
-    desc: "Custom high-frequency trading systems built for speed and precision.",
+    title: "Algorithmic Trading Software Development India",
+    desc: "Custom high-frequency trading systems and custom trading bot development for the Indian market.",
     icon: Zap,
-    features: ["Low-latency execution", "Custom strategy integration", "Multi-broker support", "Risk management modules"],
-    content: "We specialize in building robust algorithmic trading infrastructures that handle millions of requests per second. Our systems are designed for professional traders who need zero-latency execution and high-reliability data feeds."
+    features: ["Low-latency execution", "Custom strategy integration", "Multi-broker support", "Risk management in algorithmic trading"],
+    content: "We are a premier algo trading software company specializing in algorithmic trading software development India. Our team builds institutional-grade automated trading software and custom trading bots tailored for NSE, BSE, and MCX trading automation. Whether you need C++ trading software development or Python algo trading development, we provide the best algo trading platforms for professional traders."
   },
   "shoonya-api-trading-software": {
-    title: "Shoonya API Trading Software",
-    desc: "Optimize your trading on the Shoonya platform with our custom API bridges.",
+    title: "Shoonya Free Algo Trading Software",
+    desc: "Optimize your trading on the Shoonya platform with our custom Shoonya free algo trading bridges.",
     icon: Code2,
     features: ["Zero-brokerage automation", "Real-time MTM tracking", "Auto-login system", "Multi-account management"],
-    content: "Leverage the power of Shoonya's zero-brokerage model with our professional-grade API automation. We provide secure, fast, and stable bridges that turn your manual strategies into automated cash cows."
+    content: "Leverage the power of Shoonya's zero-brokerage model with our professional-grade Shoonya free algo trading automation. We provide secure, fast, and stable broker API integrations that turn your best trading strategy into an automated revenue stream. Ideal for intraday trading automation and options trading automation."
   },
   "zerodha-kite-connect-development": {
-    title: "Zerodha Kite Connect Development",
-    desc: "Seamlessly integrate your strategies with India's largest broker.",
+    title: "Zerodha Free Algo Trading & Kite Connect",
+    desc: "Seamlessly integrate your strategies with Zerodha free algo trading solutions.",
     icon: BarChart3,
     features: ["Kite Connect V3 integration", "Historical data backfill", "WebSocket streaming", "Order management system"],
-    content: "Our Zerodha experts build high-performance applications using the Kite Connect API. Whether you need a simple bridge or a complex multi-client dashboard, we deliver excellence."
+    content: "Our Zerodha experts build high-performance Zerodha free algo trading applications using the Kite Connect API. Whether you need a simple bridge for TradingView webhook automation or a complex multi-client dashboard, we deliver institutional trading software for the Indian market."
   },
   "white-label-trading-platform": {
-    title: "White Label Trading Platform",
-    desc: "Scale your trading business with our fully customizable white-label solutions.",
+    title: "White Label Trading Platform & Brokerage Software",
+    desc: "Scale your trading business with our fully customizable white label trading platform solutions.",
     icon: Globe,
-    features: ["Complete rebranding", "Admin dashboard", "User management", "Broker agnostic"],
-    content: "Scale your trading business with our fully customizable white-label trading platform solutions. We provide the complete technology infrastructure while you build and grow your own branded business. Our solutions are ideal for sub-brokers, PMS managers, SEBI-registered research analysts, investment advisors, option strategists, trading mentors, wealth managers, and fintech startups looking to launch professional trading platforms without developing the technology from scratch."
+    features: ["White label brokerage software", "Admin dashboard", "User management", "PMS software development"],
+    content: "Scale your trading business with our fully customizable white label trading platform and white label brokerage software. Our solutions are ideal for sub-brokers, PMS managers, SEBI registered research analysts, and RIAs looking to launch professional trading platforms without developing the technology from scratch. We provide RIA software development and trading software for advisors that are fully compliant and scalable."
   },
   "backtesting-engine-development": {
-    title: "Backtesting Engine Development",
-    desc: "Validate your strategies with millisecond precision before going live.",
+    title: "Backtesting Engine Development & Strategy Validation",
+    desc: "Validate your best trading strategy with our custom backtesting engine development.",
     icon: Database,
-    features: ["Tick-by-tick data analysis", "Slippage simulation", "Optimization algorithms", "Detailed performance reports"],
-    content: "Don't gamble with your capital. Our custom backtesting engines allow you to run years of data in minutes, simulating real-market conditions including slippage and brokerage."
+    features: ["Tick-by-tick data analysis", "Slippage simulation", "Optimization algorithms", "Strategy backtesting software"],
+    content: "Don't gamble with your capital. Our custom backtesting engine development allow you to run years of data in minutes. We build robust strategy backtesting software that simulates real-market conditions including slippage and brokerage, perfect for quantitative trading software requirements."
   },
+
   "forex-trading-software-development": {
     title: "Forex Trading Software Development",
     desc: "Global currency trading automation with MetaTrader and custom integrations.",
