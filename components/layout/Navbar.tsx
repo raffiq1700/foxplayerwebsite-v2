@@ -32,7 +32,8 @@ export default function Navbar() {
             <Link href="/pricing" className="text-white hover:text-primary transition-colors">Pricing</Link>
             <Link href="/disclaimer" className="text-white/60 hover:text-white transition-colors">Disclaimer</Link>
             <Link href="/marketplace" className="text-white hover:text-primary transition-colors">Marketplace</Link>
-            <Link href="/blog" className="text-white hover:text-primary transition-colors">Academy</Link>
+            <Link href="/academy" className="text-white hover:text-primary transition-colors">Academy</Link>
+            <Link href="/blog" className="text-white hover:text-primary transition-colors">Blog</Link>
           </div>
           <div className="flex items-center gap-3 pl-8 border-l border-white/5">
             <a href="http://app.foxplayer.co.in" className="text-[13px] font-medium text-white/50 hover:text-white transition-colors px-3 py-1.5">
@@ -57,7 +58,8 @@ export default function Navbar() {
           <Link href="/pricing" className="block text-sm text-white hover:text-primary">Pricing</Link>
           <Link href="/disclaimer" className="block text-sm text-amber-500 font-medium">⚠️ Disclaimer</Link>
           <Link href="/marketplace" className="block text-sm text-white/60 hover:text-white">Marketplace</Link>
-          <Link href="/blog" className="block text-sm text-white hover:text-primary">Academy</Link>
+          <Link href="/academy" className="block text-sm text-white hover:text-primary">Academy</Link>
+          <Link href="/blog" className="block text-sm text-white hover:text-primary">Blog</Link>
           <div className="pt-4 border-t border-white/5 space-y-3">
             <a href="http://app.foxplayer.co.in" className="block text-sm text-white/50">Log in</a>
             <a href="http://app.foxplayer.co.in" className="w-full text-center block text-sm font-semibold bg-white text-background px-5 py-2.5 rounded-lg">Get Started</a>
