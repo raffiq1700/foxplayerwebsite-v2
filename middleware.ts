@@ -1,26 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
+import { jwtVerify } from "jose";
+
+const secretKey = "foxplayer_secret_key_change_this";
+const key = new TextEncoder().encode(secretKey);
 
 export async function middleware(request: NextRequest) {
-  const session = await getSession(request);
+  const { pathname } = request.nextUrl;
 
-  // If trying to access admin pages and not logged in
-  if (request.nextUrl.pathname.startsWith("/admin")) {
-    // Allow login page access
-    if (request.nextUrl.pathname === "/admin/login") {
-      if (session) {
-        return NextResponse.redirect(new URL("/admin", request.url));
-      }
-      return NextResponse.next();
-    }
-
-    // Redirect to login if no session
-    if (!session) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
-    }
-  }
-
-  // Simple Redirect Manager
+  // 1. Handle Redirects (Legacy SEO support)
   const redirects: Record<string, string> = {
     "/strategies": "/academy",
     "/guide": "/academy",
@@ -30,13 +17,34 @@ export async function middleware(request: NextRequest) {
     "/faq-page": "/faq",
   };
 
-  if (redirects[request.nextUrl.pathname]) {
-    return NextResponse.redirect(new URL(redirects[request.nextUrl.pathname], request.url), 301);
+  if (redirects[pathname]) {
+    return NextResponse.redirect(new URL(redirects[pathname], request.url), 301);
+  }
+
+  // 2. Admin Protection
+  if (pathname.startsWith("/admin") || pathname.startsWith("/api/blogs") || pathname.startsWith("/api/academy")) {
+    // Exclude login page from protection loop
+    if (pathname === "/admin/login" || pathname === "/api/auth/login") {
+      return NextResponse.next();
+    }
+
+    const token = request.cookies.get("auth_token")?.value;
+
+    if (!token) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+
+    try {
+      await jwtVerify(token, key, { algorithms: ["HS256"] });
+      return NextResponse.next();
+    } catch (error) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*", "/api/blogs/:path*", "/api/academy/:path*", "/api/settings/:path*"],
+  matcher: ["/admin", "/admin/:path*", "/api/blogs/:path*", "/api/academy/:path*", "/strategies", "/guide", "/about-us", "/contact-us"],
 };
