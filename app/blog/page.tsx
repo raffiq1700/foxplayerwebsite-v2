@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, where } from "firebase/firestore/lite";
 import { Newsletter } from "@/components/blog/Newsletter";
 import { BlogList } from "@/components/blog/BlogList";
 import { Metadata } from "next";

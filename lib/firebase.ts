@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { initializeFirestore, getFirestore, Firestore } from "firebase/firestore";
+import { getFirestore, Firestore } from "firebase/firestore/lite";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyAxD0ncgLn7kCSH-9vPkc-NSQA3NiAhToA",
@@ -20,19 +20,13 @@ declare global {
 const app = global.firebaseApp || (getApps().length > 0 ? getApp() : initializeApp(firebaseConfig));
 if (process.env.NODE_ENV !== "production") global.firebaseApp = app;
 
-// Initialize Firestore with long-polling (Crucial for Vercel stability)
+// Initialize Firestore (Lite version for complete serverless reliability)
 let db: Firestore;
 
 if (global.firebaseDb) {
   db = global.firebaseDb;
 } else {
-  try {
-    db = initializeFirestore(app, {
-      experimentalForceLongPolling: true,
-    });
-  } catch (e) {
-    db = getFirestore(app);
-  }
+  db = getFirestore(app);
   if (process.env.NODE_ENV !== "production") global.firebaseDb = db;
 }
 

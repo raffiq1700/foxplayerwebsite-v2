@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { login } from "@/lib/auth";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, where, addDoc, limit } from "firebase/firestore";
+import { collection, getDocs, query, where, addDoc, limit } from "firebase/firestore/lite";
 
 export async function POST(request: Request) {
   try {

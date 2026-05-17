@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { db } from "@/lib/firebase";
-import { collection, getDoc, doc as firestoreDoc, query, where, limit, getDocs } from "firebase/firestore";
+import { collection, getDoc, doc as firestoreDoc, query, where, limit, getDocs } from "firebase/firestore/lite";
 import { notFound } from "next/navigation";
 import { Clock, User, ChevronRight, Share2, Shield, Globe, ArrowRight, FileText, MessageCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
