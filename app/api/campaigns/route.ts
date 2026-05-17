@@ -53,7 +53,7 @@ export async function POST(request: Request) {
       messageTemplate,
       recipientsCount: enquiries.length,
       status: "sending",
-      createdAt: serverTimestamp(),
+      createdAt: new Date(),
     });
 
     let sentCount = 0;
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
           recipientName: enquiry.name,
           deliveryStatus,
           errorMessage,
-          sentAt: serverTimestamp(),
+          sentAt: new Date(),
         });
       } catch (logErr) {
         console.error("Failed to save log:", logErr);
@@ -107,7 +107,7 @@ export async function POST(request: Request) {
       sentCount,
       failedCount,
       status: "completed",
-      sentAt: serverTimestamp(),
+      sentAt: new Date(),
     });
 
     return NextResponse.json({

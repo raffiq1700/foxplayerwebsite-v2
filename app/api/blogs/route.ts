@@ -32,18 +32,18 @@ export async function POST(request: Request) {
       excerpt: data.excerpt,
       author: data.author || "Raffiq SR",
       category: data.category || "Trading",
-      date: data.date ? new Date(data.date) : serverTimestamp(),
+      date: data.date ? new Date(data.date) : new Date(),
       readTime: data.readTime || "5 min read",
       metaTitle: data.metaTitle,
       metaDescription: data.metaDescription,
       published: data.published ?? true,
-      createdAt: serverTimestamp(),
+      createdAt: new Date(),
     });
     
     return NextResponse.json({ id: docRef.id });
   } catch (error) {
-    console.error("Create blog error:", error);
-    return NextResponse.json({ message: "Error creating post" }, { status: 500 });
+    console.error("Create blog error details:", error);
+    return NextResponse.json({ message: "Error creating post", error: error.message }, { status: 500 });
   }
 }
 

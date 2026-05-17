@@ -40,12 +40,12 @@ export async function PUT(
       excerpt: data.excerpt,
       author: data.author,
       category: data.category,
-      date: data.date ? new Date(data.date) : serverTimestamp(),
+      date: data.date ? new Date(data.date) : new Date(),
       readTime: data.readTime,
       metaTitle: data.metaTitle,
       metaDescription: data.metaDescription,
       published: data.published,
-      updatedAt: serverTimestamp(),
+      updatedAt: new Date(),
     });
     
     return NextResponse.json({ success: true });

@@ -47,8 +47,8 @@ export async function PUT(
       author: data.author,
       readingTime: data.readingTime,
       status: data.status,
-      updatedAt: serverTimestamp(),
-      publishedAt: data.status === "published" ? serverTimestamp() : null,
+      updatedAt: new Date(),
+      publishedAt: data.status === "published" ? new Date() : null,
     });
     
     return NextResponse.json({ success: true });

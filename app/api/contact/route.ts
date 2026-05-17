@@ -58,7 +58,7 @@ export async function POST(request: Request) {
         subject,
         message,
         status: "new",
-        createdAt: serverTimestamp(),
+        createdAt: new Date(),
       });
     } catch (dbErr) {
       console.error("Firebase save failed:", dbErr);

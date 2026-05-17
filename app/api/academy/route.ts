@@ -44,8 +44,8 @@ export async function POST(request: Request) {
       author: data.author || "Raffiq SR",
       readingTime: data.readingTime || "5 min read",
       status: data.status || "published",
-      publishedAt: data.status === "published" ? serverTimestamp() : null,
-      createdAt: serverTimestamp(),
+      publishedAt: data.status === "published" ? new Date() : null,
+      createdAt: new Date(),
     });
     return NextResponse.json({ id: docRef.id });
   } catch (error) {
