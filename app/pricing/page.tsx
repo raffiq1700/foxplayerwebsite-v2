@@ -78,11 +78,11 @@ export default function PricingPage() {
                 ))}
               </ul>
 
-              <Link href={plan.name === "Institutional" ? "https://wa.me/919983168522" : "/register"}>
+              <a href={plan.name === "Institutional" ? "https://wa.me/919983168522" : "https://app.foxplayer.co.in/register"}>
                 <button className={`w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${plan.popular ? "bg-primary text-background hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]" : "bg-white/5 text-white hover:bg-white/10 border border-white/10"}`}>
                   {plan.name === "Institutional" ? "Contact Sales" : "Start Free Trial"}
                 </button>
-              </Link>
+              </a>
             </motion.div>
           ))}
         </div>

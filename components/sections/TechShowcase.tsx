@@ -65,9 +65,9 @@ export function TechShowcase() {
             <p className="text-white/60 text-lg leading-relaxed mb-8 font-light">
               Don&apos;t want to build your own algorithms? Subscribe to top-performing verified strategies and copy their trades automatically with zero slippage.
             </p>
-            <Link href="http://app.foxplayer.co.in">
+            <a href="https://app.foxplayer.co.in/login">
               <Button size="lg">Explore Marketplace</Button>
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -110,7 +110,7 @@ export function TechShowcase() {
                   <div className="flex items-center gap-2 text-sm text-white/50">
                     <Users className="w-4 h-4" /> {strategy.subscribers} Subs
                   </div>
-                  <a href="http://app.foxplayer.co.in" className="text-primary text-sm font-bold hover:text-white transition-colors">
+                  <a href="https://app.foxplayer.co.in/login" className="text-primary text-sm font-bold hover:text-white transition-colors">
                     Subscribe
                   </a>
                 </div>

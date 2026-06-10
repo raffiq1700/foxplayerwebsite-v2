@@ -109,7 +109,7 @@ export function Pricing() {
                   ))}
                 </ul>
                 
-                <a href="http://app.foxplayer.co.in" className="block w-full mt-auto">
+                <a href={tier.cta === "Contact Sales" ? "https://wa.me/919983168522" : "https://app.foxplayer.co.in/register"} className="block w-full mt-auto">
                   <Button variant={tier.popular ? "primary" : "outline"} className="w-full">
                     {tier.cta}
                   </Button>

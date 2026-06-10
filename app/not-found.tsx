@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Home, Search, MessageCircle } from "lucide-react";
+import { ArrowLeft, Home, Search, MessageCircle, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -31,16 +31,16 @@ export default function NotFound() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link href="/">
+            <a href="https://app.foxplayer.co.in/login">
               <button className="w-full bg-white text-background px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:scale-105 transition-transform">
-                <Home className="w-4 h-4" /> Return Home
+                <Home className="w-4 h-4" /> Log In to Dashboard
               </button>
-            </Link>
-            <Link href="/contact">
+            </a>
+            <a href="https://app.foxplayer.co.in/register">
               <button className="w-full bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-                <MessageCircle className="w-4 h-4" /> Get Support
+                <Zap className="w-4 h-4" /> Start Free Trial
               </button>
-            </Link>
+            </a>
           </div>
 
           <div className="mt-20 pt-10 border-t border-white/5 flex items-center justify-center gap-8">
