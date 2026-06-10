@@ -17,7 +17,7 @@ export function FinalCTA() {
           For custom software or white label solutions, contact us at <a href="tel:9983168522" className="text-primary font-bold">+91 9983168522</a>
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="https://app.foxplayer.co.in/register" className="w-full sm:w-auto">
+          <a href="https://app.foxplayer.co.in/login" className="w-full sm:w-auto">
             <Button size="lg" className="w-full sm:w-auto shadow-[0_0_20px_rgba(255,255,255,0.1)]">
               Start Free Trial
             </Button>
