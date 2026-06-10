@@ -82,6 +82,11 @@
   animation: gradient 5s ease infinite;
 }
 
+.grid-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Shield, BarChart3, Globe, Code2, Users, Layers, Check, ArrowUpRight, TrendingUp, Clock, Activity } from "lucide-react";
 import Link from "next/link";
@@ -11,16 +12,13 @@ const fadeUp = {
 };
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState("webhooks");
   return (
     <main className="bg-background">
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-          <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary/10 rounded-full blur-[120px] animate-pulse-slow" />
-          <div className="absolute bottom-[20%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 rounded-full blur-[140px] animate-pulse-slow" />
-          <div className="absolute top-[40%] right-[10%] w-[30%] h-[40%] bg-accent/5 rounded-full blur-[100px]" />
-        </div>
+      <section className="relative overflow-hidden border-b border-border/40 grid-pattern">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 pt-28 pb-24 md:pt-40 md:pb-32 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
@@ -73,31 +71,115 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* Right: Live Stats Panel */}
-            <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="lg:col-span-5">
-              <div className="bg-surface border border-white/[0.06] rounded-2xl overflow-hidden">
-                <div className="px-5 py-3 border-b border-white/5 flex items-center justify-between">
+            {/* Right: Live Interactive Developer Playground */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ duration: 0.8, delay: 0.4 }} 
+              className="lg:col-span-5"
+            >
+              <div className="bg-secondary border border-background/10 shadow-2xl rounded-2xl overflow-hidden">
+                {/* Header / Tabs */}
+                <div className="px-5 py-4 border-b border-background/10 bg-black/[0.03] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
-                    <Activity className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-xs font-medium text-white/40">Live Platform Status</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[11px] font-bold text-background/50 tracking-wider uppercase">Live Execution Engine</span>
                   </div>
-                  <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-400/10 px-2 py-0.5 rounded-full">All Systems Operational</span>
+                  {/* Tabs */}
+                  <div className="flex bg-black/20 p-1 rounded-xl border border-background/5">
+                    {["webhooks", "console", "brokers"].map((tab) => (
+                      <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all capitalize ${
+                          activeTab === tab 
+                            ? "bg-background/10 text-black" 
+                            : "text-background/40 hover:text-background/70"
+                        }`}
+                      >
+                        {tab === "webhooks" ? "Webhook JSON" : tab === "console" ? "Live Logs" : "Brokers"}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="p-5 space-y-3">
-                  {[
-                    { label: "API Bridge Uptime", value: "99.97%", sub: "Last 90 days", color: "text-emerald-400" },
-                    { label: "Avg. Order Latency", value: "0.02ms", sub: "p99 percentile", color: "text-primary" },
-                    { label: "Active Strategies", value: "97", sub: "Running now", color: "text-secondary" },
-                    { label: "Supported Brokers", value: "7", sub: "Indian exchanges", color: "text-amber-400" },
-                  ].map((s) => (
-                    <div key={s.label} className="flex items-center justify-between py-3 border-b border-white/[0.03] last:border-0">
-                      <div>
-                        <p className="text-sm text-white/50">{s.label}</p>
-                        <p className="text-[11px] text-white/20">{s.sub}</p>
+
+                {/* Content Area */}
+                <div className="p-6 min-h-[300px] flex flex-col justify-between font-mono bg-secondary">
+                  {activeTab === "webhooks" && (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between text-[10px] text-background/30 border-b border-background/5 pb-2">
+                        <span>POST https://api.foxplayer.co.in/v2/webhook</span>
+                        <span>Content-Type: application/json</span>
                       </div>
-                      <span className={`text-lg font-bold ${s.color}`}>{s.value}</span>
+                      <pre className="text-[11px] text-background/80 leading-relaxed overflow-x-auto">
+{`{
+  "secret_token": "fox_live_9a2b8e",
+  "ticker": "NIFTY26JUN20500CE",
+  "action": "BUY",
+  "quantity": 50,
+  "order_type": "MARKET",
+  "strategy": "OptionsBreakout_V4",
+  "payload": {
+    "indicator": "SuperTrend_Buy",
+    "price": 182.45
+  }
+}`}
+                      </pre>
                     </div>
-                  ))}
+                  )}
+
+                  {activeTab === "console" && (
+                    <div className="space-y-2 text-[11px]">
+                      <div className="flex items-center justify-between text-[10px] text-background/30 border-b border-background/5 pb-2">
+                        <span>Foxplayer Engine v2.4.1</span>
+                        <span>Latency: 12ms</span>
+                      </div>
+                      <div className="space-y-1 text-background/60 leading-relaxed">
+                        <p><span className="text-background/30">[15:20:01]</span> <span className="text-emerald-400">INFO</span> TV Webhook Alert received</p>
+                        <p><span className="text-background/30">[15:20:01]</span> <span className="text-primary">AUTH</span> JWT credentials verified successfully</p>
+                        <p><span className="text-background/30">[15:20:01]</span> <span className="text-emerald-400">INFO</span> Routing BUY order to AliceBlue API...</p>
+                        <p><span className="text-background/30">[15:20:02]</span> <span className="text-emerald-400">SUCCESS</span> Executed. ID: 260610001842 [12ms]</p>
+                        <p><span className="text-background/30">[15:20:02]</span> <span className="text-primary">NOTIFY</span> Dispatched Telegram notification</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "brokers" && (
+                    <div className="space-y-3 font-sans">
+                      <div className="flex items-center justify-between text-[10px] text-background/30 border-b border-background/5 pb-2 font-mono">
+                        <span>Active Connections</span>
+                        <span>API Latency</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 pt-2">
+                        {[
+                          { name: "Alice Blue", connected: true, latency: "8ms" },
+                          { name: "Shoonya", connected: true, latency: "12ms" },
+                          { name: "Angel One", connected: true, latency: "15ms" },
+                          { name: "Zerodha", connected: true, latency: "10ms" },
+                        ].map((broker) => (
+                          <div key={broker.name} className="flex items-center justify-between p-3 rounded-xl border border-background/5 bg-background/[0.02]">
+                            <span className="text-xs font-bold text-background">{broker.name}</span>
+                            <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full ${
+                              broker.connected 
+                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" 
+                                : "bg-black/5 text-background/30 border border-background/5"
+                            }`}>
+                              {broker.latency}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Engine Uptime Footer */}
+                  <div className="border-t border-background/5 pt-4 mt-6 flex items-center justify-between text-[10px] text-background/40">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      System Uptime: 99.99%
+                    </span>
+                    <span>Region: ap-south-1</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
