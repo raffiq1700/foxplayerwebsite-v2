@@ -36,7 +36,7 @@ export default function NotFound() {
                 <Home className="w-4 h-4" /> Log In to Dashboard
               </button>
             </a>
-            <a href="https://app.foxplayer.co.in/login">
+            <a href="https://app.foxplayer.co.in/register">
               <button className="w-full bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
                 <Zap className="w-4 h-4" /> Start Free Trial
               </button>

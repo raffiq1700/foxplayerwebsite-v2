@@ -34,7 +34,7 @@ export function Hero() {
             Our core business is Trading Automation. We build customized strategies for individuals, businesses, and their clients. We are experts in Custom Python, Web-based Platforms, and Windows Applications.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-12">
-            <a href="https://app.foxplayer.co.in/login" className="w-full sm:w-auto">
+            <a href="https://app.foxplayer.co.in/register" className="w-full sm:w-auto">
               <Button size="lg" className="w-full gap-2">
                 Start Free Trial <ArrowRight className="w-4 h-4" />
               </Button>

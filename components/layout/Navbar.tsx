@@ -64,7 +64,7 @@ export default function Navbar() {
           <div className="pt-4 border-t border-white/5 space-y-3">
             <a href="https://app.foxplayer.co.in/login" className="block text-sm text-white/50">Log in</a>
 
-            <a href="https://app.foxplayer.co.in/login" className="w-full text-center block text-sm font-semibold bg-white text-background px-5 py-2.5 rounded-lg">Get Started</a>
+            <a href="https://app.foxplayer.co.in/register" className="w-full text-center block text-sm font-semibold bg-white text-background px-5 py-2.5 rounded-lg">Get Started</a>
           </div>
         </div>
       )}
