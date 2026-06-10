@@ -9,25 +9,30 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Foxplayer Algo Technologies | Premium Algo Trading Platform India",
+  title: "FoxPlayer Algo Technologies",
   description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade with AliceBlue, Shoonya, Angel One, and Upstox.",
   keywords: ["algo trading platform India", "copy trading software India", "TradingView webhook India", "automated trading platform India", "strategy marketplace India", "Shoonya API trading", "Zerodha Kite Connect automation"],
   metadataBase: new URL("https://www.foxplayer.co.in"),
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
-    title: "Foxplayer Algo Technologies | Premium Algo Trading Platform India",
+    title: "FoxPlayer Algo Technologies",
     description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade.",
     url: "https://www.foxplayer.co.in",
-    siteName: "Foxplayer Algo Technologies",
+    siteName: "FoxPlayer Algo Technologies",
     images: ["/logo.png"],
     locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Foxplayer Algo Technologies | Premium Algo Trading Platform India",
+    title: "FoxPlayer Algo Technologies",
     description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade.",
     images: ["/logo.png"],
   }
