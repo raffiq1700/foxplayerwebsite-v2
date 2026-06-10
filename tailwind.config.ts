@@ -13,27 +13,29 @@ const config: Config = {
         inter: ["var(--font-inter)", "sans-serif"],
       },
       colors: {
-        background: "#F8FAFC", // Clean light slate gray background
+        background: "#0B1220", // Deep Navy Black
         surface: {
-          DEFAULT: "#FFFFFF", // Pure white card surfaces
-          hover: "#F1F5F9",   // Slate 100 for hover state
-          elevated: "#E2E8F0",// Slate 200 for elevated borders
+          DEFAULT: "#1A2235", // Card Background
+          hover: "#232D45",   // Subtle card hover
+          elevated: "#2A3650",// Elevated borders/containers
         },
         primary: {
-          DEFAULT: "#2563EB", // Professional Trading Blue
-          glow: "rgba(37, 99, 235, 0.15)",
+          DEFAULT: "#00E676", // Professional Trading Green
+          glow: "rgba(0, 230, 118, 0.15)",
         },
         secondary: {
-          DEFAULT: "#0F172A", // Deep Charcoal / Slate 900
-          glow: "rgba(15, 23, 42, 0.08)",
+          DEFAULT: "#3B82F6", // Premium Blue
+          glow: "rgba(59, 130, 246, 0.15)",
         },
         accent: {
-          DEFAULT: "#10B981", // Emerald green for up-trend/buy actions
-          glow: "rgba(16, 185, 129, 0.12)",
+          DEFAULT: "#00E676", // Trading Green
+          glow: "rgba(0, 230, 118, 0.15)",
         },
-        border: "rgba(15, 23, 42, 0.08)", // Clean gray border
-        white: "#0F172A", // Re-map white utility to deep slate for text contrast
-        black: "#FFFFFF", // Re-map black to white for dark backgrounds
+        border: "rgba(255, 255, 255, 0.08)", // Premium transparent white border
+        white: "#FFFFFF", // Standard white
+        black: "#000000", // Standard black
+        warning: "#F59E0B",
+        loss: "#EF4444",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

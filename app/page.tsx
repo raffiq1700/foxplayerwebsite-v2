@@ -1,8 +1,27 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Zap, Shield, BarChart3, Globe, Code2, Users, Layers, Check, ArrowUpRight, TrendingUp, Clock, Activity } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  ArrowRight, 
+  Zap, 
+  Shield, 
+  BarChart3, 
+  Globe, 
+  Code2, 
+  Users, 
+  Layers, 
+  Check, 
+  ArrowUpRight, 
+  TrendingUp, 
+  Clock, 
+  Activity, 
+  Play, 
+  MessageSquare, 
+  Star,
+  ArrowUp,
+  ChevronRight
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,105 +32,148 @@ const fadeUp = {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("webhooks");
+  const [livePnl, setLivePnl] = useState(124530);
+
+  // Subtle live P&L tick effect for premium dashboard look
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLivePnl((prev) => prev + (Math.random() > 0.4 ? 120 : -80));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <main className="bg-background">
+    <main className="bg-background text-white min-h-screen">
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border/40 grid-pattern">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 pt-28 pb-24 md:pt-40 md:pb-32 relative z-10">
+      {/* ─── 1. HERO SECTION ─── */}
+      <section className="relative overflow-hidden border-b border-border grid-pattern pt-20 pb-28 md:pt-36 md:pb-40">
+        {/* Subtle glow accents */}
+        <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-secondary/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Left: Copy */}
-            <div className="lg:col-span-7">
-              <motion.p initial="hidden" animate="visible" custom={0} variants={fadeUp} className="text-primary text-sm font-semibold mb-5 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Algorithmic Trading Infrastructure
-              </motion.p>
-
-              <motion.h1 initial="hidden" animate="visible" custom={1} variants={fadeUp} className="text-[2.8rem] md:text-[3.8rem] lg:text-[4.5rem] font-extrabold text-white leading-[1.05] tracking-tight mb-8">
-                Stop guessing.<br />
-                <span className="text-white/40">Start automating.</span>
-              </motion.h1>
-
-              <motion.p initial="hidden" animate="visible" custom={2} variants={fadeUp} className="text-[17px] text-white/45 leading-relaxed max-w-xl mb-10">
-                Foxplayer Algo Technologies connects your broker, your strategy, and the Indian stock market into one seamless automated pipeline. No coding required to start.
-              </motion.p>
-
-              <motion.div initial="hidden" animate="visible" custom={3} variants={fadeUp} className="flex flex-wrap gap-4 mb-14">
-                <Link href="/pricing">
-                  <button className="group bg-white text-background text-sm font-semibold px-7 py-3.5 rounded-lg hover:bg-white/90 transition-all active:scale-[0.98] flex items-center gap-2">
-                    Start Your Free Trial <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
-                </Link>
-                <Link href="/blog">
-                  <button className="text-sm font-medium text-white/50 hover:text-white px-7 py-3.5 rounded-lg border border-white/10 hover:border-white/20 transition-all">
-                    Read the Academy
-                  </button>
-                </Link>
+            {/* Left Column: Headline and CTAs */}
+            <div className="lg:col-span-6">
+              <motion.div 
+                initial="hidden" 
+                animate="visible" 
+                custom={0} 
+                variants={fadeUp} 
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-6"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                Institutional Grade Execution Engine
               </motion.div>
 
-              {/* Social proof */}
-              <motion.div initial="hidden" animate="visible" custom={4} variants={fadeUp} className="flex items-center gap-6 text-sm">
-                <div className="flex -space-x-2">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-white/10 to-white/5 border-2 border-background flex items-center justify-center text-[10px] text-white/40 font-bold">
-                      {["MR", "SK", "AP", "RN"][i]}
-                    </div>
-                  ))}
-                </div>
+              <motion.h1 
+                initial="hidden" 
+                animate="visible" 
+                custom={1} 
+                variants={fadeUp} 
+                className="text-[2.6rem] sm:text-[3.5rem] md:text-[4rem] font-extrabold leading-[1.1] tracking-tight mb-6"
+              >
+                Automate Your Trading.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-gradient">Trade Smarter.</span>
+              </motion.h1>
+
+              <motion.p 
+                initial="hidden" 
+                animate="visible" 
+                custom={2} 
+                variants={fadeUp} 
+                className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mb-10"
+              >
+                FoxPlayer connects your custom indicators, Python strategies, and Pine Scripts directly to India's top stock brokers. Real-time execution with less than 15ms order latency.
+              </motion.p>
+
+              <motion.div 
+                initial="hidden" 
+                animate="visible" 
+                custom={3} 
+                variants={fadeUp} 
+                className="flex flex-col sm:flex-row items-center gap-4 mb-12"
+              >
+                <a href="https://app.foxplayer.co.in/login" className="w-full sm:w-auto">
+                  <button className="btn-primary w-full gap-2 text-sm">
+                    Start Trading <ArrowRight className="w-4 h-4" />
+                  </button>
+                </a>
+                <a href="#demo" className="w-full sm:w-auto">
+                  <button className="btn-secondary w-full gap-2 text-sm border-white/10 hover:border-white/20">
+                    <Play className="w-4 h-4 fill-white text-white" /> Watch Demo
+                  </button>
+                </a>
+              </motion.div>
+
+              {/* Social Proof Stats */}
+              <motion.div 
+                initial="hidden" 
+                animate="visible" 
+                custom={4} 
+                variants={fadeUp} 
+                className="flex items-center gap-8 text-xs text-slate-400 border-t border-border pt-8"
+              >
                 <div>
-                  <div className="flex gap-0.5 mb-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                    ))}
-                  </div>
-                  <p className="text-white/30 text-xs">Trusted by 600+ traders across India</p>
+                  <div className="text-xl font-bold text-white mb-0.5">₹1,500Cr+</div>
+                  <div>Monthly Vol. Executed</div>
+                </div>
+                <div className="w-px h-8 bg-border" />
+                <div>
+                  <div className="text-xl font-bold text-white mb-0.5">15,000+</div>
+                  <div>Active Trading Strategies</div>
+                </div>
+                <div className="w-px h-8 bg-border" />
+                <div>
+                  <div className="text-xl font-bold text-white mb-0.5">12ms</div>
+                  <div>Avg. Response Latency</div>
                 </div>
               </motion.div>
             </div>
 
-            {/* Right: Live Interactive Developer Playground */}
+            {/* Right Column: Live Trading Dashboard Simulation */}
             <motion.div 
-              initial={{ opacity: 0, x: 30 }} 
-              animate={{ opacity: 1, x: 0 }} 
+              initial={{ opacity: 0, y: 30 }} 
+              animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8, delay: 0.4 }} 
-              className="lg:col-span-5"
+              className="lg:col-span-6"
             >
-              <div className="bg-secondary border border-background/10 shadow-2xl rounded-2xl overflow-hidden">
-                {/* Header / Tabs */}
-                <div className="px-5 py-4 border-b border-background/10 bg-black/[0.03] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="bg-surface border border-border shadow-2xl rounded-2xl overflow-hidden backdrop-blur-md">
+                {/* Simulated Header */}
+                <div className="px-5 py-4 border-b border-border bg-black/10 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[11px] font-bold text-background/50 tracking-wider uppercase">Live Execution Engine</span>
+                    <Activity className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-300">FOXPLAYER CONSOLE v3.2</span>
                   </div>
-                  {/* Tabs */}
-                  <div className="flex bg-black/20 p-1 rounded-xl border border-background/5">
+                  <div className="flex bg-black/20 p-1 rounded-lg border border-border/50">
                     {["webhooks", "console", "brokers"].map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all capitalize ${
+                        className={`text-[10px] font-bold px-3 py-1.5 rounded-md transition-all capitalize ${
                           activeTab === tab 
-                            ? "bg-background/10 text-black" 
-                            : "text-background/40 hover:text-background/70"
+                            ? "bg-surface text-primary shadow-sm" 
+                            : "text-slate-400 hover:text-slate-200"
                         }`}
                       >
-                        {tab === "webhooks" ? "Webhook JSON" : tab === "console" ? "Live Logs" : "Brokers"}
+                        {tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : "Brokers"}
                       </button>
                     ))}
                   </div>
                 </div>
 
-                {/* Content Area */}
-                <div className="p-6 min-h-[300px] flex flex-col justify-between font-mono bg-secondary">
+                {/* Dashboard Code/Console Area */}
+                <div className="p-6 min-h-[300px] flex flex-col justify-between font-mono bg-black/5">
                   {activeTab === "webhooks" && (
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between text-[10px] text-background/30 border-b border-background/5 pb-2">
-                        <span>POST https://api.foxplayer.co.in/v2/webhook</span>
-                        <span>Content-Type: application/json</span>
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-border pb-2">
+                        <span>POST https://api.foxplayer.co.in/webhook</span>
+                        <span>JWT Authenticated</span>
                       </div>
-                      <pre className="text-[11px] text-background/80 leading-relaxed overflow-x-auto">
+                      <pre className="text-xs text-slate-300 leading-relaxed overflow-x-auto">
 {`{
   "secret_token": "fox_live_9a2b8e",
   "ticker": "NIFTY26JUN20500CE",
@@ -129,26 +191,27 @@ export default function Home() {
                   )}
 
                   {activeTab === "console" && (
-                    <div className="space-y-2 text-[11px]">
-                      <div className="flex items-center justify-between text-[10px] text-background/30 border-b border-background/5 pb-2">
-                        <span>Foxplayer Engine v2.4.1</span>
-                        <span>Latency: 12ms</span>
+                    <div className="space-y-3 text-[11px]">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-border pb-2">
+                        <span>Terminal Log Stream</span>
+                        <span className="text-primary animate-pulse">● Live</span>
                       </div>
-                      <div className="space-y-1 text-background/60 leading-relaxed">
-                        <p><span className="text-background/30">[15:20:01]</span> <span className="text-emerald-400">INFO</span> TV Webhook Alert received</p>
-                        <p><span className="text-background/30">[15:20:01]</span> <span className="text-primary">AUTH</span> JWT credentials verified successfully</p>
-                        <p><span className="text-background/30">[15:20:01]</span> <span className="text-emerald-400">INFO</span> Routing BUY order to AliceBlue API...</p>
-                        <p><span className="text-background/30">[15:20:02]</span> <span className="text-emerald-400">SUCCESS</span> Executed. ID: 260610001842 [12ms]</p>
-                        <p><span className="text-background/30">[15:20:02]</span> <span className="text-primary">NOTIFY</span> Dispatched Telegram notification</p>
+                      <div className="space-y-1.5 text-slate-400 leading-relaxed font-semibold">
+                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> TV Webhook Alert received for NIFTY</p>
+                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-secondary">AUTH</span> Decoded claims: client_id="FOX_902"</p>
+                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> Order validation passed. Margin: OK</p>
+                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> Routing BUY order to Shoonya API...</p>
+                        <p><span className="text-slate-600">[15:20:02]</span> <span className="text-primary font-bold">SUCCESS</span> Executed. ID: 260610001842 [11ms]</p>
+                        <p><span className="text-slate-600">[15:20:02]</span> <span className="text-secondary">NOTIFY</span> Discord notification dispatched</p>
                       </div>
                     </div>
                   )}
 
                   {activeTab === "brokers" && (
                     <div className="space-y-3 font-sans">
-                      <div className="flex items-center justify-between text-[10px] text-background/30 border-b border-background/5 pb-2 font-mono">
-                        <span>Active Connections</span>
-                        <span>API Latency</span>
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-border pb-2 font-mono">
+                        <span>Connected Broker Keys</span>
+                        <span>API Ping Latency</span>
                       </div>
                       <div className="grid grid-cols-2 gap-3 pt-2">
                         {[
@@ -157,13 +220,9 @@ export default function Home() {
                           { name: "Angel One", connected: true, latency: "15ms" },
                           { name: "Zerodha", connected: true, latency: "10ms" },
                         ].map((broker) => (
-                          <div key={broker.name} className="flex items-center justify-between p-3 rounded-xl border border-background/5 bg-background/[0.02]">
-                            <span className="text-xs font-bold text-background">{broker.name}</span>
-                            <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full ${
-                              broker.connected 
-                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" 
-                                : "bg-black/5 text-background/30 border border-background/5"
-                            }`}>
+                          <div key={broker.name} className="flex items-center justify-between p-3 rounded-xl border border-border bg-white/[0.01] hover:bg-white/[0.03] transition-colors">
+                            <span className="text-xs font-bold text-slate-200">{broker.name}</span>
+                            <span className="text-[10px] font-mono text-primary font-bold bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">
                               {broker.latency}
                             </span>
                           </div>
@@ -172,13 +231,12 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Engine Uptime Footer */}
-                  <div className="border-t border-background/5 pt-4 mt-6 flex items-center justify-between text-[10px] text-background/40">
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                      System Uptime: 99.99%
+                  <div className="border-t border-border pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
+                    <span className="flex items-center gap-1.5 font-sans">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      All systems operational
                     </span>
-                    <span>Region: ap-south-1</span>
+                    <span>Server region: Mumbai, India</span>
                   </div>
                 </div>
               </div>
@@ -187,344 +245,391 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Premium Trust Section */}
-      <section className="relative -mt-12 mb-24 z-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="glass-card p-8 md:p-12 border-white/5 bg-surface/80"
-          >
-            <div className="text-center mb-16">
-              <p className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4">Established Excellence</p>
-              <h2 className="text-2xl md:text-4xl font-black text-white tracking-tighter mb-4">Starting Your Technology Company<br /><span className="text-white/30">Has Never Been Easier</span></h2>
-            </div>
-
-            {/* Partners Logo Grid */}
-            <div className="mb-20">
-              <p className="text-center text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] mb-10">Trusted Technology Partners</p>
-              <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-10 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                {["Angel One", "Groww", "Alice Blue", "NSE", "MCX", "SEBI", "Shoonya", "Zerodha"].map((partner) => (
-                  <div key={partner} className="text-xl font-black text-white tracking-tighter hover:text-primary transition-colors cursor-default whitespace-nowrap">
-                    {partner}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Performance Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-              {[
-                { label: "Experience", value: "12+ Years", sub: "Since 2012" },
-                { label: "Clients Served", value: "65+", sub: "Since 2024" },
-                { label: "Projects Delivered", value: "100+", sub: "Global Reach" },
-                { label: "Technical Support", value: "24/7", sub: "Expert Response" },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center group">
-                  <div className="text-2xl md:text-4xl font-black text-white mb-2 group-hover:text-primary transition-colors">{stat.value}</div>
-                  <div className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] mb-1">{stat.label}</div>
-                  <div className="text-[9px] font-bold text-white/10 uppercase tracking-[0.1em]">{stat.sub}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Broker Integration Section */}
-      <section className="bg-surface-hover border-y border-white/[0.03] py-10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 opacity-40" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="shrink-0">
-              <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Broker Integration</p>
-              <p className="text-sm text-white/60 font-medium">4 Active | 3 Live Soon</p>
-            </div>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-              {["AliceBlue", "Angel One", "Shoonya", "Groww"].map((b) => (
-                <span key={b} className="text-[15px] font-bold text-white transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> {b}
-                </span>
-              ))}
-              {["Upstox", "IIFL", "5Paisa"].map((b) => (
-                <span key={b} className="text-[15px] font-bold text-white/20 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/10" /> {b} (Coming Soon)
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Platform Capabilities Section */}
-      <section className="py-28 px-6">
+      {/* ─── 2. FEATURES GRID SECTION ─── */}
+      <section className="py-24 px-6 relative overflow-hidden bg-background">
         <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-16">
-            <p className="text-xs font-semibold text-primary mb-3 uppercase tracking-wider">Platform Capabilities</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-5">
-              Built for every type of <span className="text-primary">Algo Trader.</span>
-            </h2>
-            <p className="text-base text-white/40 leading-relaxed">
-              Whether you are looking for the <span className="text-white/60">best trading strategy</span>, <span className="text-white/60">Nifty option selling strategy</span>, or <span className="text-white/60">Bank Nifty algo trading</span> — our platform is built for professional <span className="text-white/60">trading bot developers in India.</span>
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            <div className="md:col-span-4 bg-gradient-to-br from-primary/[0.07] to-transparent border border-primary/10 rounded-2xl p-8 md:p-10 group hover:border-primary/25 transition-colors">
-              <div className="flex items-start justify-between mb-8">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary"><Zap className="w-6 h-6" /></div>
-                <ArrowUpRight className="w-5 h-5 text-white/10 group-hover:text-primary/40 transition-colors" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-3">TradingView Webhook Automation</h3>
-              <p className="text-sm text-white/40 leading-relaxed max-w-md">Turn any Pine Script alert into a live trade using <span className="text-white/60 font-bold">TradingView webhook automation</span>. Our <span className="text-white/60 font-bold">automated trading software</span> bridges your strategy to the market in 60 seconds.</p>
-            </div>
-            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-secondary/20 transition-colors">
-              <Code2 className="w-8 h-8 text-secondary mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Python Algo Trading</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Build complex bots with our <span className="text-white/50 font-bold">Python algo trading development</span> tools. Access tick data, option Greeks, and multi-leg execution.</p>
-            </div>
-            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-accent/20 transition-colors">
-              <Users className="w-8 h-8 text-accent mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Portfolio Management</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Our <span className="text-white/50 font-bold">PMS software development</span> solutions allow you to manage multiple client accounts with institutional precision.</p>
-            </div>
-            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-amber-500/20 transition-colors">
-              <Shield className="w-8 h-8 text-amber-400 mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Risk Management</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Comprehensive <span className="text-white/50 font-bold">risk management in algorithmic trading</span>. Capital protection is our top priority.</p>
-            </div>
-            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-pink-500/20 transition-colors">
-              <Layers className="w-8 h-8 text-pink-400 mb-6" />
-              <h3 className="text-lg font-bold text-white mb-2">Institutional Software</h3>
-              <p className="text-sm text-white/35 leading-relaxed">Scale with <span className="text-white/50 font-bold">institutional trading software</span> designed for high-frequency execution and reliability.</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Enterprise Solutions Section */}
-      <section className="py-24 px-6 bg-background border-y border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -z-10" />
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
-            <div className="max-w-2xl">
-              <p className="text-xs font-black text-secondary mb-4 uppercase tracking-[0.4em]">Scaling Technology</p>
-              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">Institutional Grade<br /><span className="text-white/30">Custom Development</span></h2>
-            </div>
-            <Link href="/contact" className="group flex items-center gap-3 text-xs font-black text-white uppercase tracking-widest hover:text-primary transition-colors pb-2 border-b border-white/10 hover:border-primary/50">
-              Inquire for Custom Work <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: "Shoonya API Software", slug: "shoonya-api-trading-software", desc: "Automate zero-brokerage trading with professional API bridges." },
-              { title: "White Label Platform", slug: "white-label-trading-platform", desc: "Scale your trading business with our fully customizable white-label solutions. We provide the technology, you build your brand. Ideal for sub-brokers." },
-              { title: "Backtesting Engines", slug: "backtesting-engine-development", desc: "High-precision testing systems with tick-by-tick analysis." },
-              { title: "Forex Automation", slug: "forex-trading-software-development", desc: "Global currency trading infrastructure and MT4/5 bridges." },
-              { title: "Zerodha Kite Connect", slug: "zerodha-kite-connect-development", desc: "Scalable integrations for India's largest trading ecosystem." },
-              { title: "Mobile Trading Apps", slug: "mobile-app-development", desc: "Native Android & iOS apps with real-time data streaming." },
-            ].map((service) => (
-              <Link key={service.slug} href={`/services/${service.slug}`} className="glass-card p-8 border-white/5 hover:border-primary/20 hover:bg-white/[0.02] transition-all group">
-                <h3 className="text-lg font-black text-white mb-3 tracking-tight group-hover:text-primary transition-colors">{service.title}</h3>
-                <p className="text-sm text-white/40 leading-relaxed mb-6">{service.desc}</p>
-                <div className="flex items-center gap-2 text-[10px] font-black text-white/20 uppercase tracking-widest group-hover:text-white transition-colors">
-                  Explore Solution <ArrowRight className="w-3 h-3" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Strategies Library Section */}
-      <section className="py-28 px-6 bg-background relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.03),transparent_70%)]" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold text-emerald-400 mb-3 uppercase tracking-wider">Education & Strategies</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-5">Professional Trading Library</h2>
-            <p className="text-base text-white/40 max-w-2xl mx-auto">Master the markets with our comprehensive collection of advanced strategies and institutional trading concepts.</p>
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">Engine Highlights</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Built for Modern Algorithmic Trading</h2>
+            <p className="text-base text-slate-400">Everything you need to automate your trade strategies, manage capital risk, and integrate multiple brokers in a single dashboard.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "Short Straddle Strategy", type: "Options", desc: "A popular delta-neutral strategy involving selling both ATM call and put options of the same expiry.", slug: "short-straddle-strategy" },
-              { name: "Iron Condor Strategy", type: "Options", desc: "A range-bound strategy with limited risk and limited profit, ideal for low volatility markets.", slug: "iron-condor-strategy" },
-              { name: "Bull Call Spread", type: "Options", desc: "A bullish strategy using two call options to reduce the cost of the trade while capping maximum profit.", slug: "bull-call-spread" },
-              { name: "Renko Candle Trading", type: "Candlesticks", desc: "Price-based charting that filters out noise and focuses solely on price movement trends.", slug: "renko-candle-trading" },
-              { name: "Heikin Ashi Trading", type: "Candlesticks", desc: "A unique charting technique that averages price data to create a smoother, trend-focused view.", slug: "heikin-ashi-trading" },
-              { name: "Price Action Trading", type: "Methodology", desc: "The art of making trading decisions based on raw price movement without lagging indicators.", slug: "price-action-trading" },
-              { name: "Option Buying vs Selling", type: "Concepts", desc: "Understanding the probability of profit, theta decay, and capital requirements for both styles.", slug: "option-buying-vs-selling" },
-              { name: "Scalping Strategy", type: "Methods", desc: "High-frequency trading method focusing on profiting from small price changes throughout the day.", slug: "scalping-strategy" },
-              { name: "Swing Trading Strategy", type: "Methods", desc: "Identifying medium-term trends and holding positions for days or weeks to capture price 'swings'.", slug: "swing-trading-strategy" },
-              { name: "Hedging in Trading", type: "Risk Management", desc: "Strategic use of instruments to offset potential losses and protect your overall portfolio capital.", slug: "hedging-in-trading" },
-              { name: "Risk Management in Algo", type: "Automation", desc: "Implementing automated stops, position sizing, and exposure limits in algorithmic systems.", slug: "risk-management-in-algo" },
-              { name: "What is Algo Trading", type: "Basics", desc: "An entry-level guide to understanding automated execution, APIs, and systematic trading rules.", slug: "what-is-algo-trading" },
-              { name: "TradingView Automation", type: "Automation", desc: "How to use webhooks to bridge TradingView alerts directly to your broker for instant execution.", slug: "tradingview-automation" },
-              { name: "Intraday Trading Basics", type: "Basics", desc: "Master the fundamental rules of day trading, including margin usage, liquid stocks, and timing.", slug: "intraday-trading-basics" },
-              { name: "Futures vs Options", type: "Concepts", desc: "A deep dive into the structural differences, risks, and leverage of derivative instruments.", slug: "futures-vs-options" }
-            ].map((strategy) => (
-              <div key={strategy.name} className="group bg-surface border border-white/[0.06] rounded-2xl p-6 hover:border-primary/30 transition-all flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md">{strategy.type}</span>
-                    <Link href={`/academy/${strategy.slug}`}>
-                      <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-colors" />
-                    </Link>
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-2">{strategy.name}</h3>
-                  <p className="text-sm text-white/35 leading-relaxed mb-6">{strategy.desc}</p>
+              {
+                icon: <Code2 className="w-6 h-6 text-primary" />,
+                title: "Algo Trading Software",
+                desc: "Code customized execution strategies in Python or bridge third-party indicators directly to the live markets."
+              },
+              {
+                icon: <Zap className="w-6 h-6 text-secondary" />,
+                title: "Automated Execution",
+                desc: "Instant order placement with under 15ms execution latency, ensuring minimal slippage on high-frequency entries."
+              },
+              {
+                icon: <Shield className="w-6 h-6 text-primary" />,
+                title: "Risk Management",
+                desc: "Integrated capital preservation tools including automated trailing stop-losses, daily max drawdown limits, and circuit breakers."
+              },
+              {
+                icon: <Activity className="w-6 h-6 text-secondary" />,
+                title: "Real-Time Alerts",
+                desc: "Receive instant notifications regarding order triggers, strategy transitions, and connection updates on Telegram, Discord, or WhatsApp."
+              },
+              {
+                icon: <Globe className="w-6 h-6 text-primary" />,
+                title: "Multi-Broker Support",
+                desc: "Simultaneously execute strategies across Alice Blue, Shoonya, Angel One, Groww, and Zerodha Kite API integrations."
+              },
+              {
+                icon: <Layers className="w-6 h-6 text-secondary" />,
+                title: "Options Automation",
+                desc: "Deploy advanced multi-leg derivative structures like straddles, iron condors, and spreads with auto-hedging rules."
+              }
+            ].map((feature, idx) => (
+              <div 
+                key={idx} 
+                className="bg-surface border border-border rounded-2xl p-8 hover:border-primary/20 hover:shadow-[0_8px_30px_rgba(0,230,118,0.03)] transition-all group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-slate-900 border border-border flex items-center justify-center mb-6 group-hover:border-primary/30 transition-colors">
+                  {feature.icon}
                 </div>
-                <Link href={`/academy/${strategy.slug}`} className="text-xs font-semibold text-white/50 group-hover:text-white flex items-center gap-1.5 transition-colors">
-                  View Academy Guide <ArrowRight className="w-3 h-3" />
-                </Link>
+                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="py-28 px-6 border-t border-white/5">
+      {/* ─── 3. PERFORMANCE DASHBOARD PREVIEW ─── */}
+      <section className="py-24 px-6 border-t border-border bg-slate-900/40 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <p className="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Getting Started</p>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
-                Live in three steps. <br className="hidden md:block" />No complexity.
-              </h2>
-              <p className="text-base text-white/40 leading-relaxed mb-10">
-                You don't need a CS degree. If you can follow three steps, you can automate your trading with Foxplayer Algo Technologies.
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            {/* Left Column: Stats and Info */}
+            <div className="lg:col-span-5">
+              <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Live Performance Preview</p>
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">Track Performance with Institutional Precision</h2>
+              <p className="text-base text-slate-400 leading-relaxed mb-8">
+                Monitor your cumulative performance metrics, verify your historical strategy win rate, and log execution metrics. Simple visualization built for retail and enterprise trading managers.
               </p>
-              <Link href="/blog/how-to-start-algo-trading-for-beginners">
-                <button className="text-sm font-medium text-primary hover:text-white transition-colors flex items-center gap-2">
-                  Read the full guide <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-            <div className="space-y-6">
-              {[
-                { n: "01", title: "Connect your broker", desc: "Link your AliceBlue, Angel One, or any supported broker using your API keys. Takes 2 minutes.", border: "border-primary/20", text: "text-primary" },
-                { n: "02", title: "Choose your strategy", desc: "Pick from the Marketplace, paste a TradingView webhook, or upload your own Python bot.", border: "border-secondary/20", text: "text-secondary" },
-                { n: "03", title: "Go live", desc: "Paper trade first to validate. When ready, flip the switch to live execution. We handle the rest.", border: "border-accent/20", text: "text-accent" },
-              ].map((step) => (
-                <div key={step.n} className={`flex gap-6 p-6 rounded-xl border ${step.border} bg-white/[0.01] hover:bg-white/[0.03] transition-colors`}>
-                  <span className={`text-3xl font-black ${step.text} shrink-0 w-12`}>{step.n}</span>
-                  <div>
-                    <h3 className="text-base font-semibold text-white mb-1">{step.title}</h3>
-                    <p className="text-sm text-white/35 leading-relaxed">{step.desc}</p>
-                  </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="p-5 rounded-2xl bg-surface border border-border">
+                  <div className="text-sm font-semibold text-slate-400 mb-1">Win Rate</div>
+                  <div className="text-3xl font-extrabold text-primary">72.4%</div>
+                  <div className="text-[10px] text-slate-500 mt-1">Based on 1,240 live orders</div>
                 </div>
-              ))}
+                <div className="p-5 rounded-2xl bg-surface border border-border">
+                  <div className="text-sm font-semibold text-slate-400 mb-1">Profit Factor</div>
+                  <div className="text-3xl font-extrabold text-secondary">2.14</div>
+                  <div className="text-[10px] text-slate-500 mt-1">Gross profits vs losses</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Graphic P&L Cards & Equity Curve */}
+            <div className="lg:col-span-7 bg-surface border border-border rounded-2xl p-6 shadow-2xl relative">
+              
+              {/* Dashboard Preview Cards */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="p-4 rounded-xl bg-slate-900 border border-border">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total P&L</div>
+                  <div className="text-lg font-bold text-primary">
+                    +₹{livePnl.toLocaleString("en-IN")}
+                  </div>
+                  <div className="text-[9px] text-slate-500 font-mono">Cumulative Gain</div>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-900 border border-border">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase mb-1">Today P&L</div>
+                  <div className="text-lg font-bold text-primary">+₹18,450</div>
+                  <div className="text-[9px] text-slate-500 font-mono">Real-time Ticks</div>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-900 border border-border">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total ROI</div>
+                  <div className="text-lg font-bold text-secondary">+34.8%</div>
+                  <div className="text-[9px] text-slate-500 font-mono">Net Account ROI</div>
+                </div>
+              </div>
+
+              {/* Dotted grid preview for equity curve */}
+              <div className="relative rounded-xl border border-border bg-slate-900 p-4 overflow-hidden mb-6">
+                <div className="absolute inset-0 grid-pattern pointer-events-none opacity-30" />
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-4 font-mono">
+                  <span>Equity Growth Curve</span>
+                  <span className="text-primary">+₹34,812 (This Month)</span>
+                </div>
+                
+                {/* SVG Equity Line Chart */}
+                <svg className="w-full h-40 text-primary" viewBox="0 0 100 30" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="gradient-equity" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#00E676" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#00E676" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  {/* Grid Guidelines */}
+                  <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+                  <line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+                  {/* Equity Area fill */}
+                  <path d="M 0 30 C 10 28, 20 22, 30 24 C 40 26, 50 18, 60 14 C 70 10, 80 5, 100 2 L 100 30 Z" fill="url(#gradient-equity)" />
+                  {/* Equity Stroke path */}
+                  <path d="M 0 30 C 10 28, 20 22, 30 24 C 40 26, 50 18, 60 14 C 70 10, 80 5, 100 2" fill="none" stroke="#00E676" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+
+              {/* Simulated Live Orders list */}
+              <div className="space-y-3 font-mono text-[10px] text-slate-400">
+                <div className="flex items-center justify-between border-b border-border pb-2 text-slate-500">
+                  <span>ACTIVE STRATEGY ORDERS</span>
+                  <span>STATUS</span>
+                </div>
+                {[
+                  { time: "15:24:45", symbol: "NIFTY26JUN20500CE", qty: 100, profit: "+₹1,615", active: true },
+                  { time: "15:22:12", symbol: "BANKNIFTY47500PE", qty: 45, profit: "+₹1,561", active: true },
+                  { time: "15:20:01", symbol: "RELIANCE FUT", qty: 250, profit: "+₹3,075", active: false },
+                ].map((trade, idx) => (
+                  <div key={idx} className="flex items-center justify-between py-1 border-b border-border/40 last:border-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-600">{trade.time}</span>
+                      <span className="font-bold text-slate-200">{trade.symbol}</span>
+                      <span className="text-slate-500">x{trade.qty}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-primary font-bold">{trade.profit}</span>
+                      <span className={`px-2 py-0.5 rounded text-[8px] font-bold ${
+                        trade.active 
+                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" 
+                          : "bg-white/5 text-slate-400 border border-border"
+                      }`}>
+                        {trade.active ? "ACTIVE" : "CLOSED"}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-28 px-6 border-t border-white/5 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.05),transparent_50%)]" />
+      {/* ─── 4. WHY CHOOSE FOXPLAYER ─── */}
+      <section className="py-24 px-6 relative overflow-hidden bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Institutional Pillars</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Engineered for Trading Excellence</h2>
+            <p className="text-base text-slate-400">Why experienced retail developers and institutional fund managers partner with FoxPlayer for trade automation.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Extreme Execution Speed",
+                desc: "We route orders using dedicated bare-metal broker gateways, bringing down average execution latencies to under 15 milliseconds. Say goodbye to manual delay and market slippage.",
+                stat: "< 15ms"
+              },
+              {
+                title: "Advanced Option Analytics",
+                desc: "Deploy sophisticated multi-leg derivative models. Automatically calculate real-time Option Greeks (Delta, Theta, Gamma, Vega) and adjust position sizing dynamically.",
+                stat: "Greeks Auto"
+              },
+              {
+                title: "Enterprise Security Protocols",
+                desc: "Rest easy with banking-grade SHA-256 local encryption. Your broker API credentials and strategy proprietary code logic are locked away and never shared.",
+                stat: "AES-256"
+              },
+              {
+                title: "Dedicated Technical Support",
+                desc: "Receive professional customer support from real systematic developers. We troubleshoot API connection setups, custom SDK logic, and webhook parameters.",
+                stat: "24/7 Devs"
+              }
+            ].map((item, idx) => (
+              <div 
+                key={idx} 
+                className="bg-surface border border-border rounded-2xl p-8 hover:border-secondary/20 transition-all flex justify-between items-start gap-8"
+              >
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+                </div>
+                <span className="text-xl font-mono font-bold text-secondary bg-secondary/10 border border-secondary/20 px-3 py-1.5 rounded-lg shrink-0">
+                  {item.stat}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 5. TESTIMONIALS SECTION ─── */}
+      <section className="py-24 px-6 border-t border-border bg-slate-900/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">User Feedback</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Trusted by Professional Traders</h2>
+            <p className="text-base text-slate-400">See how systematic traders in India utilize FoxPlayer to scale strategies and preserve discipline.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "FoxPlayer's TradingView webhook bridge completely resolved my execution lag issues. My options strategy straddles fill instantly with minimal slippage. Highly recommended.",
+                author: "Anirudh Sharma",
+                role: "Proprietary Fund Trader, Bangalore"
+              },
+              {
+                quote: "I automated my custom Python strategy using FoxPlayer's SDK bridge. Order execution takes under 12 milliseconds. The security and encryption protocols give me peace of mind.",
+                author: "Karthik Raja",
+                role: "Independent Options Strategist, Chennai"
+              },
+              {
+                quote: "As a retail sub-broker, I white-labeled FoxPlayer's platform for 50+ clients. System uptime is consistent, and the developer support team resolved all broker token issues rapidly.",
+                author: "Mohit Mehta",
+                role: "Financial Technology Partner, Coimbatore"
+              }
+            ].map((t, idx) => (
+              <div 
+                key={idx} 
+                className="bg-surface border border-border rounded-2xl p-8 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-1 text-amber-400 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-slate-300 italic leading-relaxed mb-8">"{t.quote}"</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-slate-800 border border-border flex items-center justify-center text-xs font-bold text-slate-400">
+                    {t.author.split(" ").map(n => n[0]).join("")}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">{t.author}</div>
+                    <div className="text-[11px] text-slate-500 font-semibold">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. PRICING PLANS ─── */}
+      <section className="py-24 px-6 border-t border-border bg-background relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] -z-10" />
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <p className="text-xs font-semibold text-secondary mb-3 uppercase tracking-wider">Pricing</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Simple, transparent pricing.</h2>
-            <p className="text-base text-white/35">No hidden fees. No surprises. Cancel anytime.</p>
+            <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Transparent Plans</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Simple, predictable pricing</h2>
+            <p className="text-base text-slate-400">Cancel or upgrade anytime. No hidden brokerage surcharges.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { name: "Starter", price: "Free", desc: "For learning and paper trading.", features: ["1 Strategy", "Paper Trading", "Community Forum", "Basic Logs"], cta: "Start Free", highlight: false },
-              { name: "Pro", price: "₹999/mo", desc: "For serious retail traders.", features: ["Unlimited Strategies", "Live Execution", "All 20+ Brokers", "Python SDK", "Priority Support"], cta: "Go Pro", highlight: true },
-              { name: "Enterprise", price: "Custom", desc: "For sub-brokers and businesses.", features: ["White-Label Platform", "Dedicated Servers", "Custom API Development", "SLA Guarantee", "24/7 Phone Support"], cta: "Contact Sales", highlight: false },
-            ].map((plan) => (
-              <div key={plan.name} className={`rounded-2xl p-7 flex flex-col ${plan.highlight ? "bg-white/[0.04] border-2 border-primary/30 ring-1 ring-primary/10" : "bg-white/[0.02] border border-white/[0.06]"}`}>
-                {plan.highlight && <span className="text-[10px] font-bold uppercase tracking-widest text-primary mb-4">Most Popular</span>}
-                <h3 className="text-lg font-bold text-white">{plan.name}</h3>
-                <p className="text-xs text-white/30 mb-5">{plan.desc}</p>
-                <div className="text-3xl font-extrabold text-white mb-6">{plan.price}</div>
-                <ul className="space-y-3 flex-1 mb-8">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm text-white/45">
-                      <Check className={`w-4 h-4 mt-0.5 shrink-0 ${plan.highlight ? "text-primary" : "text-white/20"}`} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/pricing" className="block">
-                  <button className={`w-full py-3 rounded-lg text-sm font-semibold transition-all active:scale-[0.98] ${plan.highlight ? "bg-primary text-background hover:bg-primary/90" : "bg-white/5 text-white/60 border border-white/10 hover:bg-white/10"}`}>
+              { 
+                name: "Retail Basic", 
+                price: "Free", 
+                desc: "Perfect for testing and system configurations.", 
+                features: [
+                  "1 Active Strategy", 
+                  "Paper Trading Simulator", 
+                  "All supported Indian brokers", 
+                  "Basic Discord alerts"
+                ], 
+                cta: "Get Started", 
+                highlight: false 
+              },
+              { 
+                name: "Professional", 
+                price: "₹1,999/mo", 
+                desc: "Our most popular tier for active retail traders.", 
+                features: [
+                  "5 Active Strategies", 
+                  "Live Broker Execution", 
+                  "Unlimited TradingView Webhooks", 
+                  "Option Greeks Auto-hedges", 
+                  "Priority WhatsApp Support"
+                ], 
+                cta: "Start Free Trial", 
+                highlight: true 
+              },
+              { 
+                name: "Enterprise Custom", 
+                price: "Custom", 
+                desc: "Built for sub-brokers and PMS firms.", 
+                features: [
+                  "Unlimited active strategies", 
+                  "White-label brand layouts", 
+                  "Dedicated bare-metal servers", 
+                  "Multi-client copy trading bridge", 
+                  "24/7 dedicated support desk"
+                ], 
+                cta: "Contact Sales", 
+                highlight: false 
+              },
+            ].map((plan, idx) => (
+              <div 
+                key={idx} 
+                className={`rounded-2xl p-8 flex flex-col justify-between transition-all ${
+                  plan.highlight 
+                    ? "bg-surface border-2 border-primary/40 shadow-2xl relative" 
+                    : "bg-surface border border-border"
+                }`}
+              >
+                {plan.highlight && (
+                  <span className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-black text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                    Recommended
+                  </span>
+                )}
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">{plan.name}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-6">{plan.desc}</p>
+                  <div className="text-3xl font-extrabold text-white mb-8">{plan.price}</div>
+                  
+                  <div className="w-full h-px bg-border mb-8" />
+                  
+                  <ul className="space-y-4 mb-8">
+                    {plan.features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-3 text-xs text-slate-300 leading-relaxed">
+                        <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <a href="https://app.foxplayer.co.in/login" className="block w-full">
+                  <button className={`w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                    plan.highlight 
+                      ? "bg-primary text-black hover:bg-primary/90 hover:shadow-[0_4px_15px_rgba(0,230,118,0.25)]" 
+                      : "bg-slate-900 text-slate-300 border border-border hover:bg-slate-800"
+                  }`}>
                     {plan.cta}
                   </button>
-                </Link>
+                </a>
               </div>
             ))}
           </div>
 
-          {/* White Label CTA */}
-          <div className="mt-16 p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-background to-secondary/10 border border-white/5 text-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-white mb-3">Need White Label or Custom Trading Software?</h3>
-              <p className="text-white/40 mb-8 max-w-2xl mx-auto">We specialize in building institutional-grade custom trading solutions, multi-broker bridges, and automated strategy execution engines tailored to your specific requirements.</p>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-                <a href="tel:9983168522" className="text-2xl font-black text-primary hover:scale-105 transition-transform flex items-center gap-3">
-                  <span className="text-white/20 text-sm font-medium">Call:</span> +91 9983168522
+          {/* Institutional White Label CTA Block */}
+          <div className="mt-16 p-8 md:p-12 rounded-2xl bg-surface border border-border relative overflow-hidden group">
+            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Need a custom White-Label or copy trading bridge?</h3>
+                <p className="text-sm text-slate-400 max-w-xl leading-relaxed">We develop custom strategy APIs, multi-broker bridges, and high-frequency algorithms for SEBI-registered entities.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 w-full lg:w-auto">
+                <a href="tel:9983168522" className="w-full sm:w-auto text-center px-6 py-3 bg-secondary text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-secondary/90 transition-all">
+                  Call Expert
                 </a>
-                <a href="mailto:raffiq_sr@yahoo.co.in" className="text-2xl font-black text-primary hover:scale-105 transition-transform flex items-center gap-3">
-                  <span className="text-white/20 text-sm font-medium">Email:</span> raffiq_sr@yahoo.co.in
+                <a href="mailto:raffiq_sr@yahoo.co.in" className="w-full sm:w-auto text-center px-6 py-3 bg-slate-900 text-slate-200 border border-border text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-800 transition-all">
+                  Email Us
                 </a>
               </div>
-              <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white/20">Available for consultation 10 AM - 6 PM IST</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SUPPORT SECTION ─── */}
-      <section className="py-24 px-6 border-t border-white/5 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12 bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Need help?</h2>
-              <p className="text-lg text-white/40 max-w-md">Contact FoxPlayer support anytime. We usually respond within 2 hours during market sessions.</p>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <a href="https://wa.me/919983168522" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-4 bg-[#25D366] text-white font-bold rounded-xl hover:scale-105 transition-transform">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-                WhatsApp Support
-              </a>
-              <a href="mailto:raffiq_sr@yahoo.co.in" className="flex items-center gap-3 px-6 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                raffiq_sr@yahoo.co.in
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="py-28 px-6 border-t border-white/5">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
-            Ready to automate?
-          </h2>
-          <p className="text-base text-white/40 mb-10 leading-relaxed">
-            Join thousands of Indian traders who have moved from manual screens to automated execution with Foxplayer Algo Technologies.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/pricing">
-              <button className="group bg-white text-background text-sm font-semibold px-8 py-3.5 rounded-lg hover:bg-white/90 transition-all active:scale-[0.98] flex items-center gap-2 justify-center">
-                Start Your Free Trial <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </Link>
-            <Link href="/blog">
-              <button className="text-sm font-medium text-white/50 hover:text-white px-8 py-3.5 rounded-lg border border-white/10 hover:border-white/20 transition-all">
-                Explore Academy
-              </button>
-            </Link>
           </div>
         </div>
       </section>
