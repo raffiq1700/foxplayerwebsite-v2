@@ -13,30 +13,32 @@ const config: Config = {
         inter: ["var(--font-inter)", "sans-serif"],
       },
       colors: {
-        background: "#05070A", // Sophisticated Midnight Slate
+        background: "#F8FAFC", // Clean light slate gray background
         surface: {
-          DEFAULT: "#0D111A",
-          hover: "#161C2C",
-          elevated: "#1D253B",
+          DEFAULT: "#FFFFFF", // Pure white card surfaces
+          hover: "#F1F5F9",   // Slate 100 for hover state
+          elevated: "#E2E8F0",// Slate 200 for elevated borders
         },
         primary: {
-          DEFAULT: "#22D3EE", // Electric Cyan
-          glow: "rgba(34, 211, 238, 0.5)",
+          DEFAULT: "#2563EB", // Professional Trading Blue
+          glow: "rgba(37, 99, 235, 0.15)",
         },
         secondary: {
-          DEFAULT: "#8B5CF6", // Royal Purple
-          glow: "rgba(139, 92, 246, 0.5)",
+          DEFAULT: "#0F172A", // Deep Charcoal / Slate 900
+          glow: "rgba(15, 23, 42, 0.08)",
         },
         accent: {
-          DEFAULT: "#10B981", // Emerald Green
-          glow: "rgba(16, 185, 129, 0.5)",
+          DEFAULT: "#10B981", // Emerald green for up-trend/buy actions
+          glow: "rgba(16, 185, 129, 0.12)",
         },
-        border: "rgba(255, 255, 255, 0.1)",
+        border: "rgba(15, 23, 42, 0.08)", // Clean gray border
+        white: "#0F172A", // Re-map white utility to deep slate for text contrast
+        black: "#FFFFFF", // Re-map black to white for dark backgrounds
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "mesh-gradient": "radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%)",
+        "mesh-gradient": "radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.05) 0px, transparent 50%)",
       },
       animation: {
         "float": "float 6s ease-in-out infinite",
@@ -49,8 +51,8 @@ const config: Config = {
           "50%": { transform: "translateY(-20px)" },
         },
         glow: {
-          "0%": { boxShadow: "0 0 5px rgba(34, 211, 238, 0.2), 0 0 10px rgba(34, 211, 238, 0.1)" },
-          "100%": { boxShadow: "0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(34, 211, 238, 0.2)" },
+          "0%": { boxShadow: "0 0 5px rgba(37, 99, 235, 0.1), 0 0 10px rgba(37, 99, 235, 0.05)" },
+          "100%": { boxShadow: "0 0 20px rgba(37, 99, 235, 0.2), 0 0 40px rgba(37, 99, 235, 0.1)" },
         }
       },
     },

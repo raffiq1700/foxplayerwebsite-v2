@@ -96,7 +96,7 @@ export default function RootLayout({
           })}
         </Script>
         {/* Affiliate Banner — static, not sticky */}
-        <div className="relative z-[60] bg-[#0C0C0C] border-b border-white/5 text-center py-2 px-4">
+        <div className="relative z-[60] bg-surface-elevated border-b border-white/5 text-center py-2 px-4">
           <span className="text-[11px] text-white/80">Start your automated trading journey today!</span>
           <a 
             href="https://ekyc.aliceblueonline.com/?source=CBT61" 

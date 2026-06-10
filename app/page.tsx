@@ -75,7 +75,7 @@ export default function Home() {
 
             {/* Right: Live Stats Panel */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="lg:col-span-5">
-              <div className="bg-[#0A0A0A] border border-white/[0.06] rounded-2xl overflow-hidden">
+              <div className="bg-surface border border-white/[0.06] rounded-2xl overflow-hidden">
                 <div className="px-5 py-3 border-b border-white/5 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Activity className="w-3.5 h-3.5 text-emerald-400" />
@@ -113,7 +113,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="glass-card p-8 md:p-12 border-white/5 bg-[#050505]/80"
+            className="glass-card p-8 md:p-12 border-white/5 bg-surface/80"
           >
             <div className="text-center mb-16">
               <p className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4">Established Excellence</p>
@@ -152,7 +152,7 @@ export default function Home() {
       </section>
 
       {/* Broker Integration Section */}
-      <section className="bg-[#080B14] border-y border-white/[0.03] py-10 relative overflow-hidden">
+      <section className="bg-surface-hover border-y border-white/[0.03] py-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 opacity-40" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -198,22 +198,22 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-white mb-3">TradingView Webhook Automation</h3>
               <p className="text-sm text-white/40 leading-relaxed max-w-md">Turn any Pine Script alert into a live trade using <span className="text-white/60 font-bold">TradingView webhook automation</span>. Our <span className="text-white/60 font-bold">automated trading software</span> bridges your strategy to the market in 60 seconds.</p>
             </div>
-            <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-secondary/20 transition-colors">
+            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-secondary/20 transition-colors">
               <Code2 className="w-8 h-8 text-secondary mb-6" />
               <h3 className="text-lg font-bold text-white mb-2">Python Algo Trading</h3>
               <p className="text-sm text-white/35 leading-relaxed">Build complex bots with our <span className="text-white/50 font-bold">Python algo trading development</span> tools. Access tick data, option Greeks, and multi-leg execution.</p>
             </div>
-            <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-accent/20 transition-colors">
+            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-accent/20 transition-colors">
               <Users className="w-8 h-8 text-accent mb-6" />
               <h3 className="text-lg font-bold text-white mb-2">Portfolio Management</h3>
               <p className="text-sm text-white/35 leading-relaxed">Our <span className="text-white/50 font-bold">PMS software development</span> solutions allow you to manage multiple client accounts with institutional precision.</p>
             </div>
-            <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-amber-500/20 transition-colors">
+            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-amber-500/20 transition-colors">
               <Shield className="w-8 h-8 text-amber-400 mb-6" />
               <h3 className="text-lg font-bold text-white mb-2">Risk Management</h3>
               <p className="text-sm text-white/35 leading-relaxed">Comprehensive <span className="text-white/50 font-bold">risk management in algorithmic trading</span>. Capital protection is our top priority.</p>
             </div>
-            <div className="md:col-span-2 bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-8 group hover:border-pink-500/20 transition-colors">
+            <div className="md:col-span-2 bg-surface border border-white/[0.06] rounded-2xl p-8 group hover:border-pink-500/20 transition-colors">
               <Layers className="w-8 h-8 text-pink-400 mb-6" />
               <h3 className="text-lg font-bold text-white mb-2">Institutional Software</h3>
               <p className="text-sm text-white/35 leading-relaxed">Scale with <span className="text-white/50 font-bold">institutional trading software</span> designed for high-frequency execution and reliability.</p>
@@ -224,7 +224,7 @@ export default function Home() {
       </section>
 
       {/* Enterprise Solutions Section */}
-      <section className="py-24 px-6 bg-[#050505] border-y border-white/5 relative overflow-hidden">
+      <section className="py-24 px-6 bg-background border-y border-white/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -z-10" />
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
@@ -259,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* Strategies Library Section */}
-      <section className="py-28 px-6 bg-[#06080F] relative">
+      <section className="py-28 px-6 bg-background relative">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.03),transparent_70%)]" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -286,7 +286,7 @@ export default function Home() {
               { name: "Intraday Trading Basics", type: "Basics", desc: "Master the fundamental rules of day trading, including margin usage, liquid stocks, and timing.", slug: "intraday-trading-basics" },
               { name: "Futures vs Options", type: "Concepts", desc: "A deep dive into the structural differences, risks, and leverage of derivative instruments.", slug: "futures-vs-options" }
             ].map((strategy) => (
-              <div key={strategy.name} className="group bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-6 hover:border-primary/30 transition-all flex flex-col justify-between">
+              <div key={strategy.name} className="group bg-surface border border-white/[0.06] rounded-2xl p-6 hover:border-primary/30 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md">{strategy.type}</span>
@@ -344,7 +344,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-28 px-6 border-t border-white/5 bg-[#070A14] relative overflow-hidden">
+      <section className="py-28 px-6 border-t border-white/5 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.05),transparent_50%)]" />
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -402,7 +402,7 @@ export default function Home() {
       </section>
 
       {/* ─── SUPPORT SECTION ─── */}
-      <section className="py-24 px-6 border-t border-white/5 bg-[#05070A]">
+      <section className="py-24 px-6 border-t border-white/5 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12 bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-12">
             <div>

@@ -103,7 +103,7 @@ export default function AcademyIndex() {
             {/* Search Bar */}
             <div className="relative w-full md:w-96 group">
               <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative flex items-center bg-[#0A0A0A] border border-white/10 rounded-2xl px-5 py-4 focus-within:border-primary/50 transition-all">
+              <div className="relative flex items-center bg-surface border border-white/10 rounded-2xl px-5 py-4 focus-within:border-primary/50 transition-all">
                 <Search className="w-5 h-5 text-white/20 mr-4" />
                 <input 
                   type="text" 
@@ -193,7 +193,7 @@ export default function AcademyIndex() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="group relative bg-[#0A0A0A] border border-white/5 rounded-3xl overflow-hidden hover:border-primary/30 transition-all flex flex-col"
+                  className="group relative bg-surface border border-white/5 rounded-3xl overflow-hidden hover:border-primary/30 transition-all flex flex-col"
                 >
                   <div className="p-8 flex-1">
                     <div className="flex items-center justify-between mb-6">

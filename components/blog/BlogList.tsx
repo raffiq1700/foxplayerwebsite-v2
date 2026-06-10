@@ -100,7 +100,7 @@ export function BlogList({ posts, featuredPost }: BlogListProps) {
           <Link href={`/blog/${featuredPost.slug}`}>
             <GlowCard className="group overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center p-4">
-                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#050505]">
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 flex items-center justify-center bg-background">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
                   <Sparkles className="w-24 h-24 text-primary opacity-20 animate-pulse" />
                 </div>

@@ -16,13 +16,16 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="sticky top-0 z-50 bg-background/90 backdrop-blur-2xl border-b border-white/5"
     >
-      <div className="max-w-7xl mx-auto px-6 h-32 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-20 md:h-32 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-4 group shrink-0">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/40 transition-colors">
+        <Link href="/" className="flex items-center gap-2 md:gap-4 group shrink-0">
+          <div className="relative w-12 h-12 md:w-20 md:h-20 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/40 transition-colors">
             <Image src="/logo.png" alt="Foxplayer Algo Technologies" fill className="object-cover" />
           </div>
-          <span className="text-[20px] font-bold text-white leading-tight tracking-tight">Foxplayer Algo Technologies</span>
+          <div className="flex flex-col">
+            <span className="text-base md:text-[20px] font-bold text-white leading-tight tracking-tight">Foxplayer</span>
+            <span className="text-[10px] md:text-sm font-medium text-white/40 leading-none">Algo Technologies</span>
+          </div>
         </Link>
 
         {/* Desktop Nav */}
@@ -40,16 +43,21 @@ export default function Navbar() {
               Dashboard
             </a>
 
-            <Link href="/contact" className="text-[13px] font-bold bg-primary text-background px-5 py-2.5 rounded-xl hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all active:scale-95">
+            <Link href="/contact" className="text-[13px] font-bold bg-primary text-black px-5 py-2.5 rounded-xl hover:shadow-[0_4px_12px_rgba(37,99,235,0.2)] transition-all active:scale-95">
               Free Consultation
             </Link>
           </div>
         </div>
 
-        {/* Mobile Toggle */}
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-white/60">
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile Toggle & Direct Login */}
+        <div className="flex items-center gap-3 md:hidden">
+          <a href="https://app.foxplayer.co.in/login" className="text-xs font-bold bg-primary text-black px-4 py-2 rounded-lg hover:shadow-[0_2px_8px_rgba(37,99,235,0.2)] transition-all active:scale-95">
+            Dashboard
+          </a>
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/60 p-2">
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
