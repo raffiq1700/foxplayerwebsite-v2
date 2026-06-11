@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   try {
     const { username, newPassword } = await request.json();
 
-    const updateData: any = {};
+    const updateData: { username?: string; password?: string } = {};
     if (username) updateData.username = username;
     if (newPassword) {
       updateData.password = await bcrypt.hash(newPassword, 10);
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ message: "Error updating settings" }, { status: 500 });
   }
 }

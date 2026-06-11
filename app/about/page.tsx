@@ -4,6 +4,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Us | Foxplayer Algo Technologies",
   description: "Learn about the value, benefits, and reasons to choose Foxplayer Algo Technologies for your trading software development.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {
@@ -60,7 +63,7 @@ export default function AboutPage() {
           
           <div className="p-8 bg-white/5 rounded-2xl border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:border-cyan-500/30 transition-colors">
             <h3 className="text-xl font-bold mb-3 text-white">Assured Maintenance & Support</h3>
-            <p className="text-white/60 font-light leading-relaxed">Software development doesn't end at delivery. Our team is committed to providing continuous maintenance and server support to ensure your algorithms run smoothly and adapt to evolving market needs.</p>
+            <p className="text-white/60 font-light leading-relaxed">Software development doesn&apos;t end at delivery. Our team is committed to providing continuous maintenance and server support to ensure your algorithms run smoothly and adapt to evolving market needs.</p>
           </div>
           
           <div className="p-8 bg-white/5 rounded-2xl border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:border-cyan-500/30 transition-colors">

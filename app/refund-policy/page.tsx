@@ -4,6 +4,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Refund Policy | Foxplayer Algo Technologies",
   description: "Our strict no-refund policy for all Foxplayer Algo Technologies products and services.",
+  alternates: {
+    canonical: "/refund-policy",
+  },
 };
 
 export default function RefundPolicyPage() {

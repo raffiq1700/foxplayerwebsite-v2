@@ -73,9 +73,10 @@ export function Hero() {
         >
           <div className="relative rounded-2xl border border-white/10 glass shadow-2xl overflow-hidden aspect-[4/3]">
              <Image 
-               src="/hero_chart.png" 
+               src="/hero_chart.webp" 
                alt="Indian Trading Chart Dashboard" 
                fill 
+               sizes="(max-width: 768px) 100vw, 50vw"
                className="object-cover opacity-90"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />

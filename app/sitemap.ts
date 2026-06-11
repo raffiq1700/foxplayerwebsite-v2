@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.foxplayer.co.in';
 
   // Fetch dynamic slugs from Firestore
-  let articles: any[] = [];
+  let articles: { slug: string; updatedAt: Date }[] = [];
   try {
     const academyQuery = query(collection(db, "academy"), where("status", "==", "published"));
     const querySnapshot = await getDocs(academyQuery);
@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Sitemap academy error:", e);
   }
 
-  let posts: any[] = [];
+  let posts: { slug: string; updatedAt: Date }[] = [];
   try {
     const postsQuery = query(collection(db, "posts"), where("published", "==", true));
     const querySnapshot = await getDocs(postsQuery);

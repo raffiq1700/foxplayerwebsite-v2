@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
+import { collection, addDoc } from "firebase/firestore/lite";
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({

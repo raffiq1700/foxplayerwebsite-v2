@@ -2,13 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Edit, Save, Loader2, Info, Search } from "lucide-react";
+import { Edit, Save, Loader2, Info } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  description?: string;
+}
+
 export default function AcademyCategoriesTab() {
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<any>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
 
@@ -47,7 +56,7 @@ export default function AcademyCategoriesTab() {
       } else {
         setMessage({ text: "Failed to update category", type: "error" });
       }
-    } catch (error) {
+    } catch {
       setMessage({ text: "An error occurred", type: "error" });
     } finally {
       setSaving(false);
@@ -160,7 +169,7 @@ export default function AcademyCategoriesTab() {
                    <Info className="w-5 h-5 text-primary shrink-0 mt-1" />
                    <div className="text-[11px] text-white/40 leading-relaxed">
                      <p className="font-bold text-white/60 mb-1 uppercase tracking-widest">SEO Tips:</p>
-                     Ensure the introduction is at least 500 words to improve search engine rankings. Use clear H2 and H3 headings to structure your content. Include relevant keywords like "Algorithmic Trading", "Indian Stock Market", and "Options Strategies" naturally within the text.
+                     Ensure the introduction is at least 500 words to improve search engine rankings. Use clear H2 and H3 headings to structure your content. Include relevant keywords like &quot;Algorithmic Trading&quot;, &quot;Indian Stock Market&quot;, and &quot;Options Strategies&quot; naturally within the text.
                    </div>
                 </div>
               </div>

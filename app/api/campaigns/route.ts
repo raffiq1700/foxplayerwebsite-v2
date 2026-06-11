@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, where, addDoc, serverTimestamp, doc, updateDoc, getDoc } from "firebase/firestore/lite";
+import { collection, getDocs, query, orderBy, addDoc, doc, updateDoc, getDoc } from "firebase/firestore/lite";
 import { getSession } from "@/lib/auth";
 import nodemailer from "nodemailer";
 
@@ -30,8 +30,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
+    interface Enquiry {
+      id: string;
+      name?: string;
+      email?: string;
+      subject?: string;
+      createdAt?: unknown;
+    }
+
     // Fetch enquiries from Firestore
-    const enquiries: any[] = [];
+    const enquiries: Enquiry[] = [];
     for (const id of enquiryIds) {
       try {
         const docSnap = await getDoc(doc(db, "enquiries", id));
@@ -60,11 +68,14 @@ export async function POST(request: Request) {
     let failedCount = 0;
 
     for (const enquiry of enquiries) {
-      let personalizedHtml = messageTemplate
+      const personalizedHtml = messageTemplate
         .replace(/{name}/g, enquiry.name || "")
         .replace(/{email}/g, enquiry.email || "")
         .replace(/{service}/g, enquiry.subject || "")
-        .replace(/{submitted_date}/g, enquiry.createdAt && typeof enquiry.createdAt.toDate === 'function' ? enquiry.createdAt.toDate().toLocaleDateString() : new Date().toLocaleDateString());
+        .replace(/{submitted_date}/g, (() => {
+          const cat = enquiry.createdAt as { toDate?: () => Date } | undefined;
+          return cat && typeof cat.toDate === "function" ? cat.toDate().toLocaleDateString() : new Date().toLocaleDateString();
+        })());
 
       let deliveryStatus = "failed";
       let errorMessage = null;
@@ -78,9 +89,9 @@ export async function POST(request: Request) {
         });
         deliveryStatus = "success";
         sentCount++;
-      } catch (err: any) {
+      } catch (err) {
         console.error(`Failed to send email to ${enquiry.email}:`, err);
-        errorMessage = err.message || "Unknown error";
+        errorMessage = err instanceof Error ? err.message : "Unknown error";
         failedCount++;
       }
 
@@ -122,7 +133,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 

@@ -58,9 +58,10 @@ export function Features() {
             className="lg:w-1/2 relative rounded-2xl border border-white/10 glass shadow-2xl overflow-hidden aspect-video"
           >
              <Image 
-               src="/algo_code.png" 
+               src="/algo_code.webp" 
                alt="Python Algo Trading Code" 
                fill 
+               sizes="(max-width: 768px) 100vw, 50vw"
                className="object-cover opacity-80"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />

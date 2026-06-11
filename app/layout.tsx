@@ -13,9 +13,6 @@ export const metadata: Metadata = {
   description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade with AliceBlue, Shoonya, Angel One, and Upstox.",
   keywords: ["algo trading platform India", "copy trading software India", "TradingView webhook India", "automated trading platform India", "strategy marketplace India", "Shoonya API trading", "Zerodha Kite Connect automation"],
   metadataBase: new URL("https://www.foxplayer.co.in"),
-  alternates: {
-    canonical: "/",
-  },
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
@@ -100,6 +97,19 @@ export default function RootLayout({
             }
           })}
         </Script>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}');
+          `}
+        </Script>
         {/* Affiliate Banner — static, not sticky */}
         <div className="relative z-[60] bg-surface-elevated border-b border-white/5 text-center py-2 px-4">
           <span className="text-[11px] text-white/80">Start your automated trading journey today!</span>
@@ -132,7 +142,6 @@ export default function RootLayout({
             s1.async=true;
             s1.src='https://embed.tawk.to/63f7a97e31ebfa0fe7eef538/1gpvms6mt';
             s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
             s0.parentNode.insertBefore(s1,s0);
             })();
             `

@@ -5,6 +5,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Strategy Marketplace | Foxplayer Algo Technologies",
   description: "Subscribe to top-performing verified trading strategies and copy their trades automatically.",
+  alternates: {
+    canonical: "/marketplace",
+  },
 };
 
 export default function MarketplacePage() {

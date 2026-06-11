@@ -4,6 +4,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Foxplayer Algo Technologies",
   description: "Comprehensive terms of service, user agreements, and disclaimers for Foxplayer Algo Technologies.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {
@@ -20,14 +23,14 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Terms and Conditions</h2>
             <p>
-              By visiting our site "foxplayer.in" ("Website") you ("you" refers to the user or viewer of the Website) are agreeing to be bound by the following terms and conditions and the Privacy Policy on the Website. We may change these terms and conditions at any time. By using this Website or any utility in this web site directly or indirectly you abide by all terms and conditions mentioned herein and that you accept any new or modified terms and conditions that we come up with. If you do not agree to any of the terms mentioned herein, you should exit the site immediately.
+              By visiting our site &quot;foxplayer.in&quot; (&quot;Website&quot;) you (&quot;you&quot; refers to the user or viewer of the Website) are agreeing to be bound by the following terms and conditions and the Privacy Policy on the Website. We may change these terms and conditions at any time. By using this Website or any utility in this web site directly or indirectly you abide by all terms and conditions mentioned herein and that you accept any new or modified terms and conditions that we come up with. If you do not agree to any of the terms mentioned herein, you should exit the site immediately.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Registration and Termination</h2>
             <p>
-              By registering for this facility you understand that Foxplayer Algo Technologies and its directors, employees and associates (hereinafter singly and jointly referred to as "Foxplayer Algo Technologies") reserves the right, in its sole discretion, to deny you access to this Website or any portion thereof without notice for the following reasons (a) any unauthorized access or use by you (b) if you assign or transfer (or attempt the same) any rights granted to you under this User Agreement or any other agreement that you may have entered with Foxplayer Algo Technologies; (c) if you violate any of the other terms and conditions of this User Agreement. Termination or cancellation of this Agreement shall not affect any right or relief to which Foxplayer Algo Technologies may be entitled, at law or in equity. Upon termination of this User Agreement, all rights granted to you will terminate and revert to Foxplayer Algo Technologies.
+              By registering for this facility you understand that Foxplayer Algo Technologies and its directors, employees and associates (hereinafter singly and jointly referred to as &quot;Foxplayer Algo Technologies&quot;) reserves the right, in its sole discretion, to deny you access to this Website or any portion thereof without notice for the following reasons (a) any unauthorized access or use by you (b) if you assign or transfer (or attempt the same) any rights granted to you under this User Agreement or any other agreement that you may have entered with Foxplayer Algo Technologies; (c) if you violate any of the other terms and conditions of this User Agreement. Termination or cancellation of this Agreement shall not affect any right or relief to which Foxplayer Algo Technologies may be entitled, at law or in equity. Upon termination of this User Agreement, all rights granted to you will terminate and revert to Foxplayer Algo Technologies.
             </p>
           </section>
 
@@ -42,7 +45,7 @@ export default function TermsPage() {
               <li>Print pages from this website for your own personal non-commercial use.</li>
             </ul>
             <p className="mt-4">
-              Foxplayer Algo Technologies does not grant you any other rights in relation to this website or the material on this website. In other words, all other rights are reserved. For the avoidance of doubt, you must not adapt, edit, change, transform, republish, redistribute, broadcast, or show or play in public this website or the material on this website (in any form or media) without Foxplayer Algo Technologies's prior written permission.
+              Foxplayer Algo Technologies does not grant you any other rights in relation to this website or the material on this website. In other words, all other rights are reserved. For the avoidance of doubt, you must not adapt, edit, change, transform, republish, redistribute, broadcast, or show or play in public this website or the material on this website (in any form or media) without Foxplayer Algo Technologies&apos;s prior written permission.
             </p>
             <h3 className="text-lg font-bold text-white mt-6 mb-2">Data Mining</h3>
             <p>The automated and/or systematic collection of data from this website is prohibited.</p>
@@ -59,7 +62,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Security</h2>
             <p>
-              Unauthorized use of this Website and systems, including, but not limited to, unauthorized entry into Foxplayer Algo Technologies's systems, online accounts, misuse of passwords or misuse of any other information, is strictly prohibited. You may not use this Website in any manner that could damage, disable, overburden, or impair this Website or service or interfere with any other party's use and enjoyment of this Website or service. You may not attempt to gain unauthorized access to any of our site or service and computer systems or networks connected to it, through hacking. You agree that you will not engage in any activities related to this web site that are contrary to the applicable laws or regulations in force. 
+              Unauthorized use of this Website and systems, including, but not limited to, unauthorized entry into Foxplayer Algo Technologies&apos;s systems, online accounts, misuse of passwords or misuse of any other information, is strictly prohibited. You may not use this Website in any manner that could damage, disable, overburden, or impair this Website or service or interfere with any other party&apos;s use and enjoyment of this Website or service. You may not attempt to gain unauthorized access to any of our site or service and computer systems or networks connected to it, through hacking. You agree that you will not engage in any activities related to this web site that are contrary to the applicable laws or regulations in force. 
             </p>
             <p className="mt-4">
               The users have the primary responsibility to keep their login-ids and passwords secure and to not display such crucial, important information to any third person. In case of any such leak of login-id & password, Foxplayer Algo Technologies cannot be responsible for the loss of such information, or for any act, omission, damages, claims, loss of personal information, etc arising from the use of such leakage of login-ids and passwords.
@@ -104,7 +107,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Liability</h2>
             <p>
-              You agree that Foxplayer Algo Technologies (Including its and their officers, directors, employees, affiliates, group companies agents, representatives or subcontractors) shall not be, in any event, be liable, whether in contract or tort, for any direct, special, indirect, consequential or incidental damages or other damages of any kind whatsoever arising out of the use or inability to use www.foxplayer.in for any purpose whatsoever. This limitation on liability includes the transmission of any viruses which may infect a user's equipment, failure of mechanical or electronic equipment or communication lines, telephone or other interconnect problems, unauthorized access, theft, operator errors, strikes or other labor problems or any force majeure.
+              You agree that Foxplayer Algo Technologies (Including its and their officers, directors, employees, affiliates, group companies agents, representatives or subcontractors) shall not be, in any event, be liable, whether in contract or tort, for any direct, special, indirect, consequential or incidental damages or other damages of any kind whatsoever arising out of the use or inability to use www.foxplayer.in for any purpose whatsoever. This limitation on liability includes the transmission of any viruses which may infect a user&apos;s equipment, failure of mechanical or electronic equipment or communication lines, telephone or other interconnect problems, unauthorized access, theft, operator errors, strikes or other labor problems or any force majeure.
             </p>
           </section>
 

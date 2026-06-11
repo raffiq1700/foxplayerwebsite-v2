@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { TrendingUp, Users, Activity } from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 
@@ -50,9 +49,10 @@ export function TechShowcase() {
             className="lg:w-1/2 relative rounded-2xl border border-white/10 glass shadow-[0_0_50px_rgba(16,185,129,0.1)] overflow-hidden aspect-video"
           >
              <Image 
-               src="/dashboard.png" 
+               src="/dashboard.webp" 
                alt="Premium Trading Dashboard" 
                fill 
+               sizes="(max-width: 768px) 100vw, 50vw"
                className="object-cover opacity-90"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />

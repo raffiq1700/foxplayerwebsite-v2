@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-6 mb-8">
               <div className="relative w-28 h-28 rounded-full overflow-hidden border border-white/10">
-                <Image src="/logo.png" alt="Foxplayer Algo Technologies" fill className="object-cover" />
+                <Image src="/logo.webp" alt="Foxplayer Algo Technologies" fill sizes="112px" className="object-cover" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-white leading-tight">Foxplayer</span>

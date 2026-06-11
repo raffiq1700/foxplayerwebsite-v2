@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface GlowCardProps {
@@ -10,7 +10,6 @@ interface GlowCardProps {
 
 export function GlowCard({ children, className = "" }: GlowCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   // Mouse positions for tilt
   const x = useMotionValue(0);
@@ -43,7 +42,6 @@ export function GlowCard({ children, className = "" }: GlowCardProps) {
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
-    setIsHovered(false);
   };
 
   return (
@@ -51,7 +49,6 @@ export function GlowCard({ children, className = "" }: GlowCardProps) {
       <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
         style={{
           rotateX,

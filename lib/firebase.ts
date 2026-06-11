@@ -12,7 +12,9 @@ const firebaseConfig = {
 
 // Global augmentation for TypeScript
 declare global {
+  // eslint-disable-next-line no-var, @typescript-eslint/no-explicit-any
   var firebaseApp: any;
+  // eslint-disable-next-line no-var
   var firebaseDb: Firestore;
 }
 

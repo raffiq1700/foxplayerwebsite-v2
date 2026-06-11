@@ -1,8 +1,11 @@
-import { AlertTriangle, CheckCircle2, XCircle, Info, ShieldAlert, Zap, Landmark, Scale, ExternalLink } from "lucide-react";
+import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
 
 export const metadata = {
   title: "Important Disclaimer | Foxplayer Algo Technologies",
   description: "Important safety and regulatory information regarding Foxplayer Algo Technologies.",
+  alternates: {
+    canonical: "/disclaimer",
+  },
 };
 
 export default function DisclaimerPage() {

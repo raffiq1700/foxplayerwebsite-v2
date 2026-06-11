@@ -5,6 +5,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "FAQ | Foxplayer Algo Technologies",
   description: "Frequently Asked Questions about our algo trading platform.",
+  alternates: {
+    canonical: "/faq",
+  },
 };
 
 export default function FAQPage() {

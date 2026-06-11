@@ -12,15 +12,22 @@ export async function POST(request: Request) {
     const INITIAL_USERNAME = "raffiq_sr";
     const INITIAL_PASSWORD = "Tree_sr9";
 
+    interface AdminUser {
+      id: string;
+      username: string;
+      password?: string;
+      role?: string;
+    }
+
     // 2. Check Firestore for user
-    let admin = null;
+    let admin: AdminUser | null = null;
     try {
       const usersQuery = query(collection(db, "users"), where("username", "==", username), limit(1));
       const querySnapshot = await getDocs(usersQuery);
       
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0];
-        admin = { id: userDoc.id, ...userDoc.data() } as any;
+        admin = { id: userDoc.id, ...userDoc.data() } as AdminUser;
       }
     } catch (dbError) {
       console.error("Firebase connection error:", dbError);
@@ -29,7 +36,7 @@ export async function POST(request: Request) {
     let isAuthorized = false;
 
     if (admin) {
-      isAuthorized = await bcrypt.compare(password, admin.password);
+      isAuthorized = await bcrypt.compare(password, admin.password || "");
     } else if (username === INITIAL_USERNAME && password === INITIAL_PASSWORD) {
       isAuthorized = true;
       // Seed the admin in Firestore

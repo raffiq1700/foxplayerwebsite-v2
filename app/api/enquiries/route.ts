@@ -45,7 +45,7 @@ export async function DELETE(request: Request) {
     await deleteDoc(doc(db, "enquiries", id));
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ message: "Error deleting enquiry" }, { status: 500 });
   }
 }

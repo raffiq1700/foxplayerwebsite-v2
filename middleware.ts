@@ -5,6 +5,15 @@ const secretKey = "foxplayer_secret_key_change_this";
 const key = new TextEncoder().encode(secretKey);
 
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get("host");
+
+  // Redirect non-www to www
+  if (host === "foxplayer.co.in") {
+    const url = request.nextUrl.clone();
+    url.host = "www.foxplayer.co.in";
+    return NextResponse.redirect(url, 301);
+  }
+
   const { pathname } = request.nextUrl;
 
   // 1. Handle Redirects (Legacy SEO support)

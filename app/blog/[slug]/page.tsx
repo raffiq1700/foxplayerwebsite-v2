@@ -3,16 +3,33 @@ import { db } from "@/lib/firebase";
 import { collection, getDoc, doc as firestoreDoc, query, where, limit, getDocs } from "firebase/firestore/lite";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import { Clock, User, Calendar, ArrowLeft } from "lucide-react";
+import { User, Calendar, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
+
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  coverImage?: string;
+  date?: { toDate?: () => Date };
+  updatedAt?: { toDate?: () => Date };
+  author?: string;
+  readingTime?: string;
+  content?: string;
+  category?: string;
+  featuredImage?: string;
+}
 
 interface Props {
   params: { slug: string };
 }
 
-async function getPostBySlug(slug: string) {
+async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
     console.log(`Fetching blog post with slug: ${slug}`);
     
@@ -22,7 +39,7 @@ async function getPostBySlug(slug: string) {
     
     if (docSnap.exists()) {
       console.log(`Found blog post by ID: ${slug}`);
-      return { id: docSnap.id, ...docSnap.data() } as any;
+      return { id: docSnap.id, ...docSnap.data() } as BlogPost;
     }
     
     // 2. Fallback to query by slug field
@@ -32,7 +49,7 @@ async function getPostBySlug(slug: string) {
     if (!querySnapshot.empty) {
       const doc = querySnapshot.docs[0];
       console.log(`Found blog post by query: ${slug}`);
-      return { id: doc.id, ...doc.data() } as any;
+      return { id: doc.id, ...doc.data() } as BlogPost;
     }
     
     console.log(`No blog post found for slug: ${slug}`);
@@ -49,12 +66,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return { title: "Post Not Found" };
 
+  const baseUrl = "https://www.foxplayer.co.in";
+
   return {
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
+    alternates: {
+      canonical: `${baseUrl}/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
+      url: `${baseUrl}/blog/${post.slug}`,
       type: "article",
       images: post.featuredImage ? [post.featuredImage] : [],
     },

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Home, Search, MessageCircle, Zap } from "lucide-react";
+import { Home, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -27,7 +27,7 @@ export default function NotFound() {
           </h1>
           
           <p className="text-white/40 text-lg mb-12 max-w-md mx-auto leading-relaxed font-medium">
-            The page you are looking for has been moved or doesn't exist in our current trading pipeline.
+            The page you are looking for has been moved or doesn&apos;t exist in our current trading pipeline.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

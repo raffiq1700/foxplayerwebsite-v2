@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, where } from "firebase/firestore/lite";
+import { collection, getDocs } from "firebase/firestore/lite";
 import { Newsletter } from "@/components/blog/Newsletter";
 import { BlogList } from "@/components/blog/BlogList";
 import { Metadata } from "next";
@@ -9,10 +9,21 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Blog | FoxPlayer Algo Technologies",
   description: "Master algorithmic trading, market psychology, and stock market automation with our premium guides built for the modern Indian trader.",
+  alternates: {
+    canonical: "/blog",
+  },
 };
 
+interface BlogPost {
+  id: string;
+  date: Date;
+  published?: boolean;
+  tags?: string | string[];
+  [key: string]: unknown;
+}
+
 export default async function BlogPage() {
-  let allPosts = [];
+  let allPosts: BlogPost[] = [];
   try {
     const querySnapshot = await getDocs(collection(db, "posts"));
     allPosts = querySnapshot.docs
@@ -22,12 +33,12 @@ export default async function BlogPage() {
           id: doc.id,
           ...data,
           date: data.date?.toDate ? data.date.toDate() : new Date(),
-        };
+        } as BlogPost;
       })
-      .filter((post: any) => post.published !== false);
+      .filter((post) => post.published !== false);
       
     // Sort in JS
-    allPosts.sort((a: any, b: any) => b.date.getTime() - a.date.getTime());
+    allPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
   } catch (error) {
     console.error("Blog listing error:", error);
   }
@@ -37,7 +48,7 @@ export default async function BlogPage() {
   const safeParse = (str: string) => {
     try {
       return JSON.parse(str);
-    } catch (e) {
+    } catch {
       return [];
     }
   };
@@ -50,7 +61,7 @@ export default async function BlogPage() {
         <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
-      <BlogList posts={allPosts.map((p: any) => ({
+      <BlogList posts={allPosts.map((p: BlogPost) => ({
         ...p,
         date: p.date instanceof Date ? p.date.toISOString() : new Date().toISOString(),
         tags: p.tags ? (typeof p.tags === 'string' ? safeParse(p.tags) : p.tags) : []

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CheckCircle2, ArrowRight, Shield, Zap, Globe, Code2, Database, Smartphone, BarChart3 } from "lucide-react";
+import { CheckCircle2, ArrowRight, Zap, Globe, Code2, Database, Smartphone, BarChart3 } from "lucide-react";
 import Link from "next/link";
 
 const services = {
@@ -73,9 +73,13 @@ const services = {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const service = services[params.slug as keyof typeof services];
   if (!service) return { title: "Service Not Found" };
+  const baseUrl = "https://www.foxplayer.co.in";
   return {
     title: `${service.title} | FoxPlayer Algo Technologies`,
     description: service.desc,
+    alternates: {
+      canonical: `${baseUrl}/services/${params.slug}`,
+    },
   };
 }
 

@@ -1,8 +1,11 @@
-import { ShieldCheck, Lock, EyeOff, UserX, Globe, Bell, Mail, Database, ShieldAlert } from "lucide-react";
+import { ShieldCheck, Lock, EyeOff, UserX, Globe, Mail, Database, ShieldAlert } from "lucide-react";
 
 export const metadata = {
   title: "Privacy Policy | Foxplayer Algo Technologies",
   description: "Learn how Foxplayer Algo Technologies protects your data and broker credentials.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicy() {
@@ -30,7 +33,7 @@ export default function PrivacyPolicy() {
               <Globe className="w-6 h-6 text-primary" /> 1. Introduction
             </h2>
             <p className="text-white/60 leading-relaxed">
-              Welcome to <strong>Foxplayer Algo Technologies</strong> ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. 
+              Welcome to <strong>Foxplayer Algo Technologies</strong> (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your personal information and your right to privacy. 
               Foxplayer is a software automation bridge that forwards user-generated signals to your broker. We are NOT a broker, advisory service, or financial institution. 
               This Privacy Policy explains how we collect, use, and safeguard your data when you visit our website 
               <a href="https://www.foxplayer.co.in" className="text-primary hover:underline ml-1">www.foxplayer.co.in</a> and use our platform.

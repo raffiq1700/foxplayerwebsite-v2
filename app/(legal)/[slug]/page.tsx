@@ -113,8 +113,12 @@ const legalPages = {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const page = legalPages[params.slug as keyof typeof legalPages];
   if (!page) return { title: "Page Not Found" };
+  const baseUrl = "https://www.foxplayer.co.in";
   return {
     title: `${page.title} | FoxPlayer Algo Technologies`,
+    alternates: {
+      canonical: `${baseUrl}/${params.slug}`,
+    },
   };
 }
 

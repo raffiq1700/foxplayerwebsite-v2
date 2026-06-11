@@ -20,7 +20,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 md:gap-4 group shrink-0">
           <div className="relative w-12 h-12 md:w-20 md:h-20 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/40 transition-colors">
-            <Image src="/logo.png" alt="Foxplayer Algo Technologies" fill className="object-cover" />
+            <Image src="/logo.webp" alt="Foxplayer Algo Technologies" fill sizes="80px" className="object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="text-base md:text-[20px] font-bold text-white leading-tight tracking-tight">Foxplayer</span>

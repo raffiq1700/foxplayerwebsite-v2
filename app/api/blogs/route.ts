@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, doc, deleteDoc, updateDoc } from "firebase/firestore/lite";
+import { collection, getDocs, query, orderBy, addDoc } from "firebase/firestore/lite";
 import { getSession } from "@/lib/auth";
 
 export async function GET() {
@@ -43,7 +43,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ id: docRef.id });
   } catch (error) {
     console.error("Create blog error details:", error);
-    return NextResponse.json({ message: "Error creating post", error: error.message }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Error creating post";
+    return NextResponse.json({ message: "Error creating post", error: message }, { status: 500 });
   }
 }
 

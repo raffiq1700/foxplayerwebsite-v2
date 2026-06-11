@@ -2,17 +2,37 @@ import { Metadata } from "next";
 import { db } from "@/lib/firebase";
 import { collection, getDoc, doc as firestoreDoc, query, where, limit, getDocs } from "firebase/firestore/lite";
 import { notFound } from "next/navigation";
-import { Clock, User, ChevronRight, Share2, Shield, Globe, ArrowRight, FileText, MessageCircle, ExternalLink } from "lucide-react";
+import { Clock, User, ChevronRight, Share2, Shield, Globe, ArrowRight, MessageCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
 export const dynamic = "force-dynamic";
 
+interface AcademyArticle {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  coverImage?: string;
+  date?: { toDate?: () => Date };
+  updatedAt?: { toDate?: () => Date };
+  createdAt?: { toDate?: () => Date };
+  publishedAt?: { toDate?: () => Date };
+  author?: string;
+  readingTime?: string;
+  content?: string;
+  category?: string;
+  featuredImage?: string;
+  faqJson?: string;
+}
+
 interface Props {
   params: { slug: string };
 }
 
-async function getArticleBySlug(slug: string) {
+async function getArticleBySlug(slug: string): Promise<AcademyArticle | null> {
   try {
     console.log(`Fetching academy article with slug: ${slug}`);
     
@@ -22,7 +42,7 @@ async function getArticleBySlug(slug: string) {
     
     if (docSnap.exists()) {
       console.log(`Found academy article by ID: ${slug}`);
-      return { id: docSnap.id, ...docSnap.data() } as any;
+      return { id: docSnap.id, ...docSnap.data() } as AcademyArticle;
     }
     
     // 2. Fallback to query by slug field (for manually created docs)
@@ -32,7 +52,7 @@ async function getArticleBySlug(slug: string) {
     if (!querySnapshot.empty) {
       const doc = querySnapshot.docs[0];
       console.log(`Found academy article by query: ${slug}`);
-      return { id: doc.id, ...doc.data() } as any;
+      return { id: doc.id, ...doc.data() } as AcademyArticle;
     }
     
     console.log(`No academy article found for slug: ${slug}`);
@@ -78,10 +98,16 @@ export default async function AcademyArticlePage({ params }: Props) {
 
   if (!article) notFound();
 
-  let faqs = [];
+  interface FAQ {
+    q: string;
+    a: string;
+  }
+
+  let faqs: FAQ[] = [];
   try {
     faqs = JSON.parse(article.faqJson || "[]");
-  } catch (e) {}
+  } catch {
+  }
 
   const postDate = article.publishedAt?.toDate ? article.publishedAt.toDate() : (article.createdAt?.toDate ? article.createdAt.toDate() : new Date());
 
@@ -102,7 +128,7 @@ export default async function AcademyArticlePage({ params }: Props) {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map((f: any) => ({
+    "mainEntity": faqs.map((f: FAQ) => ({
       "@type": "Question",
       "name": f.q,
       "acceptedAnswer": {
@@ -224,7 +250,7 @@ export default async function AcademyArticlePage({ params }: Props) {
               <MessageCircle className="w-8 h-8 text-primary" /> Strategy FAQ
             </h2>
             <div className="grid grid-cols-1 gap-6">
-              {faqs.map((faq: any, i: number) => (
+              {faqs.map((faq, i: number) => (
                 <div key={i} className="p-8 bg-white/[0.02] border border-white/5 rounded-3xl">
                   <h3 className="text-lg font-bold text-white mb-3">{faq.q}</h3>
                   <p className="text-white/40 leading-relaxed text-sm">{faq.a}</p>

@@ -2,8 +2,18 @@
 import { useState, useEffect } from "react";
 import { Send, Loader2, RefreshCw, CheckCircle, XCircle } from "lucide-react";
 
+interface Campaign {
+  id: string;
+  subject: string;
+  status: string;
+  createdAt: string;
+  recipientsCount: number;
+  sentCount: number;
+  failedCount: number;
+}
+
 export default function CampaignsTab({ initialSelectedIds = [] }: { initialSelectedIds?: string[] }) {
-  const [campaigns, setCampaigns] = useState<any[]>([]);
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{success: boolean, message: string} | null>(null);
@@ -25,7 +35,7 @@ export default function CampaignsTab({ initialSelectedIds = [] }: { initialSelec
         const data = await res.json();
         setCampaigns(data);
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to fetch campaigns");
     } finally {
       setLoading(false);
@@ -63,7 +73,7 @@ export default function CampaignsTab({ initialSelectedIds = [] }: { initialSelec
       } else {
         setResult({ success: false, message: data.message || "Failed to send campaign" });
       }
-    } catch (err) {
+    } catch {
       setResult({ success: false, message: "An error occurred while sending." });
     } finally {
       setSending(false);
@@ -124,7 +134,7 @@ export default function CampaignsTab({ initialSelectedIds = [] }: { initialSelec
               onChange={(e) => setMessageTemplate(e.target.value)}
               className="w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-lg text-white outline-none focus:border-primary/50 transition-all resize-y font-mono text-sm" 
             ></textarea>
-            <p className="text-[10px] text-white/30 mt-2">Supports full HTML formatting (e.g., &lt;b&gt;, &lt;a href="..."&gt;).</p>
+            <p className="text-[10px] text-white/30 mt-2">Supports full HTML formatting (e.g., &lt;b&gt;, &lt;a href=&quot;...&quot;&gt;).</p>
           </div>
 
           <button 

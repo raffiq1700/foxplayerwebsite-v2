@@ -1,15 +1,24 @@
 "use strict";
 import { useState, useEffect } from "react";
-import { Check, Mail, Search, Trash2, Clock, CheckCircle } from "lucide-react";
+import { Mail, Trash2 } from "lucide-react";
+
+interface Enquiry {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  createdAt: string;
+}
 
 export default function EnquiriesTab({ onSelectForCampaign }: { onSelectForCampaign: (ids: string[]) => void }) {
-  const [enquiries, setEnquiries] = useState<any[]>([]);
+  const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     fetchEnquiries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const fetchEnquiries = async () => {
@@ -20,7 +29,7 @@ export default function EnquiriesTab({ onSelectForCampaign }: { onSelectForCampa
         const data = await res.json();
         setEnquiries(data);
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to fetch enquiries");
     } finally {
       setLoading(false);
@@ -35,7 +44,7 @@ export default function EnquiriesTab({ onSelectForCampaign }: { onSelectForCampa
         setEnquiries(enquiries.filter(e => e.id !== id));
         setSelectedIds(selectedIds.filter(selId => selId !== id));
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to delete");
     }
   };

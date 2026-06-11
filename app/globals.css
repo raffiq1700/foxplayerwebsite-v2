@@ -19,7 +19,7 @@
   body::before {
     content: "";
     @apply fixed inset-0 z-[9999] pointer-events-none opacity-[0.03];
-    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    background-image: url("/noise.svg");
     filter: contrast(150%) brightness(1000%);
   }
   /* Typography Layer for Markdown Content */

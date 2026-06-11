@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, doc, deleteDoc, updateDoc } from "firebase/firestore/lite";
+import { collection, getDocs, addDoc } from "firebase/firestore/lite";
 import { getSession } from "@/lib/auth";
+
+interface Article {
+  id: string;
+  createdAt: Date;
+  [key: string]: unknown;
+}
 
 export async function GET() {
   try {
@@ -12,11 +18,11 @@ export async function GET() {
         id: doc.id,
         ...data,
         createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date(),
-      };
+      } as Article;
     });
     
     // Sort in JS to avoid "missing field" exclusion
-    articles.sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime());
+    articles.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     return NextResponse.json(articles);
   } catch (error) {
     console.error("Fetch academy error:", error);
