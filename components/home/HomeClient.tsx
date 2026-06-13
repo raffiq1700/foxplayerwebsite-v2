@@ -137,8 +137,8 @@ export default function HomeClient() {
     return () => clearInterval(interval);
   }, []);
 
-  // User review submission states
-  const [testimonials, setTestimonials] = useState([
+  // Testimonials list
+  const testimonials = [
     {
       quote: "FoxPlayer's TradingView webhook bridge completely resolved my execution lag issues. My options strategy straddles fill instantly with minimal slippage. Highly recommended.",
       author: "Anirudh Sharma",
@@ -157,45 +157,7 @@ export default function HomeClient() {
       role: "Financial Technology Partner, Coimbatore",
       stars: 5
     }
-  ]);
-  const [reviewName, setReviewName] = useState("");
-  const [reviewText, setReviewText] = useState("");
-  const [reviewStars, setReviewStars] = useState(5);
-  const [submittingReview, setSubmittingReview] = useState(false);
-  const [reviewSuccess, setReviewSuccess] = useState(false);
-
-  const handleReviewSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!reviewName || !reviewText) return;
-
-    setSubmittingReview(true);
-    setTimeout(() => {
-      setSubmittingReview(false);
-      setReviewSuccess(true);
-      
-      // Save/post the review to our platform list
-      setTestimonials((prev) => [
-        {
-          quote: reviewText,
-          author: reviewName,
-          role: "Verified Platform Trader",
-          stars: reviewStars
-        },
-        ...prev
-      ]);
-
-      // Automatically redirect to the exact Google Review link provided by the user
-      window.open("https://g.page/r/CWpBuqnApuXzEBM/review", "_blank");
-
-      // Reset form after a small delay
-      setTimeout(() => {
-        setReviewName("");
-        setReviewText("");
-        setReviewStars(5);
-        setReviewSuccess(false);
-      }, 5000);
-    }, 1500);
-  };
+  ];
 
   return (
     <main className="bg-background text-white min-h-screen">
@@ -678,70 +640,22 @@ export default function HomeClient() {
             ))}
           </div>
 
-          {/* Write a Review Form */}
-          <div className="mt-16 max-w-2xl mx-auto bg-[#0F172A]/40 border border-white/[0.08] backdrop-blur-md rounded-3xl p-8 relative overflow-hidden">
+          {/* Write a Review Button Card */}
+          <div className="mt-16 max-w-md mx-auto bg-[#0F172A]/40 border border-white/[0.08] backdrop-blur-md rounded-3xl p-8 text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-2xl rounded-full pointer-events-none" />
-            <h3 className="text-xl font-bold text-white mb-2 text-center font-sans">Submit Your Platform Feedback</h3>
-            <p className="text-xs text-slate-400 text-center mb-6 font-sans">
-              Your feedback helps us continuously improve. Submitting will post to our platform and guide you to finalize it on Google Reviews.
+            <h3 className="text-xl font-bold text-white mb-3 font-sans">Share Your Experience</h3>
+            <p className="text-xs text-slate-400 mb-6 font-sans leading-relaxed">
+              We highly value your support. Click below to write a review directly on Google Reviews for FoxPlayer Algo Trading.
             </p>
             
-            <form onSubmit={handleReviewSubmit} className="space-y-4 font-sans">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1.5 font-mono">Your Name</label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={reviewName}
-                    onChange={(e) => setReviewName(e.target.value)}
-                    placeholder="Enter name"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-primary/50 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1.5 font-mono">Rating</label>
-                  <div className="flex items-center gap-1.5 h-[38px] px-3 bg-black/40 border border-white/10 rounded-xl">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        onClick={() => setReviewStars(star)}
-                        className="focus:outline-none transition-transform active:scale-90"
-                      >
-                        <Star className={`w-4 h-4 ${star <= reviewStars ? "fill-amber-400 text-amber-400" : "text-slate-600"}`} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1.5 font-mono">Review Details</label>
-                <textarea 
-                  required
-                  rows={3}
-                  value={reviewText}
-                  onChange={(e) => setReviewText(e.target.value)}
-                  placeholder="Share your experience trading with FoxPlayer..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-primary/50 transition-colors resize-none"
-                />
-              </div>
-
-              <button 
-                type="submit" 
-                disabled={submittingReview || reviewSuccess}
-                className="w-full py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-primary text-black hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
-              >
-                {submittingReview ? (
-                  <span>Saving & Redirecting...</span>
-                ) : reviewSuccess ? (
-                  <span className="text-emerald-950 font-extrabold">✓ Successfully Published! Redirecting...</span>
-                ) : (
-                  <span>Submit & Post to Google Review</span>
-                )}
-              </button>
-            </form>
+            <a 
+              href="https://g.page/r/CWpBuqnApuXzEBM/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-primary text-black hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all items-center justify-center gap-2 active:scale-95"
+            >
+              Write a Google Review
+            </a>
           </div>
         </div>
       </section>
