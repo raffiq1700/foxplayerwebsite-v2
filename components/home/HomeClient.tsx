@@ -133,7 +133,7 @@ export default function HomeClient() {
                     <span className="text-xs font-bold uppercase tracking-widest text-slate-300">FOXPLAYER CONSOLE v3.2</span>
                   </div>
                   <div className="flex bg-black/30 p-1 rounded-lg border border-white/[0.08]">
-                    {["webhooks", "console", "brokers"].map((tab) => (
+                    {["webhooks", "console", "brokers", "chart"].map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -143,14 +143,14 @@ export default function HomeClient() {
                             : "text-slate-400 hover:text-slate-200"
                         }`}
                       >
-                        {tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : "Brokers"}
+                        {tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : tab === "brokers" ? "Brokers" : "Live Chart"}
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Dashboard Code/Console Area */}
-                <div className="p-6 min-h-[300px] flex flex-col justify-between font-mono bg-black/10">
+                <div className={`min-h-[300px] flex flex-col justify-between font-mono bg-black/10 ${activeTab === "chart" ? "p-0" : "p-6"}`}>
                   {activeTab === "webhooks" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2">
@@ -218,13 +218,37 @@ export default function HomeClient() {
                     </div>
                   )}
 
-                  <div className="border-t border-white/[0.08] pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
-                    <span className="flex items-center gap-1.5 font-sans">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      All systems operational
-                    </span>
-                    <span>Server region: Mumbai, India</span>
-                  </div>
+                  {activeTab === "chart" && (
+                    <div className="w-full h-[320px] overflow-hidden bg-[#050816]">
+                      <iframe 
+                        src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=NSE%3ANIFTY&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=0f172a&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en"
+                        width="100%"
+                        height="100%"
+                        style={{ border: "none" }}
+                        allowTransparency={true}
+                        scrolling="no"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  )}
+
+                  {activeTab !== "chart" ? (
+                    <div className="border-t border-white/[0.08] pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
+                      <span className="flex items-center gap-1.5 font-sans">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        All systems operational
+                      </span>
+                      <span>Server region: Mumbai, India</span>
+                    </div>
+                  ) : (
+                    <div className="px-6 py-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-slate-500">
+                      <span className="flex items-center gap-1.5 font-sans">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        All systems operational
+                      </span>
+                      <span>Server region: Mumbai, India</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
