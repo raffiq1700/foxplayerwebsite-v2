@@ -84,7 +84,7 @@ const legalPages = {
       To democratize algorithmic trading by providing institutional-grade tools to retail and professional traders in India.
       
       ## Our Technology
-      We leverage Next.js, Python, and high-performance execution engines to deliver zero-latency trading experiences.
+      We leverage Next.js, Python, and high-performance execution algos to deliver zero-latency trading experiences.
       
       ## Our Commitment
       Transparency, security, and exceptional technical support are the pillars of our organization.

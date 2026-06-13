@@ -32,12 +32,12 @@ const services = {
     features: ["White label brokerage software", "Admin dashboard", "User management", "PMS software development"],
     content: "Scale your trading business with our fully customizable white label trading platform and white label brokerage software. Our solutions are ideal for sub-brokers, PMS managers, SEBI registered research analysts, and RIAs looking to launch professional trading platforms without developing the technology from scratch. We provide RIA software development and trading software for advisors that are fully compliant and scalable."
   },
-  "backtesting-engine-development": {
-    title: "Backtesting Engine Development & Strategy Validation",
-    desc: "Validate your best trading strategy with our custom backtesting engine development.",
+  "backtesting-algo-development": {
+    title: "Backtesting Algo Development & Strategy Validation",
+    desc: "Validate your best trading strategy with our custom backtesting algo development.",
     icon: Database,
     features: ["Tick-by-tick data analysis", "Slippage simulation", "Optimization algorithms", "Strategy backtesting software"],
-    content: "Don't gamble with your capital. Our custom backtesting engine development allow you to run years of data in minutes. We build robust strategy backtesting software that simulates real-market conditions including slippage and brokerage, perfect for quantitative trading software requirements."
+    content: "Don't gamble with your capital. Our custom backtesting algo development allows you to run years of data in minutes. We build robust strategy backtesting software that simulates real-market conditions including slippage and brokerage, perfect for quantitative trading software requirements."
   },
 
   "forex-trading-software-development": {

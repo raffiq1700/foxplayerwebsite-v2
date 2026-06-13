@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/services/shoonya-api-trading-software',
     '/services/zerodha-kite-connect-development',
     '/services/white-label-trading-platform',
-    '/services/backtesting-engine-development',
+    '/services/backtesting-algo-development',
     '/services/forex-trading-software-development',
     '/services/options-trading-automation',
     '/services/web-development',

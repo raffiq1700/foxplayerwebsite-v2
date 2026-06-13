@@ -268,7 +268,7 @@ export default async function AcademyArticlePage({ params }: Props) {
           <div className="relative z-10">
             <h3 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tighter">Need automated trading software?</h3>
             <p className="text-white/50 mb-8 max-w-xl text-lg">
-              FoxPlayer Algo Technologies provides institutional-grade bridges, custom strategy development, and zero-latency execution engines.
+              FoxPlayer Algo Technologies provides institutional-grade bridges, custom strategy development, and zero-latency execution algos.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="https://wa.me/919983168522" target="_blank" className="bg-white text-background px-8 py-4 rounded-2xl text-sm font-black uppercase tracking-widest flex items-center gap-2 hover:scale-105 transition-transform">

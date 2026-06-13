@@ -138,6 +138,26 @@ export default function HomeClient() {
   }, []);
 
   // User review submission states
+  const [testimonials, setTestimonials] = useState([
+    {
+      quote: "FoxPlayer's TradingView webhook bridge completely resolved my execution lag issues. My options strategy straddles fill instantly with minimal slippage. Highly recommended.",
+      author: "Anirudh Sharma",
+      role: "Proprietary Fund Trader, Bangalore",
+      stars: 5
+    },
+    {
+      quote: "I automated my custom Python strategy using FoxPlayer's SDK bridge. Order execution takes under 12 milliseconds. The security and encryption protocols give me peace of mind.",
+      author: "Karthik Raja",
+      role: "Independent Options Strategist, Chennai",
+      stars: 5
+    },
+    {
+      quote: "As a retail sub-broker, I white-labeled FoxPlayer's platform for 50+ clients. System uptime is consistent, and the developer support team resolved all broker token issues rapidly.",
+      author: "Mohit Mehta",
+      role: "Financial Technology Partner, Coimbatore",
+      stars: 5
+    }
+  ]);
   const [reviewName, setReviewName] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [reviewStars, setReviewStars] = useState(5);
@@ -152,11 +172,22 @@ export default function HomeClient() {
     setTimeout(() => {
       setSubmittingReview(false);
       setReviewSuccess(true);
-      // Automatically redirect the user to write review on Google Maps
-      window.open(
-        "https://www.google.com/search?q=FOXPLAYER+ALGO+TRADING+Somu+Nagar+Royapuram+Chennai#lrd=1",
-        "_blank"
-      );
+      
+      // Save/post the review to our platform list
+      setTestimonials((prev) => [
+        {
+          quote: reviewText,
+          author: reviewName,
+          role: "Verified Platform Trader",
+          stars: reviewStars
+        },
+        ...prev
+      ]);
+
+      // Automatically redirect to Google Review search query for the specific address
+      const targetQuery = "FOXPLAYER ALGO TRADING MS Koil St, near police Station, Somu Nagar, Royapuram, Chennai, Tamil Nadu 600013, India";
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(targetQuery)}`, "_blank");
+
       // Reset form after a small delay
       setTimeout(() => {
         setReviewName("");
@@ -622,30 +653,14 @@ export default function HomeClient() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                quote: "FoxPlayer's TradingView webhook bridge completely resolved my execution lag issues. My options strategy straddles fill instantly with minimal slippage. Highly recommended.",
-                author: "Anirudh Sharma",
-                role: "Proprietary Fund Trader, Bangalore"
-              },
-              {
-                quote: "I automated my custom Python strategy using FoxPlayer's SDK bridge. Order execution takes under 12 milliseconds. The security and encryption protocols give me peace of mind.",
-                author: "Karthik Raja",
-                role: "Independent Options Strategist, Chennai"
-              },
-              {
-                quote: "As a retail sub-broker, I white-labeled FoxPlayer's platform for 50+ clients. System uptime is consistent, and the developer support team resolved all broker token issues rapidly.",
-                author: "Mohit Mehta",
-                role: "Financial Technology Partner, Coimbatore"
-              }
-            ].map((t, idx) => (
+            {testimonials.map((t, idx) => (
               <div 
                 key={idx} 
                 className="bg-[#0F172A]/40 border border-white/[0.08] backdrop-blur-md rounded-2xl p-8 flex flex-col justify-between hover:border-primary/20 hover:shadow-[0_0_20px_rgba(0,212,255,0.04)] transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center gap-1 text-amber-400 mb-6">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(t.stars || 5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
                   </div>

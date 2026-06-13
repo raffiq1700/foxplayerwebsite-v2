@@ -12,7 +12,7 @@ const features = [
     icon: Activity,
   },
   {
-    title: "Python Strategy Engine",
+    title: "Python Strategy Algo",
     description: "Write custom complex algorithms in Python. We handle the infrastructure, you focus on the logic.",
     icon: Code,
   },
