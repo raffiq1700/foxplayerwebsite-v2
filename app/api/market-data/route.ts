@@ -31,22 +31,31 @@ export async function GET() {
     );
 
     // Get USD to INR exchange rate for conversion (fallback to 83.50)
-    const usdInrRate = quotes["USDINR=X"]?.price || 83.50;
+    let usdInrRate = quotes["USDINR=X"]?.price || 83.50;
+    if (usdInrRate < 50 || usdInrRate > 100) {
+      usdInrRate = 83.50; // Sanity check fallback
+    }
 
     // Convert US Dollar commodities to MCX Indian Rupee equivalent
     if (quotes["CL=F"]) {
-      const mcxPrice = Number((quotes["CL=F"].price * usdInrRate).toFixed(2));
+      let price = quotes["CL=F"].price;
+      if (price < 500) { // If it returns in USD (e.g. 70-90)
+        price = price * usdInrRate;
+      }
       quotes["CL=F"] = {
-        price: mcxPrice,
+        price: Number(price.toFixed(2)),
         change: quotes["CL=F"].change,
         dir: quotes["CL=F"].dir
       };
     }
 
     if (quotes["NG=F"]) {
-      const mcxPrice = Number((quotes["NG=F"].price * usdInrRate).toFixed(2));
+      let price = quotes["NG=F"].price;
+      if (price < 30) { // If it returns in USD (e.g. 2-4)
+        price = price * usdInrRate;
+      }
       quotes["NG=F"] = {
-        price: mcxPrice,
+        price: Number(price.toFixed(2)),
         change: quotes["NG=F"].change,
         dir: quotes["NG=F"].dir
       };

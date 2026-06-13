@@ -251,68 +251,68 @@ export default function HomeClient() {
                 </div>
 
                 {/* Dashboard Code/Console Area */}
-                <div className="min-h-[300px] flex flex-col justify-between font-mono bg-black/10 p-4">
-                  <div className="flex flex-col md:flex-row items-center gap-6 font-sans">
+                <div className="min-h-[350px] flex flex-col justify-between font-mono bg-black/10 p-6">
+                  <div className="flex flex-col lg:flex-row items-center gap-8 font-sans">
                     {/* Left: 3D Holographic Card Graphic */}
-                    <div className="relative w-40 h-[220px] rounded-2xl bg-gradient-to-br from-primary/30 via-[#0F172A] to-secondary/30 border border-white/10 p-4 shadow-[0_12px_24px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden group/card transition-all duration-500 hover:scale-[1.03] hover:rotate-3 hover:border-primary/40 shrink-0">
+                    <div className="relative w-44 h-[240px] rounded-2xl bg-gradient-to-br from-primary/30 via-[#0F172A] to-secondary/30 border border-white/10 p-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden group/card transition-all duration-500 hover:scale-[1.03] hover:rotate-3 hover:border-primary/40 shrink-0">
                       {/* Glows */}
-                      <div className="absolute -top-10 -left-10 w-24 h-24 bg-primary/20 rounded-full blur-2xl group-hover/card:bg-primary/40 transition-colors" />
-                      <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-secondary/20 rounded-full blur-2xl group-hover/card:bg-secondary/40 transition-colors" />
+                      <div className="absolute -top-10 -left-10 w-28 h-28 bg-primary/20 rounded-full blur-2xl group-hover/card:bg-primary/40 transition-colors" />
+                      <div className="absolute -bottom-10 -right-10 w-28 h-28 bg-secondary/20 rounded-full blur-2xl group-hover/card:bg-secondary/40 transition-colors" />
                       
                       {/* Header */}
                       <div className="flex justify-between items-start z-10">
                         <div>
-                          <div className="text-[9px] text-primary font-bold tracking-widest uppercase">FoxPlayer</div>
-                          <div className="text-[6px] text-slate-400 font-bold uppercase tracking-wider">Algo Pass v3.2</div>
+                          <div className="text-[10px] text-primary font-bold tracking-widest uppercase">FoxPlayer</div>
+                          <div className="text-[7px] text-slate-400 font-bold uppercase tracking-wider">Algo Pass v3.2</div>
                         </div>
-                        <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center">
-                          <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
+                        <div className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center">
+                          <Zap className="w-4 h-4 text-primary animate-pulse" />
                         </div>
                       </div>
 
                       {/* Chip / Signal */}
                       <div className="my-auto z-10 flex items-center justify-between">
-                        <div className="w-8 h-6 rounded bg-gradient-to-r from-amber-400/80 to-yellow-500/80 opacity-80 border border-white/10 shadow-inner" />
+                        <div className="w-10 h-7 rounded bg-gradient-to-r from-amber-400/80 to-yellow-500/80 opacity-80 border border-white/10 shadow-inner" />
                         <div className="flex gap-0.5">
-                          <span className="w-1 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                          <span className="w-1 h-3 bg-primary/65 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                          <span className="w-1 h-3.5 bg-primary/90 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                          <span className="w-1.5 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                          <span className="w-1.5 h-3 bg-primary/65 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                          <span className="w-1.5 h-4 bg-primary/90 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
                         </div>
                       </div>
 
                       {/* Key */}
                       <div className="z-10">
-                        <div className="text-[8px] font-mono text-slate-400 tracking-wider">SECURE CONNECTED KEY</div>
-                        <div className="text-[10px] font-mono font-bold text-white tracking-widest mt-0.5">FOX •••• •••• 9A2B</div>
+                        <div className="text-[9px] font-mono text-slate-400 tracking-wider">SECURE CONNECTED KEY</div>
+                        <div className="text-[11px] font-mono font-bold text-white tracking-widest mt-0.5">FOX •••• •••• 9A2B</div>
                       </div>
 
                       {/* Grid overlay */}
-                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:8px_8px]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:10px_10px]" />
                     </div>
 
                     {/* Right: Live Rates & Top Movers */}
-                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-[11px]">
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full text-xs">
                       {/* Live Rates */}
-                      <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
-                        <div className="text-[9px] uppercase text-slate-400 font-bold tracking-wider mb-2 border-b border-white/[0.04] pb-1.5 flex items-center justify-between">
+                      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-5 flex flex-col justify-between">
+                        <div className="text-xs uppercase text-slate-400 font-bold tracking-wider mb-4 border-b border-white/[0.04] pb-2 flex items-center justify-between">
                           <span>Live Rates</span>
-                          <span className="flex items-center gap-1 font-mono">
+                          <span className="flex items-center gap-1.5 font-mono">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
-                            <span className="text-[8px] text-emerald-400 font-bold">LIVE</span>
+                            <span className="text-[10px] text-emerald-400 font-bold">LIVE</span>
                           </span>
                         </div>
-                        <div className="space-y-1.5">
+                        <div className="space-y-2">
                           {[
                             { id: "nifty", label: "NIFTY 50", price: marketData.rates.nifty.price, change: marketData.rates.nifty.change, dir: marketData.rates.nifty.dir },
                             { id: "banknifty", label: "BANK NIFTY", price: marketData.rates.banknifty.price, change: marketData.rates.banknifty.change, dir: marketData.rates.banknifty.dir },
-                            { id: "crudeoil", label: "CRUDE OIL", price: marketData.rates.crudeoil.price, change: marketData.rates.crudeoil.change, dir: marketData.rates.crudeoil.dir },
-                            { id: "naturalgas", label: "NATURAL GAS", price: marketData.rates.naturalgas.price, change: marketData.rates.naturalgas.change, dir: marketData.rates.naturalgas.dir },
+                            { id: "crudeoil", label: "CRUDE OIL (MCX)", price: marketData.rates.crudeoil.price, change: marketData.rates.crudeoil.change, dir: marketData.rates.crudeoil.dir },
+                            { id: "naturalgas", label: "NATURAL GAS (MCX)", price: marketData.rates.naturalgas.price, change: marketData.rates.naturalgas.change, dir: marketData.rates.naturalgas.dir },
                           ].map((item) => (
-                            <div key={item.id} className="flex justify-between items-center bg-black/25 px-2.5 py-1.5 rounded-lg border border-white/[0.03]">
-                              <span className="text-[10px] font-bold text-slate-300">{item.label}</span>
-                              <span className={`text-[10px] font-mono font-bold flex items-center gap-1 ${item.dir === "up" ? "text-emerald-400" : "text-rose-400"}`}>
+                            <div key={item.id} className="flex justify-between items-center bg-black/25 px-3 py-2 rounded-xl border border-white/[0.03]">
+                              <span className="text-[11px] font-bold text-slate-400">{item.label}</span>
+                              <span className={`text-[14px] sm:text-[16px] font-mono font-bold flex items-center gap-1 ${item.dir === "up" ? "text-emerald-400" : "text-rose-400"}`}>
                                 ₹{item.price.toLocaleString("en-IN")}
-                                <span className="text-[8px]">{item.dir === "up" ? "▲" : "▼"}</span>
+                                <span className="text-xs">{item.dir === "up" ? "▲" : "▼"}</span>
                               </span>
                             </div>
                           ))}
@@ -320,29 +320,29 @@ export default function HomeClient() {
                       </div>
 
                       {/* Gainers & Losers */}
-                      <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
+                      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-5 flex flex-col justify-between">
                         <div>
-                          <div className="text-[9px] uppercase text-emerald-400 font-bold tracking-wider mb-1.5 border-b border-emerald-500/10 pb-1 flex items-center justify-between">
+                          <div className="text-xs uppercase text-emerald-400 font-bold tracking-wider mb-2 border-b border-emerald-500/10 pb-2 flex items-center justify-between">
                             <span>Top 2 Gainers</span>
-                            <span className="text-emerald-500/80 font-mono">▲ NSE</span>
+                            <span className="text-emerald-500/80 font-mono text-[10px]">▲ NSE</span>
                           </div>
-                          <div className="space-y-1 mb-2.5">
+                          <div className="space-y-1.5 mb-4">
                             {marketData.gainers.map((g, idx) => (
-                              <div key={idx} className="flex justify-between text-[10px]">
-                                <span className="font-bold text-slate-400">{g.name}</span>
+                              <div key={idx} className="flex justify-between text-[12px] sm:text-[13px]">
+                                <span className="font-bold text-slate-300">{g.name}</span>
                                 <span className="text-emerald-400 font-bold font-mono">{g.change}</span>
                               </div>
                             ))}
                           </div>
 
-                          <div className="text-[9px] uppercase text-rose-400 font-bold tracking-wider mb-1.5 border-b border-rose-500/10 pb-1 flex items-center justify-between">
+                          <div className="text-xs uppercase text-rose-400 font-bold tracking-wider mb-2 border-b border-rose-500/10 pb-2 flex items-center justify-between">
                             <span>Top 2 Losers</span>
-                            <span className="text-rose-500/80 font-mono">▼ NSE</span>
+                            <span className="text-rose-500/80 font-mono text-[10px]">▼ NSE</span>
                           </div>
-                          <div className="space-y-1">
+                          <div className="space-y-1.5">
                             {marketData.losers.map((l, idx) => (
-                              <div key={idx} className="flex justify-between text-[10px]">
-                                <span className="font-bold text-slate-400">{l.name}</span>
+                              <div key={idx} className="flex justify-between text-[12px] sm:text-[13px]">
+                                <span className="font-bold text-slate-300">{l.name}</span>
                                 <span className="text-rose-400 font-bold font-mono">{l.change}</span>
                               </div>
                             ))}
@@ -352,7 +352,7 @@ export default function HomeClient() {
                     </div>
                   </div>
 
-                  <div className="px-6 py-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-slate-500">
+                  <div className="px-6 py-4 border-t border-white/[0.08] mt-6 flex items-center justify-between text-[10px] text-slate-500">
                     <span className="flex items-center gap-1.5 font-sans">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                       All systems operational
