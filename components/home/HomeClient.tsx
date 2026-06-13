@@ -586,7 +586,7 @@ export default function HomeClient() {
                   </ul>
                 </div>
                 
-                <a href="https://app.foxplayer.co.in/login" className="block w-full">
+                <a href={plan.cta === "Contact Sales" ? "https://wa.me/919983168522?text=Hello,%20I%20am%20interested%20in%20the%20Enterprise%20Custom%20plan%20for%20FoxPlayer%20Algo%20Technologies." : "https://app.foxplayer.co.in/login"} className="block w-full">
                   <button className={`w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                     plan.highlight 
                       ? "bg-primary text-black hover:bg-primary/95 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]" 
