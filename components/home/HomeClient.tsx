@@ -184,9 +184,8 @@ export default function HomeClient() {
         ...prev
       ]);
 
-      // Automatically redirect to Google Review search query for the specific address
-      const targetQuery = "FOXPLAYER ALGO TRADING MS Koil St, near police Station, Somu Nagar, Royapuram, Chennai, Tamil Nadu 600013, India";
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(targetQuery)}`, "_blank");
+      // Automatically redirect to the exact Google Review link provided by the user
+      window.open("https://g.page/r/CWpBuqnApuXzEBM/review", "_blank");
 
       // Reset form after a small delay
       setTimeout(() => {
