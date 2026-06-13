@@ -16,6 +16,17 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="sticky top-0 z-50 bg-[#050816]/75 backdrop-blur-md border-b border-white/[0.06]"
     >
+      {/* TradingView Ticker Tape Widget */}
+      <div className="w-full h-10 border-b border-white/[0.06] bg-black/40 overflow-hidden relative z-50">
+        <iframe
+          src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=en&theme=dark&symbols=%5B%7B%22proName%22%3A%22BSE%3ASENSEX%22%2C%22title%22%3A%22S%26P%20BSE%20SENSEX%22%7D%2C%7B%22proName%22%3A%22NSE%3ANIFTY%22%2C%22title%22%3A%22NIFTY%2050%22%7D%2C%7B%22proName%22%3A%22NSE%3ABANKNIFTY%22%2C%22title%22%3A%22BANK%20NIFTY%22%7D%2C%7B%22proName%22%3A%22MCX%3ACRUDEOIL1!%22%2C%22title%22%3A%22CRUDEOIL%20FUT%22%7D%2C%7B%22proName%22%3A%22MCX%3ANATURALGAS1!%22%2C%22title%22%3A%22NATURALGAS%20FUT%22%7D%5D"
+          width="100%"
+          height="100%"
+          style={{ border: "none" }}
+          allowTransparency={true}
+          scrolling="no"
+        ></iframe>
+      </div>
       <div className="max-w-7xl mx-auto px-6 h-20 md:h-32 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 md:gap-4 group shrink-0">

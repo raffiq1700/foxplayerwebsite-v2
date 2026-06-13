@@ -17,8 +17,50 @@ import {
 
 
 export default function HomeClient() {
-  const [activeTab, setActiveTab] = useState("webhooks");
+  const [activeTab, setActiveTab] = useState("markets");
   const [livePnl, setLivePnl] = useState(124530);
+
+  // Real-time tick prices state
+  const [prices, setPrices] = useState({
+    nifty: 23542.80,
+    banknifty: 51312.40,
+    crudeoil: 6845.00,
+    naturalgas: 212.50
+  });
+
+  const [priceDirections, setPriceDirections] = useState({
+    nifty: "up",
+    banknifty: "up",
+    crudeoil: "down",
+    naturalgas: "up"
+  });
+
+  // Simulated live prices ticker tick effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPrices((prev) => {
+        const niftyChange = (Math.random() - 0.49) * 12;
+        const bankniftyChange = (Math.random() - 0.49) * 35;
+        const crudeoilChange = (Math.random() - 0.51) * 8;
+        const naturalgasChange = (Math.random() - 0.48) * 0.4;
+        
+        setPriceDirections({
+          nifty: niftyChange >= 0 ? "up" : "down",
+          banknifty: bankniftyChange >= 0 ? "up" : "down",
+          crudeoil: crudeoilChange >= 0 ? "up" : "down",
+          naturalgas: naturalgasChange >= 0 ? "up" : "down",
+        });
+
+        return {
+          nifty: Number((prev.nifty + niftyChange).toFixed(2)),
+          banknifty: Number((prev.banknifty + bankniftyChange).toFixed(2)),
+          crudeoil: Number((prev.crudeoil + crudeoilChange).toFixed(2)),
+          naturalgas: Number((prev.naturalgas + naturalgasChange).toFixed(2)),
+        };
+      });
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
 
   // Subtle live P&L tick effect for premium dashboard look
   useEffect(() => {
@@ -133,7 +175,7 @@ export default function HomeClient() {
                     <span className="text-xs font-bold uppercase tracking-widest text-slate-300">FOXPLAYER CONSOLE v3.2</span>
                   </div>
                   <div className="flex bg-black/30 p-1 rounded-lg border border-white/[0.08]">
-                    {["webhooks", "console", "brokers", "chart"].map((tab) => (
+                    {["markets", "webhooks", "console", "brokers", "chart"].map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -143,14 +185,120 @@ export default function HomeClient() {
                             : "text-slate-400 hover:text-slate-200"
                         }`}
                       >
-                        {tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : tab === "brokers" ? "Brokers" : "Live Chart"}
+                        {tab === "markets" ? "Markets" : tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : tab === "brokers" ? "Brokers" : "Live Chart"}
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Dashboard Code/Console Area */}
-                <div className={`min-h-[300px] flex flex-col justify-between font-mono bg-black/10 ${activeTab === "chart" ? "p-0" : "p-6"}`}>
+                <div className={`min-h-[300px] flex flex-col justify-between font-mono bg-black/10 ${activeTab === "chart" ? "p-0" : activeTab === "markets" ? "p-4" : "p-6"}`}>
+                  {activeTab === "markets" && (
+                    <div className="flex flex-col md:flex-row items-center gap-6 font-sans">
+                      {/* Left: 3D Holographic Card Graphic */}
+                      <div className="relative w-40 h-[220px] rounded-2xl bg-gradient-to-br from-primary/30 via-[#0F172A] to-secondary/30 border border-white/10 p-4 shadow-[0_12px_24px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden group/card transition-all duration-500 hover:scale-[1.03] hover:rotate-3 hover:border-primary/40 shrink-0">
+                        {/* Glows */}
+                        <div className="absolute -top-10 -left-10 w-24 h-24 bg-primary/20 rounded-full blur-2xl group-hover/card:bg-primary/40 transition-colors" />
+                        <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-secondary/20 rounded-full blur-2xl group-hover/card:bg-secondary/40 transition-colors" />
+                        
+                        {/* Header */}
+                        <div className="flex justify-between items-start z-10">
+                          <div>
+                            <div className="text-[9px] text-primary font-bold tracking-widest uppercase">FoxPlayer</div>
+                            <div className="text-[6px] text-slate-400 font-bold uppercase tracking-wider">Algo Pass v3.2</div>
+                          </div>
+                          <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center">
+                            <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
+                          </div>
+                        </div>
+
+                        {/* Chip / Signal */}
+                        <div className="my-auto z-10 flex items-center justify-between">
+                          <div className="w-8 h-6 rounded bg-gradient-to-r from-amber-400/80 to-yellow-500/80 opacity-80 border border-white/10 shadow-inner" />
+                          <div className="flex gap-0.5">
+                            <span className="w-1 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                            <span className="w-1 h-3 bg-primary/65 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                            <span className="w-1 h-3.5 bg-primary/90 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                          </div>
+                        </div>
+
+                        {/* Key */}
+                        <div className="z-10">
+                          <div className="text-[8px] font-mono text-slate-400 tracking-wider">SECURE CONNECTED KEY</div>
+                          <div className="text-[10px] font-mono font-bold text-white tracking-widest mt-0.5">FOX •••• •••• 9A2B</div>
+                        </div>
+
+                        {/* Grid overlay */}
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:8px_8px]" />
+                      </div>
+
+                      {/* Right: Live Tick Prices & Gainers/Losers */}
+                      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                        {/* Live Rates */}
+                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
+                          <div className="text-[9px] uppercase text-slate-500 font-bold tracking-wider mb-2 border-b border-white/[0.04] pb-1.5 flex items-center justify-between">
+                            <span>Live Rates</span>
+                            <span className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
+                              <span className="text-[8px] text-emerald-400 font-mono">LIVE</span>
+                            </span>
+                          </div>
+                          <div className="space-y-1.5">
+                            {[
+                              { id: "nifty", label: "NIFTY 50", price: prices.nifty, dir: priceDirections.nifty },
+                              { id: "banknifty", label: "BANK NIFTY", price: prices.banknifty, dir: priceDirections.banknifty },
+                              { id: "crudeoil", label: "CRUDE OIL", price: prices.crudeoil, dir: priceDirections.crudeoil },
+                              { id: "naturalgas", label: "NATURAL GAS", price: prices.naturalgas, dir: priceDirections.naturalgas },
+                            ].map((item) => (
+                              <div key={item.id} className="flex justify-between items-center bg-black/20 px-2.5 py-1 rounded-lg border border-white/[0.04]">
+                                <span className="text-[10px] font-bold text-slate-400">{item.label}</span>
+                                <span className={`text-[10px] font-mono font-bold transition-all duration-300 ${item.dir === "up" ? "text-emerald-400" : "text-rose-400"}`}>
+                                  ₹{item.price.toLocaleString("en-IN")}
+                                  <span className="text-[7px] ml-0.5">{item.dir === "up" ? "▲" : "▼"}</span>
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Gainers & Losers */}
+                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between text-[10px]">
+                          <div>
+                            <div className="text-[9px] uppercase text-emerald-400 font-bold tracking-wider mb-1 border-b border-emerald-500/10 pb-1 flex items-center justify-between">
+                              <span>Top 2 Gainers</span>
+                              <span className="text-emerald-500/80">▲ NSE</span>
+                            </div>
+                            <div className="space-y-1 mb-2">
+                              <div className="flex justify-between">
+                                <span className="font-bold text-slate-400">RELIANCE</span>
+                                <span className="text-emerald-400 font-bold font-mono">+2.45%</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="font-bold text-slate-400">TCS</span>
+                                <span className="text-emerald-400 font-bold font-mono">+1.89%</span>
+                              </div>
+                            </div>
+
+                            <div className="text-[9px] uppercase text-rose-400 font-bold tracking-wider mb-1 border-b border-rose-500/10 pb-1 flex items-center justify-between">
+                              <span>Top 2 Losers</span>
+                              <span className="text-rose-500/80">▼ NSE</span>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between">
+                                <span className="font-bold text-slate-400">INFOSYS</span>
+                                <span className="text-rose-400 font-bold font-mono">-1.76%</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="font-bold text-slate-400">HDFC BANK</span>
+                                <span className="text-rose-400 font-bold font-mono">-1.24%</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {activeTab === "webhooks" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2">
