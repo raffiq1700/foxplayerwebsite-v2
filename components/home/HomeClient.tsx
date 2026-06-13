@@ -91,8 +91,43 @@ function MarketMoversWidget() {
 }
 
 export default function HomeClient() {
-  const [activeTab, setActiveTab] = useState("markets");
   const [livePnl, setLivePnl] = useState(124530);
+
+  // Initialize with correct rates so they render instantly on load
+  const [marketData, setMarketData] = useState({
+    rates: {
+      nifty: { price: 23539.60, change: 0.45, dir: "up" },
+      banknifty: { price: 51357.53, change: 0.62, dir: "up" },
+      crudeoil: { price: 6862.21, change: 0.18, dir: "up" },
+      naturalgas: { price: 211.53, change: -1.24, dir: "down" }
+    },
+    gainers: [
+      { name: "RELIANCE", change: "+2.45%" },
+      { name: "TCS", change: "+1.89%" }
+    ],
+    losers: [
+      { name: "INFOSYS", change: "-1.76%" },
+      { name: "HDFC BANK", change: "-1.24%" }
+    ]
+  });
+
+  // Load live correct data from Yahoo Finance API endpoint instantly
+  useEffect(() => {
+    async function loadMarketData() {
+      try {
+        const res = await fetch("/api/market-data");
+        const data = await res.json();
+        if (data && data.rates) {
+          setMarketData(data);
+        }
+      } catch (err) {
+        console.error("Error loading market data:", err);
+      }
+    }
+    loadMarketData();
+    const interval = setInterval(loadMarketData, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Subtle live P&L tick effect for premium dashboard look
   useEffect(() => {
@@ -206,163 +241,124 @@ export default function HomeClient() {
                     <Activity className="w-4 h-4 text-primary" />
                     <span className="text-xs font-bold uppercase tracking-widest text-slate-300">FOXPLAYER CONSOLE v3.2</span>
                   </div>
-                  <div className="flex bg-black/30 p-1 rounded-lg border border-white/[0.08]">
-                    {["markets", "webhooks", "console", "brokers"].map((tab) => (
-                      <button
-                        key={tab}
-                        onClick={() => setActiveTab(tab)}
-                        className={`text-[10px] font-bold px-3 py-1.5 rounded-md transition-all capitalize ${
-                          activeTab === tab 
-                            ? "bg-primary text-black shadow-[0_0_10px_rgba(0,212,255,0.2)]" 
-                            : "text-slate-400 hover:text-slate-200"
-                        }`}
-                      >
-                        {tab === "markets" ? "Markets" : tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : "Brokers"}
-                      </button>
-                    ))}
-                  </div>
+                  <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 flex items-center gap-1.5 font-mono">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                    </span>
+                    MARKETS LIVE
+                  </span>
                 </div>
 
                 {/* Dashboard Code/Console Area */}
-                <div className={`min-h-[300px] flex flex-col justify-between font-mono bg-black/10 ${activeTab === "markets" ? "p-4" : "p-6"}`}>
-                  {activeTab === "markets" && (
-                    <div className="flex flex-col md:flex-row items-center gap-6 font-sans">
-                      {/* Left: 3D Holographic Card Graphic */}
-                      <div className="relative w-40 h-[220px] rounded-2xl bg-gradient-to-br from-primary/30 via-[#0F172A] to-secondary/30 border border-white/10 p-4 shadow-[0_12px_24px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden group/card transition-all duration-500 hover:scale-[1.03] hover:rotate-3 hover:border-primary/40 shrink-0">
-                        {/* Glows */}
-                        <div className="absolute -top-10 -left-10 w-24 h-24 bg-primary/20 rounded-full blur-2xl group-hover/card:bg-primary/40 transition-colors" />
-                        <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-secondary/20 rounded-full blur-2xl group-hover/card:bg-secondary/40 transition-colors" />
-                        
-                        {/* Header */}
-                        <div className="flex justify-between items-start z-10">
-                          <div>
-                            <div className="text-[9px] text-primary font-bold tracking-widest uppercase">FoxPlayer</div>
-                            <div className="text-[6px] text-slate-400 font-bold uppercase tracking-wider">Algo Pass v3.2</div>
+                <div className="min-h-[300px] flex flex-col justify-between font-mono bg-black/10 p-4">
+                  <div className="flex flex-col md:flex-row items-center gap-6 font-sans">
+                    {/* Left: 3D Holographic Card Graphic */}
+                    <div className="relative w-40 h-[220px] rounded-2xl bg-gradient-to-br from-primary/30 via-[#0F172A] to-secondary/30 border border-white/10 p-4 shadow-[0_12px_24px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden group/card transition-all duration-500 hover:scale-[1.03] hover:rotate-3 hover:border-primary/40 shrink-0">
+                      {/* Glows */}
+                      <div className="absolute -top-10 -left-10 w-24 h-24 bg-primary/20 rounded-full blur-2xl group-hover/card:bg-primary/40 transition-colors" />
+                      <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-secondary/20 rounded-full blur-2xl group-hover/card:bg-secondary/40 transition-colors" />
+                      
+                      {/* Header */}
+                      <div className="flex justify-between items-start z-10">
+                        <div>
+                          <div className="text-[9px] text-primary font-bold tracking-widest uppercase">FoxPlayer</div>
+                          <div className="text-[6px] text-slate-400 font-bold uppercase tracking-wider">Algo Pass v3.2</div>
+                        </div>
+                        <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center">
+                          <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
+                        </div>
+                      </div>
+
+                      {/* Chip / Signal */}
+                      <div className="my-auto z-10 flex items-center justify-between">
+                        <div className="w-8 h-6 rounded bg-gradient-to-r from-amber-400/80 to-yellow-500/80 opacity-80 border border-white/10 shadow-inner" />
+                        <div className="flex gap-0.5">
+                          <span className="w-1 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                          <span className="w-1 h-3 bg-primary/65 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                          <span className="w-1 h-3.5 bg-primary/90 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                        </div>
+                      </div>
+
+                      {/* Key */}
+                      <div className="z-10">
+                        <div className="text-[8px] font-mono text-slate-400 tracking-wider">SECURE CONNECTED KEY</div>
+                        <div className="text-[10px] font-mono font-bold text-white tracking-widest mt-0.5">FOX •••• •••• 9A2B</div>
+                      </div>
+
+                      {/* Grid overlay */}
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:8px_8px]" />
+                    </div>
+
+                    {/* Right: Live Rates & Top Movers */}
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-[11px]">
+                      {/* Live Rates */}
+                      <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
+                        <div className="text-[9px] uppercase text-slate-400 font-bold tracking-wider mb-2 border-b border-white/[0.04] pb-1.5 flex items-center justify-between">
+                          <span>Live Rates</span>
+                          <span className="flex items-center gap-1 font-mono">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
+                            <span className="text-[8px] text-emerald-400 font-bold">LIVE</span>
+                          </span>
+                        </div>
+                        <div className="space-y-1.5">
+                          {[
+                            { id: "nifty", label: "NIFTY 50", price: marketData.rates.nifty.price, change: marketData.rates.nifty.change, dir: marketData.rates.nifty.dir },
+                            { id: "banknifty", label: "BANK NIFTY", price: marketData.rates.banknifty.price, change: marketData.rates.banknifty.change, dir: marketData.rates.banknifty.dir },
+                            { id: "crudeoil", label: "CRUDE OIL", price: marketData.rates.crudeoil.price, change: marketData.rates.crudeoil.change, dir: marketData.rates.crudeoil.dir },
+                            { id: "naturalgas", label: "NATURAL GAS", price: marketData.rates.naturalgas.price, change: marketData.rates.naturalgas.change, dir: marketData.rates.naturalgas.dir },
+                          ].map((item) => (
+                            <div key={item.id} className="flex justify-between items-center bg-black/25 px-2.5 py-1.5 rounded-lg border border-white/[0.03]">
+                              <span className="text-[10px] font-bold text-slate-300">{item.label}</span>
+                              <span className={`text-[10px] font-mono font-bold flex items-center gap-1 ${item.dir === "up" ? "text-emerald-400" : "text-rose-400"}`}>
+                                ₹{item.price.toLocaleString("en-IN")}
+                                <span className="text-[8px]">{item.dir === "up" ? "▲" : "▼"}</span>
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Gainers & Losers */}
+                      <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
+                        <div>
+                          <div className="text-[9px] uppercase text-emerald-400 font-bold tracking-wider mb-1.5 border-b border-emerald-500/10 pb-1 flex items-center justify-between">
+                            <span>Top 2 Gainers</span>
+                            <span className="text-emerald-500/80 font-mono">▲ NSE</span>
                           </div>
-                          <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center">
-                            <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
+                          <div className="space-y-1 mb-2.5">
+                            {marketData.gainers.map((g, idx) => (
+                              <div key={idx} className="flex justify-between text-[10px]">
+                                <span className="font-bold text-slate-400">{g.name}</span>
+                                <span className="text-emerald-400 font-bold font-mono">{g.change}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="text-[9px] uppercase text-rose-400 font-bold tracking-wider mb-1.5 border-b border-rose-500/10 pb-1 flex items-center justify-between">
+                            <span>Top 2 Losers</span>
+                            <span className="text-rose-500/80 font-mono">▼ NSE</span>
+                          </div>
+                          <div className="space-y-1">
+                            {marketData.losers.map((l, idx) => (
+                              <div key={idx} className="flex justify-between text-[10px]">
+                                <span className="font-bold text-slate-400">{l.name}</span>
+                                <span className="text-rose-400 font-bold font-mono">{l.change}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
-
-                        {/* Chip / Signal */}
-                        <div className="my-auto z-10 flex items-center justify-between">
-                          <div className="w-8 h-6 rounded bg-gradient-to-r from-amber-400/80 to-yellow-500/80 opacity-80 border border-white/10 shadow-inner" />
-                          <div className="flex gap-0.5">
-                            <span className="w-1 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                            <span className="w-1 h-3 bg-primary/65 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                            <span className="w-1 h-3.5 bg-primary/90 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
-                          </div>
-                        </div>
-
-                        {/* Key */}
-                        <div className="z-10">
-                          <div className="text-[8px] font-mono text-slate-400 tracking-wider">SECURE CONNECTED KEY</div>
-                          <div className="text-[10px] font-mono font-bold text-white tracking-widest mt-0.5">FOX •••• •••• 9A2B</div>
-                        </div>
-
-                        {/* Grid overlay */}
-                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:8px_8px]" />
-                      </div>
-
-                      {/* Right: Live Rates & Top Movers from TradingView */}
-                      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                        {/* Live Rates */}
-                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-2 flex flex-col justify-between overflow-hidden">
-                          <MarketOverviewWidget />
-                        </div>
-
-                        {/* Gainers & Losers */}
-                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-2 flex flex-col justify-between overflow-hidden">
-                          <MarketMoversWidget />
-                        </div>
                       </div>
                     </div>
-                  )}
+                  </div>
 
-                  {activeTab === "webhooks" && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2">
-                        <span>POST https://api.foxplayer.co.in/webhook</span>
-                        <span className="text-primary">JWT Authenticated</span>
-                      </div>
-                      <pre className="text-xs text-slate-300 leading-relaxed overflow-x-auto">
-{`{
-  "secret_token": "fox_live_9a2b8e",
-  "ticker": "NIFTY26JUN20500CE",
-  "action": "BUY",
-  "quantity": 50,
-  "order_type": "MARKET",
-  "strategy": "OptionsBreakout_V4",
-  "payload": {
-    "indicator": "SuperTrend_Buy",
-    "price": 182.45
-  }
-}`}
-                      </pre>
-                    </div>
-                  )}
-
-                  {activeTab === "console" && (
-                    <div className="space-y-3 text-[11px]">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2">
-                        <span>Terminal Log Stream</span>
-                        <span className="text-primary animate-pulse flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
-                          Live
-                        </span>
-                      </div>
-                      <div className="space-y-1.5 text-slate-400 leading-relaxed font-semibold">
-                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> TV Webhook Alert received for NIFTY</p>
-                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-secondary">AUTH</span> Decoded claims: client_id=&quot;FOX_902&quot;</p>
-                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> Order validation passed. Margin: OK</p>
-                        <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> Routing BUY order to Shoonya API...</p>
-                        <p><span className="text-slate-600">[15:20:02]</span> <span className="text-primary font-bold">SUCCESS</span> Executed. ID: 260610001842 [11ms]</p>
-                        <p><span className="text-slate-600">[15:20:02]</span> <span className="text-secondary">NOTIFY</span> Discord notification dispatched</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "brokers" && (
-                    <div className="space-y-3 font-sans">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2 font-mono">
-                        <span>Connected Broker Keys</span>
-                        <span>API Ping Latency</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-3 pt-2">
-                        {[
-                          { name: "Alice Blue", connected: true, latency: "8ms" },
-                          { name: "Shoonya", connected: true, latency: "12ms" },
-                          { name: "Angel One", connected: true, latency: "15ms" },
-                          { name: "Zerodha", connected: true, latency: "10ms" },
-                        ].map((broker) => (
-                          <div key={broker.name} className="flex items-center justify-between p-3 rounded-xl border border-white/[0.06] bg-white/[0.01] hover:bg-white/[0.03] transition-all hover:border-primary/10">
-                            <span className="text-xs font-bold text-slate-200">{broker.name}</span>
-                            <span className="text-[10px] font-mono text-primary font-bold bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">
-                              {broker.latency}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === "markets" ? (
-                    <div className="px-6 py-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-slate-500">
-                      <span className="flex items-center gap-1.5 font-sans">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        All systems operational
-                      </span>
-                      <span>Server region: Mumbai, India</span>
-                    </div>
-                  ) : (
-                    <div className="border-t border-white/[0.08] pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
-                      <span className="flex items-center gap-1.5 font-sans">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        All systems operational
-                      </span>
-                      <span>Server region: Mumbai, India</span>
-                    </div>
-                  )}
+                  <div className="px-6 py-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-slate-500">
+                    <span className="flex items-center gap-1.5 font-sans">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                      All systems operational
+                    </span>
+                    <span>Server region: Mumbai, India</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
