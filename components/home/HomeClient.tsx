@@ -32,10 +32,11 @@ export default function HomeClient() {
     <main className="bg-background text-white min-h-screen">
 
       {/* ─── 1. HERO SECTION ─── */}
-      <section className="relative overflow-hidden border-b border-border grid-pattern pt-20 pb-28 md:pt-36 md:pb-40">
+      <section className="relative overflow-hidden border-b border-white/[0.06] grid-pattern pt-20 pb-28 md:pt-36 md:pb-40">
         {/* Subtle glow accents */}
-        <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-secondary/10 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-primary/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute -left-40 top-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
@@ -45,7 +46,7 @@ export default function HomeClient() {
                 initial={{ opacity: 0, y: 24 }} 
                 animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(0,212,255,0.1)]"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -58,7 +59,7 @@ export default function HomeClient() {
                 initial={{ opacity: 0, y: 24 }} 
                 animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[2.6rem] sm:text-[3.5rem] md:text-[4rem] font-extrabold leading-[1.1] tracking-tight mb-6"
+                className="text-[2.6rem] sm:text-[3.5rem] md:text-[4.2rem] font-black leading-[1.05] tracking-tight mb-6"
               >
                 Automate Your Trading.<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-gradient">Trade Smarter.</span>
@@ -68,7 +69,7 @@ export default function HomeClient() {
                 initial={{ opacity: 0, y: 24 }} 
                 animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mb-10"
+                className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mb-10 font-normal"
               >
                 FoxPlayer connects your custom indicators, Python strategies, and Pine Scripts directly to India&apos;s top stock brokers. Real-time execution with less than 15ms order latency.
               </motion.p>
@@ -85,7 +86,7 @@ export default function HomeClient() {
                   </button>
                 </a>
                 <a href="#demo" className="w-full sm:w-auto">
-                  <button className="btn-secondary w-full gap-2 text-sm border-white/10 hover:border-white/20">
+                  <button className="btn-secondary w-full gap-2 text-sm">
                     <Play className="w-4 h-4 fill-white text-white" /> Watch Demo
                   </button>
                 </a>
@@ -96,21 +97,21 @@ export default function HomeClient() {
                 initial={{ opacity: 0, y: 24 }} 
                 animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex items-center gap-8 text-xs text-slate-400 border-t border-border pt-8"
+                className="flex items-center gap-8 text-xs text-slate-400 border-t border-white/[0.08] pt-8"
               >
                 <div>
-                  <div className="text-xl font-bold text-white mb-0.5">₹1,500Cr+</div>
-                  <div>Monthly Vol. Executed</div>
+                  <div className="text-xl md:text-2xl font-black text-white mb-0.5 tracking-tight">₹1,500Cr+</div>
+                  <div className="font-medium text-slate-500">Monthly Vol. Executed</div>
                 </div>
-                <div className="w-px h-8 bg-border" />
+                <div className="w-px h-8 bg-white/[0.08]" />
                 <div>
-                  <div className="text-xl font-bold text-white mb-0.5">15,000+</div>
-                  <div>Active Trading Strategies</div>
+                  <div className="text-xl md:text-2xl font-black text-white mb-0.5 tracking-tight">15,000+</div>
+                  <div className="font-medium text-slate-500">Active Trading Strategies</div>
                 </div>
-                <div className="w-px h-8 bg-border" />
+                <div className="w-px h-8 bg-white/[0.08]" />
                 <div>
-                  <div className="text-xl font-bold text-white mb-0.5">12ms</div>
-                  <div>Avg. Response Latency</div>
+                  <div className="text-xl md:text-2xl font-black text-white mb-0.5 tracking-tight">12ms</div>
+                  <div className="font-medium text-slate-500">Avg. Response Latency</div>
                 </div>
               </motion.div>
             </div>
@@ -122,21 +123,23 @@ export default function HomeClient() {
               transition={{ duration: 0.8, delay: 0.4 }} 
               className="lg:col-span-6"
             >
-              <div className="bg-surface border border-border shadow-2xl rounded-2xl overflow-hidden backdrop-blur-md">
+              <div className="bg-[#0F172A]/70 border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl overflow-hidden backdrop-blur-md hover:border-primary/20 transition-all duration-500 relative group">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] rounded-full pointer-events-none" />
+                
                 {/* Simulated Header */}
-                <div className="px-5 py-4 border-b border-border bg-black/10 flex items-center justify-between">
+                <div className="px-5 py-4 border-b border-white/[0.08] bg-black/20 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Activity className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-300">FOXPLAYER CONSOLE v3.2</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-slate-300">FOXPLAYER CONSOLE v3.2</span>
                   </div>
-                  <div className="flex bg-black/20 p-1 rounded-lg border border-border/50">
+                  <div className="flex bg-black/30 p-1 rounded-lg border border-white/[0.08]">
                     {["webhooks", "console", "brokers"].map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
                         className={`text-[10px] font-bold px-3 py-1.5 rounded-md transition-all capitalize ${
                           activeTab === tab 
-                            ? "bg-surface text-primary shadow-sm" 
+                            ? "bg-primary text-black shadow-[0_0_10px_rgba(0,212,255,0.2)]" 
                             : "text-slate-400 hover:text-slate-200"
                         }`}
                       >
@@ -147,12 +150,12 @@ export default function HomeClient() {
                 </div>
 
                 {/* Dashboard Code/Console Area */}
-                <div className="p-6 min-h-[300px] flex flex-col justify-between font-mono bg-black/5">
+                <div className="p-6 min-h-[300px] flex flex-col justify-between font-mono bg-black/10">
                   {activeTab === "webhooks" && (
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-border pb-2">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2">
                         <span>POST https://api.foxplayer.co.in/webhook</span>
-                        <span>JWT Authenticated</span>
+                        <span className="text-primary">JWT Authenticated</span>
                       </div>
                       <pre className="text-xs text-slate-300 leading-relaxed overflow-x-auto">
 {`{
@@ -173,9 +176,12 @@ export default function HomeClient() {
 
                   {activeTab === "console" && (
                     <div className="space-y-3 text-[11px]">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-border pb-2">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2">
                         <span>Terminal Log Stream</span>
-                        <span className="text-primary animate-pulse">● Live</span>
+                        <span className="text-primary animate-pulse flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+                          Live
+                        </span>
                       </div>
                       <div className="space-y-1.5 text-slate-400 leading-relaxed font-semibold">
                         <p><span className="text-slate-600">[15:20:01]</span> <span className="text-primary">INFO</span> TV Webhook Alert received for NIFTY</p>
@@ -190,7 +196,7 @@ export default function HomeClient() {
 
                   {activeTab === "brokers" && (
                     <div className="space-y-3 font-sans">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-border pb-2 font-mono">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 border-b border-white/[0.06] pb-2 font-mono">
                         <span>Connected Broker Keys</span>
                         <span>API Ping Latency</span>
                       </div>
@@ -201,7 +207,7 @@ export default function HomeClient() {
                           { name: "Angel One", connected: true, latency: "15ms" },
                           { name: "Zerodha", connected: true, latency: "10ms" },
                         ].map((broker) => (
-                          <div key={broker.name} className="flex items-center justify-between p-3 rounded-xl border border-border bg-white/[0.01] hover:bg-white/[0.03] transition-colors">
+                          <div key={broker.name} className="flex items-center justify-between p-3 rounded-xl border border-white/[0.06] bg-white/[0.01] hover:bg-white/[0.03] transition-all hover:border-primary/10">
                             <span className="text-xs font-bold text-slate-200">{broker.name}</span>
                             <span className="text-[10px] font-mono text-primary font-bold bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">
                               {broker.latency}
@@ -212,7 +218,7 @@ export default function HomeClient() {
                     </div>
                   )}
 
-                  <div className="border-t border-border pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
+                  <div className="border-t border-white/[0.08] pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
                     <span className="flex items-center gap-1.5 font-sans">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       All systems operational
@@ -296,12 +302,12 @@ export default function HomeClient() {
               </p>
 
               <div className="grid grid-cols-2 gap-6">
-                <div className="p-5 rounded-2xl bg-surface border border-border">
+                <div className="p-5 rounded-2xl bg-[#0F172A]/50 border border-white/[0.08] shadow-[0_0_15px_rgba(0,212,255,0.02)] hover:border-primary/20 hover:shadow-[0_0_20px_rgba(0,212,255,0.06)] transition-all duration-300">
                   <div className="text-sm font-semibold text-slate-400 mb-1">Win Rate</div>
                   <div className="text-3xl font-extrabold text-primary">72.4%</div>
                   <div className="text-[10px] text-slate-500 mt-1">Based on 1,240 live orders</div>
                 </div>
-                <div className="p-5 rounded-2xl bg-surface border border-border">
+                <div className="p-5 rounded-2xl bg-[#0F172A]/50 border border-white/[0.08] shadow-[0_0_15px_rgba(139,92,246,0.02)] hover:border-secondary/20 hover:shadow-[0_0_20px_rgba(139,92,246,0.06)] transition-all duration-300">
                   <div className="text-sm font-semibold text-slate-400 mb-1">Profit Factor</div>
                   <div className="text-3xl font-extrabold text-secondary">2.14</div>
                   <div className="text-[10px] text-slate-500 mt-1">Gross profits vs losses</div>
@@ -310,23 +316,23 @@ export default function HomeClient() {
             </div>
 
             {/* Right Column: Graphic P&L Cards & Equity Curve */}
-            <div className="lg:col-span-7 bg-surface border border-border rounded-2xl p-6 shadow-2xl relative">
+            <div className="lg:col-span-7 bg-[#0F172A]/70 border border-white/[0.08] rounded-2xl p-6 shadow-2xl relative backdrop-blur-md">
               
               {/* Dashboard Preview Cards */}
               <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="p-4 rounded-xl bg-slate-900 border border-border">
+                <div className="p-4 rounded-xl bg-[#050816]/60 border border-white/[0.06]">
                   <div className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total P&L</div>
                   <div className="text-lg font-bold text-primary">
                     +₹{livePnl.toLocaleString("en-IN")}
                   </div>
                   <div className="text-[9px] text-slate-500 font-mono">Cumulative Gain</div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-900 border border-border">
+                <div className="p-4 rounded-xl bg-[#050816]/60 border border-white/[0.06]">
                   <div className="text-[10px] font-bold text-slate-400 uppercase mb-1">Today P&L</div>
                   <div className="text-lg font-bold text-primary">+₹18,450</div>
                   <div className="text-[9px] text-slate-500 font-mono">Real-time Ticks</div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-900 border border-border">
+                <div className="p-4 rounded-xl bg-[#050816]/60 border border-white/[0.06]">
                   <div className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total ROI</div>
                   <div className="text-lg font-bold text-secondary">+34.8%</div>
                   <div className="text-[9px] text-slate-500 font-mono">Net Account ROI</div>
@@ -334,7 +340,7 @@ export default function HomeClient() {
               </div>
 
               {/* Dotted grid preview for equity curve */}
-              <div className="relative rounded-xl border border-border bg-slate-900 p-4 overflow-hidden mb-6">
+              <div className="relative rounded-xl border border-white/[0.08] bg-[#050816]/80 p-4 overflow-hidden mb-6">
                 <div className="absolute inset-0 grid-pattern pointer-events-none opacity-30" />
                 <div className="flex items-center justify-between text-xs text-slate-400 mb-4 font-mono">
                   <span>Equity Growth Curve</span>
@@ -345,8 +351,8 @@ export default function HomeClient() {
                 <svg className="w-full h-40 text-primary" viewBox="0 0 100 30" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="gradient-equity" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#00E676" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#00E676" stopOpacity="0.0" />
+                      <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#00D4FF" stopOpacity="0.0" />
                     </linearGradient>
                   </defs>
                   {/* Grid Guidelines */}
@@ -355,13 +361,13 @@ export default function HomeClient() {
                   {/* Equity Area fill */}
                   <path d="M 0 30 C 10 28, 20 22, 30 24 C 40 26, 50 18, 60 14 C 70 10, 80 5, 100 2 L 100 30 Z" fill="url(#gradient-equity)" />
                   {/* Equity Stroke path */}
-                  <path d="M 0 30 C 10 28, 20 22, 30 24 C 40 26, 50 18, 60 14 C 70 10, 80 5, 100 2" fill="none" stroke="#00E676" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M 0 30 C 10 28, 20 22, 30 24 C 40 26, 50 18, 60 14 C 70 10, 80 5, 100 2" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </div>
 
               {/* Simulated Live Orders list */}
               <div className="space-y-3 font-mono text-[10px] text-slate-400">
-                <div className="flex items-center justify-between border-b border-border pb-2 text-slate-500">
+                <div className="flex items-center justify-between border-b border-white/[0.08] pb-2 text-slate-500">
                   <span>ACTIVE STRATEGY ORDERS</span>
                   <span>STATUS</span>
                 </div>
@@ -370,7 +376,7 @@ export default function HomeClient() {
                   { time: "15:22:12", symbol: "BANKNIFTY47500PE", qty: 45, profit: "+₹1,561", active: true },
                   { time: "15:20:01", symbol: "RELIANCE FUT", qty: 250, profit: "+₹3,075", active: false },
                 ].map((trade, idx) => (
-                  <div key={idx} className="flex items-center justify-between py-1 border-b border-border/40 last:border-0">
+                  <div key={idx} className="flex items-center justify-between py-1 border-b border-white/[0.06] last:border-0">
                     <div className="flex items-center gap-2">
                       <span className="text-slate-600">{trade.time}</span>
                       <span className="font-bold text-slate-200">{trade.symbol}</span>
@@ -381,7 +387,7 @@ export default function HomeClient() {
                       <span className={`px-2 py-0.5 rounded text-[8px] font-bold ${
                         trade.active 
                           ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" 
-                          : "bg-white/5 text-slate-400 border border-border"
+                          : "bg-white/5 text-slate-400 border border-white/[0.08]"
                       }`}>
                         {trade.active ? "ACTIVE" : "CLOSED"}
                       </span>
@@ -402,7 +408,6 @@ export default function HomeClient() {
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Engineered for Trading Excellence</h2>
             <p className="text-base text-slate-400">Why experienced retail developers and institutional fund managers partner with FoxPlayer for trade automation.</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
@@ -428,11 +433,11 @@ export default function HomeClient() {
             ].map((item, idx) => (
               <div 
                 key={idx} 
-                className="bg-surface border border-border rounded-2xl p-8 hover:border-secondary/20 transition-all flex justify-between items-start gap-8"
+                className="bg-[#0F172A]/40 border border-white/[0.08] backdrop-blur-md rounded-2xl p-8 hover:border-secondary/30 hover:shadow-[0_0_20px_rgba(139,92,246,0.05)] transition-all duration-300 flex justify-between items-start gap-8"
               >
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+                  <p className="text-sm text-slate-400 leading-relaxed font-light">{item.desc}</p>
                 </div>
                 <span className="text-xl font-mono font-bold text-secondary bg-secondary/10 border border-secondary/20 px-3 py-1.5 rounded-lg shrink-0">
                   {item.stat}
@@ -444,7 +449,7 @@ export default function HomeClient() {
       </section>
 
       {/* ─── 5. TESTIMONIALS SECTION ─── */}
-      <section className="py-24 px-6 border-t border-border bg-slate-900/30">
+      <section className="py-24 px-6 border-t border-white/[0.06] bg-slate-900/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">User Feedback</p>
@@ -472,7 +477,7 @@ export default function HomeClient() {
             ].map((t, idx) => (
               <div 
                 key={idx} 
-                className="bg-surface border border-border rounded-2xl p-8 flex flex-col justify-between"
+                className="bg-[#0F172A]/40 border border-white/[0.08] backdrop-blur-md rounded-2xl p-8 flex flex-col justify-between hover:border-primary/20 hover:shadow-[0_0_20px_rgba(0,212,255,0.04)] transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center gap-1 text-amber-400 mb-6">
@@ -483,7 +488,7 @@ export default function HomeClient() {
                   <p className="text-sm text-slate-300 italic leading-relaxed mb-8">&ldquo;{t.quote}&rdquo;</p>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-slate-800 border border-border flex items-center justify-center text-xs font-bold text-slate-400">
+                  <div className="w-10 h-10 rounded-full bg-slate-800 border border-white/[0.08] flex items-center justify-center text-xs font-bold text-slate-400">
                     {t.author.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div>
@@ -498,7 +503,7 @@ export default function HomeClient() {
       </section>
 
       {/* ─── 6. PRICING PLANS ─── */}
-      <section className="py-24 px-6 border-t border-border bg-background relative overflow-hidden">
+      <section className="py-24 px-6 border-t border-white/[0.06] bg-background relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] -z-10" />
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -553,27 +558,27 @@ export default function HomeClient() {
             ].map((plan, idx) => (
               <div 
                 key={idx} 
-                className={`rounded-2xl p-8 flex flex-col justify-between transition-all ${
+                className={`rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 ${
                   plan.highlight 
-                    ? "bg-surface border-2 border-primary/40 shadow-2xl relative" 
-                    : "bg-surface border border-border"
+                    ? "bg-[#0F172A]/70 border-2 border-primary/45 shadow-[0_0_30px_rgba(0,212,255,0.06)] relative scale-105 z-10" 
+                    : "bg-[#0F172A]/40 border border-white/[0.08]"
                 }`}
               >
                 {plan.highlight && (
-                  <span className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-black text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                  <span className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-black text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(0,212,255,0.3)]">
                     Recommended
                   </span>
                 )}
                 <div>
                   <h3 className="text-lg font-bold text-white mb-2">{plan.name}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-6">{plan.desc}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-6 font-light">{plan.desc}</p>
                   <div className="text-3xl font-extrabold text-white mb-8">{plan.price}</div>
                   
-                  <div className="w-full h-px bg-border mb-8" />
+                  <div className="w-full h-px bg-white/[0.08] mb-8" />
                   
                   <ul className="space-y-4 mb-8">
                     {plan.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-3 text-xs text-slate-300 leading-relaxed">
+                      <li key={i} className="flex items-start gap-3 text-xs text-slate-300 leading-relaxed font-light">
                         <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                         {f}
                       </li>
@@ -584,8 +589,8 @@ export default function HomeClient() {
                 <a href="https://app.foxplayer.co.in/login" className="block w-full">
                   <button className={`w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                     plan.highlight 
-                      ? "bg-primary text-black hover:bg-primary/90 hover:shadow-[0_4px_15px_rgba(0,230,118,0.25)]" 
-                      : "bg-slate-900 text-slate-300 border border-border hover:bg-slate-800"
+                      ? "bg-primary text-black hover:bg-primary/95 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]" 
+                      : "bg-[#050816] text-slate-300 border border-white/[0.08] hover:bg-slate-900"
                   }`}>
                     {plan.cta}
                   </button>
@@ -595,18 +600,18 @@ export default function HomeClient() {
           </div>
 
           {/* Institutional White Label CTA Block */}
-          <div className="mt-16 p-8 md:p-12 rounded-2xl bg-surface border border-border relative overflow-hidden group">
+          <div className="mt-16 p-8 md:p-12 rounded-2xl bg-[#0F172A]/50 border border-white/[0.08] relative overflow-hidden group backdrop-blur-md">
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Need a custom White-Label or copy trading bridge?</h3>
-                <p className="text-sm text-slate-400 max-w-xl leading-relaxed">We develop custom strategy APIs, multi-broker bridges, and high-frequency algorithms for SEBI-registered entities.</p>
+                <p className="text-sm text-slate-400 max-w-xl leading-relaxed font-light">We develop custom strategy APIs, multi-broker bridges, and high-frequency algorithms for SEBI-registered entities.</p>
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 w-full lg:w-auto">
-                <a href="tel:9983168522" className="w-full sm:w-auto text-center px-6 py-3 bg-secondary text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-secondary/90 transition-all">
+                <a href="tel:9983168522" className="w-full sm:w-auto text-center px-6 py-3 bg-secondary text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:opacity-95 transition-all">
                   Call Expert
                 </a>
-                <a href="mailto:raffiq_sr@yahoo.co.in" className="w-full sm:w-auto text-center px-6 py-3 bg-slate-900 text-slate-200 border border-border text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-800 transition-all">
+                <a href="mailto:raffiq_sr@yahoo.co.in" className="w-full sm:w-auto text-center px-6 py-3 bg-[#050816] text-slate-200 border border-white/[0.08] text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-900 transition-all">
                   Email Us
                 </a>
               </div>
@@ -614,7 +619,6 @@ export default function HomeClient() {
           </div>
         </div>
       </section>
-
     </main>
   );
 }

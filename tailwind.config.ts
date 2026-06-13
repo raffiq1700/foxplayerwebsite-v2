@@ -13,29 +13,31 @@ const config: Config = {
         inter: ["var(--font-inter)", "sans-serif"],
       },
       colors: {
-        background: "#0B1220", // Deep Navy Black
+        background: "#050816",
         surface: {
-          DEFAULT: "#1A2235", // Card Background
-          hover: "#232D45",   // Subtle card hover
-          elevated: "#2A3650",// Elevated borders/containers
+          DEFAULT: "#0F172A",
+          hover: "#1E293B",
+          elevated: "#334155",
         },
         primary: {
-          DEFAULT: "#00E676", // Professional Trading Green
-          glow: "rgba(0, 230, 118, 0.15)",
+          DEFAULT: "#00D4FF",
+          glow: "rgba(0, 212, 255, 0.15)",
         },
         secondary: {
-          DEFAULT: "#3B82F6", // Premium Blue
-          glow: "rgba(59, 130, 246, 0.15)",
+          DEFAULT: "#8B5CF6",
+          glow: "rgba(139, 92, 246, 0.15)",
         },
         accent: {
-          DEFAULT: "#00E676", // Trading Green
-          glow: "rgba(0, 230, 118, 0.15)",
+          DEFAULT: "#00D4FF",
+          glow: "rgba(0, 212, 255, 0.15)",
         },
-        border: "rgba(255, 255, 255, 0.08)", // Premium transparent white border
-        white: "#FFFFFF", // Standard white
-        black: "#000000", // Standard black
+        border: "rgba(255, 255, 255, 0.08)",
+        white: "#FFFFFF",
+        black: "#000000",
         warning: "#F59E0B",
         loss: "#EF4444",
+        "market-up": "#10B981",
+        "market-down": "#EF4444",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

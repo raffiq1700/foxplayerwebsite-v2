@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/Button";
 
 export function FinalCTA() {
   return (
-    <section className="relative py-32 bg-surface border-t border-white/10 overflow-hidden">
+    <section className="relative py-32 bg-[#050816] border-t border-white/[0.06] overflow-hidden">
       {/* Background glow pulse */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
       

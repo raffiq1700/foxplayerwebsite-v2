@@ -31,7 +31,7 @@ const brokers = [
 
 export function UseCases() {
   return (
-    <section className="py-32 bg-surface relative border-t border-white/5">
+    <section className="py-32 bg-background relative border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Supported Brokers</h2>
@@ -62,7 +62,7 @@ export function UseCases() {
         </div>
         
         <div className="mt-20 text-center">
-          <a href="https://ekyc.aliceblueonline.com/?source=CBT61" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white text-lg font-bold rounded-xl hover:bg-primary-hover transition-colors shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+          <a href="https://ekyc.aliceblueonline.com/?source=CBT61" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-black text-lg font-bold rounded-xl hover:shadow-[0_0_25px_rgba(0,212,255,0.4)] active:scale-95 transition-all">
             Open AliceBlue Account Now
           </a>
         </div>

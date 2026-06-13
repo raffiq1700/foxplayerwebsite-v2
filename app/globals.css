@@ -52,11 +52,11 @@
 
 @layer components {
   .glass {
-    @apply bg-surface border border-border;
+    @apply bg-surface/50 border border-white/[0.08] backdrop-blur-md;
   }
   
   .glass-card {
-    @apply bg-surface border border-border rounded-3xl transition-all duration-500 hover:bg-surface-hover hover:border-surface-elevated hover:shadow-[0_20px_50px_rgba(15,23,42,0.05)] hover:-translate-y-1;
+    @apply bg-surface/40 border border-white/[0.08] backdrop-blur-md rounded-3xl transition-all duration-500 hover:bg-surface/60 hover:border-white/[0.15] hover:shadow-[0_20px_50px_rgba(0,212,255,0.03)] hover:-translate-y-1;
   }
 
   .text-gradient {
@@ -64,11 +64,11 @@
   }
 
   .btn-primary {
-    @apply px-8 py-4 rounded-xl bg-primary text-black font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_4px_20px_rgba(0,230,118,0.35)] active:scale-95 flex items-center justify-center gap-2;
+    @apply px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-black font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,212,255,0.35)] active:scale-95 flex items-center justify-center gap-2 hover:text-black;
   }
 
   .btn-secondary {
-    @apply px-8 py-4 rounded-xl bg-surface border border-border text-white font-bold transition-all duration-300 hover:bg-surface-hover active:scale-95 flex items-center justify-center gap-2;
+    @apply px-8 py-4 rounded-xl bg-[#0F172A]/80 border border-white/[0.08] backdrop-blur-md text-white font-bold transition-all duration-300 hover:bg-[#0F172A] hover:border-white/[0.15] hover:shadow-[0_0_20px_rgba(139,92,246,0.15)] active:scale-95 flex items-center justify-center gap-2;
   }
 }
 

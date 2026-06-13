@@ -122,7 +122,7 @@ export default function AcademyIndexClient() {
             {/* Search Bar */}
             <div className="relative w-full md:w-96 group">
               <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative flex items-center bg-surface border border-white/10 rounded-2xl px-5 py-4 focus-within:border-primary/50 transition-all">
+              <div className="relative flex items-center bg-[#0F172A]/70 border border-white/[0.08] rounded-2xl px-5 py-4 focus-within:border-primary/50 transition-all">
                 <Search className="w-5 h-5 text-white/20 mr-4" />
                 <input 
                   type="text" 
@@ -141,10 +141,10 @@ export default function AcademyIndexClient() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
                   activeCategory === cat 
-                    ? "bg-white text-black shadow-lg shadow-white/10" 
-                    : "bg-white/5 text-white/40 border border-white/5 hover:bg-white/10 hover:text-white"
+                    ? "bg-primary text-black shadow-lg shadow-primary/20" 
+                    : "bg-[#0F172A]/40 text-white/40 border border-white/[0.08] hover:bg-[#0F172A]/80 hover:text-white"
                 }`}
               >
                 {cat}
@@ -155,7 +155,7 @@ export default function AcademyIndexClient() {
 
         {/* Category Description Content (SEO Rich) */}
         {loading ? (
-          <div className="mb-24 p-10 md:p-16 bg-white/[0.01] border border-white/5 rounded-[3rem] animate-pulse">
+          <div className="mb-24 p-10 md:p-16 bg-[#0F172A]/20 border border-white/[0.08] rounded-[3rem] animate-pulse">
             <div className="h-10 bg-white/10 rounded-full w-1/3 mb-8" />
             <div className="h-4 bg-white/5 rounded-full w-full mb-4" />
             <div className="h-4 bg-white/5 rounded-full w-5/6 mb-4" />
@@ -166,7 +166,7 @@ export default function AcademyIndexClient() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             key={activeCategory}
-            className="mb-24 p-10 md:p-16 bg-white/[0.01] border border-white/5 rounded-[3rem] relative overflow-hidden"
+            className="mb-24 p-10 md:p-16 bg-[#0F172A]/20 border border-white/[0.08] rounded-[3rem] relative overflow-hidden backdrop-blur-md"
           >
             <div className="absolute top-0 right-0 p-12 pointer-events-none opacity-5">
                <BookOpen className="w-64 h-64 text-white" />
@@ -208,11 +208,11 @@ export default function AcademyIndexClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredArticles.map((article, i) => (
                 <motion.div 
-                  key={article.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="group relative bg-surface border border-white/5 rounded-3xl overflow-hidden hover:border-primary/30 transition-all flex flex-col"
+                   key={article.id}
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ delay: i * 0.05 }}
+                   className="group relative bg-[#0F172A]/40 border border-white/[0.08] rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-[0_15px_30px_rgba(0,212,255,0.04)] transition-all duration-300 flex flex-col"
                 >
                   <div className="p-8 flex-1">
                     <div className="flex items-center justify-between mb-6">

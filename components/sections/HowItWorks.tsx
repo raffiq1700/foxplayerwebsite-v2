@@ -11,7 +11,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-32 bg-background relative overflow-hidden border-t border-white/5">
+    <section className="py-32 bg-background relative overflow-hidden border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Start Trading in 4 Steps</h2>
@@ -35,7 +35,7 @@ export function HowItWorks() {
                 className="flex-1 relative glass p-8 rounded-2xl lg:bg-transparent lg:border-none lg:shadow-none lg:p-0"
               >
                 <div className="flex lg:flex-col items-center lg:items-start gap-6 group">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-background border border-white/20 flex items-center justify-center text-white/50 font-bold text-xl group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] relative z-10">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-background border border-white/20 flex items-center justify-center text-white/50 font-bold text-xl group-hover:bg-primary group-hover:text-black group-hover:border-primary transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] relative z-10">
                     {step.num}
                   </div>
                   <div>

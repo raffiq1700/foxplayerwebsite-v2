@@ -40,14 +40,14 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-32 bg-surface relative z-10 border-t border-white/5">
+    <section id="features" className="py-32 bg-background relative z-10 border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-center mb-24">
           <div className="lg:w-1/2">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Powerful <span className="text-gradient">Automation</span> <br /> For Serious Traders
             </h2>
-            <p className="text-white/60 text-lg leading-relaxed">
+            <p className="text-white/60 text-lg leading-relaxed font-light">
               Built for retail traders and institutional desks. Foxplayer gives you the edge you need in the Indian markets with institutional-grade infrastructure.
             </p>
           </div>
@@ -55,7 +55,7 @@ export function Features() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="lg:w-1/2 relative rounded-2xl border border-white/10 glass shadow-2xl overflow-hidden aspect-video"
+            className="lg:w-1/2 relative rounded-2xl border border-white/[0.08] bg-[#0F172A]/70 shadow-2xl overflow-hidden aspect-video backdrop-blur-md"
           >
              <Image 
                src="/algo_code.webp" 
@@ -79,7 +79,7 @@ export function Features() {
             >
               <GlowCard>
                 <div className="flex flex-col h-full">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(0,212,255,0.2)]">
                     <feature.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>

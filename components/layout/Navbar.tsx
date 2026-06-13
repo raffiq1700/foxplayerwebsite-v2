@@ -14,7 +14,7 @@ export default function Navbar() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="sticky top-0 z-50 bg-background/90 backdrop-blur-2xl border-b border-white/5"
+      className="sticky top-0 z-50 bg-[#050816]/75 backdrop-blur-md border-b border-white/[0.06]"
     >
       <div className="max-w-7xl mx-auto px-6 h-20 md:h-32 flex items-center justify-between">
         {/* Logo */}
@@ -43,7 +43,7 @@ export default function Navbar() {
               Dashboard
             </a>
 
-            <Link href="/contact" className="text-[13px] font-bold bg-primary text-black px-5 py-2.5 rounded-xl hover:shadow-[0_4px_12px_rgba(37,99,235,0.2)] transition-all active:scale-95">
+            <Link href="/contact" className="text-[13px] font-bold bg-primary text-black px-5 py-2.5 rounded-xl hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all active:scale-95">
               Free Consultation
             </Link>
           </div>
@@ -51,7 +51,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle & Direct Login */}
         <div className="flex items-center gap-3 md:hidden">
-          <a href="https://app.foxplayer.co.in/login" className="text-xs font-bold bg-primary text-black px-4 py-2 rounded-lg hover:shadow-[0_2px_8px_rgba(37,99,235,0.2)] transition-all active:scale-95">
+          <a href="https://app.foxplayer.co.in/login" className="text-xs font-bold bg-primary text-black px-4 py-2 rounded-lg hover:shadow-[0_0_15px_rgba(0,212,255,0.4)] transition-all active:scale-95">
             Dashboard
           </a>
           <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/60 p-2">
@@ -62,17 +62,17 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-surface border-t border-white/5 px-6 py-6 space-y-4">
+        <div className="md:hidden bg-[#0F172A]/95 backdrop-blur-xl border-t border-white/[0.08] px-6 py-6 space-y-4">
           <Link href="/features" className="block text-sm text-white/60 hover:text-white">Features</Link>
           <Link href="/pricing" className="block text-sm text-white hover:text-primary">Pricing</Link>
           <Link href="/disclaimer" className="block text-sm text-amber-500 font-medium">⚠️ Disclaimer</Link>
           <Link href="/marketplace" className="block text-sm text-white/60 hover:text-white">Marketplace</Link>
           <Link href="/academy" className="block text-sm text-white hover:text-primary">Academy</Link>
           <Link href="/blog" className="block text-sm text-white hover:text-primary">Blog</Link>
-          <div className="pt-4 border-t border-white/5 space-y-3">
+          <div className="pt-4 border-t border-white/[0.08] space-y-3">
             <a href="https://app.foxplayer.co.in/login" className="block text-sm text-white/50">Log in</a>
 
-            <a href="https://app.foxplayer.co.in/login" className="w-full text-center block text-sm font-semibold bg-white text-background px-5 py-2.5 rounded-lg">Get Started</a>
+            <a href="https://app.foxplayer.co.in/login" className="w-full text-center block text-sm font-semibold bg-white text-black px-5 py-2.5 rounded-lg">Get Started</a>
           </div>
         </div>
       )}

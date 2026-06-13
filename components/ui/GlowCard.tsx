@@ -37,6 +37,10 @@ export function GlowCard({ children, className = "" }: GlowCardProps) {
 
     x.set(xPct);
     y.set(yPct);
+
+    // Dynamic cursor coordinates
+    ref.current.style.setProperty("--mouse-x", `${(mouseX / width) * 100}%`);
+    ref.current.style.setProperty("--mouse-y", `${(mouseY / height) * 100}%`);
   };
 
   const handleMouseLeave = () => {
@@ -55,13 +59,13 @@ export function GlowCard({ children, className = "" }: GlowCardProps) {
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className={`relative group bg-white/[0.03] border border-white/10 rounded-3xl p-1 transition-all duration-300 ${className}`}
+        className={`relative group bg-[#0F172A]/50 border border-white/5 rounded-3xl p-[1px] transition-all duration-300 ${className}`}
       >
         {/* Glow Border Effect */}
         <div 
           className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0`}
           style={{
-            background: `radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(34, 211, 238, 0.2), transparent 80%)`
+            background: `radial-gradient(circle 220px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 212, 255, 0.15), rgba(139, 92, 246, 0.05) 50%, transparent 100%)`
           }}
         />
 
