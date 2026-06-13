@@ -3,11 +3,38 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const tickerContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!tickerContainerRef.current) return;
+    if (tickerContainerRef.current.querySelector("script")) return;
+
+    const script = document.createElement("script");
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      symbols: [
+        { proName: "BSE:SENSEX", title: "S&P BSE SENSEX" },
+        { proName: "NSE:NIFTY", title: "NIFTY 50" },
+        { proName: "NSE:BANKNIFTY", title: "BANK NIFTY" },
+        { proName: "MCX:CRUDEOIL1!", title: "CRUDEOIL FUT" },
+        { proName: "MCX:NATURALGAS1!", title: "NATURALGAS FUT" }
+      ],
+      showSymbolLogo: true,
+      colorTheme: "dark",
+      isTransparent: true,
+      displayMode: "adaptive",
+      locale: "en"
+    });
+    
+    tickerContainerRef.current.appendChild(script);
+  }, []);
 
   return (
     <motion.nav 
@@ -17,15 +44,10 @@ export default function Navbar() {
       className="sticky top-0 z-50 bg-[#050816]/75 backdrop-blur-md border-b border-white/[0.06]"
     >
       {/* TradingView Ticker Tape Widget */}
-      <div className="w-full h-10 border-b border-white/[0.06] bg-black/40 overflow-hidden relative z-50">
-        <iframe
-          src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=en&theme=dark&symbols=%5B%7B%22proName%22%3A%22BSE%3ASENSEX%22%2C%22title%22%3A%22S%26P%20BSE%20SENSEX%22%7D%2C%7B%22proName%22%3A%22NSE%3ANIFTY%22%2C%22title%22%3A%22NIFTY%2050%22%7D%2C%7B%22proName%22%3A%22NSE%3ABANKNIFTY%22%2C%22title%22%3A%22BANK%20NIFTY%22%7D%2C%7B%22proName%22%3A%22MCX%3ACRUDEOIL1!%22%2C%22title%22%3A%22CRUDEOIL%20FUT%22%7D%2C%7B%22proName%22%3A%22MCX%3ANATURALGAS1!%22%2C%22title%22%3A%22NATURALGAS%20FUT%22%7D%5D"
-          width="100%"
-          height="100%"
-          style={{ border: "none" }}
-          allowTransparency={true}
-          scrolling="no"
-        ></iframe>
+      <div className="w-full h-12 border-b border-white/[0.06] bg-black/40 overflow-hidden relative z-50 flex items-center">
+        <div ref={tickerContainerRef} className="tradingview-widget-container w-full">
+          <div className="tradingview-widget-container__widget w-full"></div>
+        </div>
       </div>
       <div className="max-w-7xl mx-auto px-6 h-20 md:h-32 flex items-center justify-between">
         {/* Logo */}

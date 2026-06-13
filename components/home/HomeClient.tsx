@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { 
   ArrowRight, 
@@ -15,52 +15,84 @@ import {
   Star
 } from "lucide-react";
 
+function MarketOverviewWidget() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    if (containerRef.current.querySelector("script")) return;
+
+    const script = document.createElement("script");
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      colorTheme: "dark",
+      dateRange: "12M",
+      showChart: false,
+      locale: "en",
+      isTransparent: true,
+      showSymbolLogo: true,
+      showFloatingTooltip: false,
+      width: "100%",
+      height: "220",
+      tabs: [
+        {
+          name: "Live Rates",
+          symbols: [
+            { s: "NSE:NIFTY", d: "NIFTY 50" },
+            { s: "NSE:BANKNIFTY", d: "BANK NIFTY" },
+            { s: "MCX:CRUDEOIL1!", d: "CRUDE OIL" },
+            { s: "MCX:NATURALGAS1!", d: "NATURAL GAS" }
+          ]
+        }
+      ]
+    });
+    containerRef.current.appendChild(script);
+  }, []);
+
+  return (
+    <div ref={containerRef} className="tradingview-widget-container w-full h-[220px]">
+      <div className="tradingview-widget-container__widget w-full h-full"></div>
+    </div>
+  );
+}
+
+function MarketMoversWidget() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    if (containerRef.current.querySelector("script")) return;
+
+    const script = document.createElement("script");
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      colorTheme: "dark",
+      dateRange: "12M",
+      exchange: "NSE",
+      showChart: false,
+      locale: "en",
+      isTransparent: true,
+      showSymbolLogo: true,
+      width: "100%",
+      height: "220"
+    });
+    containerRef.current.appendChild(script);
+  }, []);
+
+  return (
+    <div ref={containerRef} className="tradingview-widget-container w-full h-[220px]">
+      <div className="tradingview-widget-container__widget w-full h-full"></div>
+    </div>
+  );
+}
 
 export default function HomeClient() {
   const [activeTab, setActiveTab] = useState("markets");
   const [livePnl, setLivePnl] = useState(124530);
-
-  // Real-time tick prices state
-  const [prices, setPrices] = useState({
-    nifty: 23542.80,
-    banknifty: 51312.40,
-    crudeoil: 6845.00,
-    naturalgas: 212.50
-  });
-
-  const [priceDirections, setPriceDirections] = useState({
-    nifty: "up",
-    banknifty: "up",
-    crudeoil: "down",
-    naturalgas: "up"
-  });
-
-  // Simulated live prices ticker tick effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPrices((prev) => {
-        const niftyChange = (Math.random() - 0.49) * 12;
-        const bankniftyChange = (Math.random() - 0.49) * 35;
-        const crudeoilChange = (Math.random() - 0.51) * 8;
-        const naturalgasChange = (Math.random() - 0.48) * 0.4;
-        
-        setPriceDirections({
-          nifty: niftyChange >= 0 ? "up" : "down",
-          banknifty: bankniftyChange >= 0 ? "up" : "down",
-          crudeoil: crudeoilChange >= 0 ? "up" : "down",
-          naturalgas: naturalgasChange >= 0 ? "up" : "down",
-        });
-
-        return {
-          nifty: Number((prev.nifty + niftyChange).toFixed(2)),
-          banknifty: Number((prev.banknifty + bankniftyChange).toFixed(2)),
-          crudeoil: Number((prev.crudeoil + crudeoilChange).toFixed(2)),
-          naturalgas: Number((prev.naturalgas + naturalgasChange).toFixed(2)),
-        };
-      });
-    }, 1500);
-    return () => clearInterval(interval);
-  }, []);
 
   // Subtle live P&L tick effect for premium dashboard look
   useEffect(() => {
@@ -175,7 +207,7 @@ export default function HomeClient() {
                     <span className="text-xs font-bold uppercase tracking-widest text-slate-300">FOXPLAYER CONSOLE v3.2</span>
                   </div>
                   <div className="flex bg-black/30 p-1 rounded-lg border border-white/[0.08]">
-                    {["markets", "webhooks", "console", "brokers", "chart"].map((tab) => (
+                    {["markets", "webhooks", "console", "brokers"].map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -185,14 +217,14 @@ export default function HomeClient() {
                             : "text-slate-400 hover:text-slate-200"
                         }`}
                       >
-                        {tab === "markets" ? "Markets" : tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : tab === "brokers" ? "Brokers" : "Live Chart"}
+                        {tab === "markets" ? "Markets" : tab === "webhooks" ? "JSON Webhook" : tab === "console" ? "Execution Log" : "Brokers"}
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Dashboard Code/Console Area */}
-                <div className={`min-h-[300px] flex flex-col justify-between font-mono bg-black/10 ${activeTab === "chart" ? "p-0" : activeTab === "markets" ? "p-4" : "p-6"}`}>
+                <div className={`min-h-[300px] flex flex-col justify-between font-mono bg-black/10 ${activeTab === "markets" ? "p-4" : "p-6"}`}>
                   {activeTab === "markets" && (
                     <div className="flex flex-col md:flex-row items-center gap-6 font-sans">
                       {/* Left: 3D Holographic Card Graphic */}
@@ -232,68 +264,16 @@ export default function HomeClient() {
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:8px_8px]" />
                       </div>
 
-                      {/* Right: Live Tick Prices & Gainers/Losers */}
+                      {/* Right: Live Rates & Top Movers from TradingView */}
                       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                         {/* Live Rates */}
-                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
-                          <div className="text-[9px] uppercase text-slate-500 font-bold tracking-wider mb-2 border-b border-white/[0.04] pb-1.5 flex items-center justify-between">
-                            <span>Live Rates</span>
-                            <span className="flex items-center gap-1">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
-                              <span className="text-[8px] text-emerald-400 font-mono">LIVE</span>
-                            </span>
-                          </div>
-                          <div className="space-y-1.5">
-                            {[
-                              { id: "nifty", label: "NIFTY 50", price: prices.nifty, dir: priceDirections.nifty },
-                              { id: "banknifty", label: "BANK NIFTY", price: prices.banknifty, dir: priceDirections.banknifty },
-                              { id: "crudeoil", label: "CRUDE OIL", price: prices.crudeoil, dir: priceDirections.crudeoil },
-                              { id: "naturalgas", label: "NATURAL GAS", price: prices.naturalgas, dir: priceDirections.naturalgas },
-                            ].map((item) => (
-                              <div key={item.id} className="flex justify-between items-center bg-black/20 px-2.5 py-1 rounded-lg border border-white/[0.04]">
-                                <span className="text-[10px] font-bold text-slate-400">{item.label}</span>
-                                <span className={`text-[10px] font-mono font-bold transition-all duration-300 ${item.dir === "up" ? "text-emerald-400" : "text-rose-400"}`}>
-                                  ₹{item.price.toLocaleString("en-IN")}
-                                  <span className="text-[7px] ml-0.5">{item.dir === "up" ? "▲" : "▼"}</span>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
+                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-2 flex flex-col justify-between overflow-hidden">
+                          <MarketOverviewWidget />
                         </div>
 
                         {/* Gainers & Losers */}
-                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between text-[10px]">
-                          <div>
-                            <div className="text-[9px] uppercase text-emerald-400 font-bold tracking-wider mb-1 border-b border-emerald-500/10 pb-1 flex items-center justify-between">
-                              <span>Top 2 Gainers</span>
-                              <span className="text-emerald-500/80">▲ NSE</span>
-                            </div>
-                            <div className="space-y-1 mb-2">
-                              <div className="flex justify-between">
-                                <span className="font-bold text-slate-400">RELIANCE</span>
-                                <span className="text-emerald-400 font-bold font-mono">+2.45%</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="font-bold text-slate-400">TCS</span>
-                                <span className="text-emerald-400 font-bold font-mono">+1.89%</span>
-                              </div>
-                            </div>
-
-                            <div className="text-[9px] uppercase text-rose-400 font-bold tracking-wider mb-1 border-b border-rose-500/10 pb-1 flex items-center justify-between">
-                              <span>Top 2 Losers</span>
-                              <span className="text-rose-500/80">▼ NSE</span>
-                            </div>
-                            <div className="space-y-1">
-                              <div className="flex justify-between">
-                                <span className="font-bold text-slate-400">INFOSYS</span>
-                                <span className="text-rose-400 font-bold font-mono">-1.76%</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="font-bold text-slate-400">HDFC BANK</span>
-                                <span className="text-rose-400 font-bold font-mono">-1.24%</span>
-                              </div>
-                            </div>
-                          </div>
+                        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-2 flex flex-col justify-between overflow-hidden">
+                          <MarketMoversWidget />
                         </div>
                       </div>
                     </div>
@@ -366,22 +346,8 @@ export default function HomeClient() {
                     </div>
                   )}
 
-                  {activeTab === "chart" && (
-                    <div className="w-full h-[320px] overflow-hidden bg-[#050816]">
-                      <iframe 
-                        src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=NSE%3ANIFTY&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=0f172a&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en"
-                        width="100%"
-                        height="100%"
-                        style={{ border: "none" }}
-                        allowTransparency={true}
-                        scrolling="no"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  )}
-
-                  {activeTab !== "chart" ? (
-                    <div className="border-t border-white/[0.08] pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
+                  {activeTab === "markets" ? (
+                    <div className="px-6 py-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-slate-500">
                       <span className="flex items-center gap-1.5 font-sans">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                         All systems operational
@@ -389,7 +355,7 @@ export default function HomeClient() {
                       <span>Server region: Mumbai, India</span>
                     </div>
                   ) : (
-                    <div className="px-6 py-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-slate-500">
+                    <div className="border-t border-white/[0.08] pt-4 mt-6 flex items-center justify-between text-[10px] text-slate-500">
                       <span className="flex items-center gap-1.5 font-sans">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                         All systems operational
