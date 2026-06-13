@@ -85,7 +85,7 @@ export default function HomeClient() {
                     Start Trading <ArrowRight className="w-4 h-4" />
                   </button>
                 </a>
-                <a href="#demo" className="w-full sm:w-auto">
+                <a href="https://app.foxplayer.co.in" className="w-full sm:w-auto">
                   <button className="btn-secondary w-full gap-2 text-sm">
                     <Play className="w-4 h-4 fill-white text-white" /> Watch Demo
                   </button>
