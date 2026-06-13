@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const symbols = ["^NSEI", "^NSEBANK", "CL=F", "NG=F"];
+    const symbols = ["^NSEI", "^NSEBANK", "CL=F", "NG=F", "USDINR=X"];
     const quotes: Record<string, { price: number; change: number; dir: string }> = {};
 
     // Fetch quotes in parallel
@@ -30,13 +30,34 @@ export async function GET() {
       })
     );
 
+    // Get USD to INR exchange rate for conversion (fallback to 83.50)
+    const usdInrRate = quotes["USDINR=X"]?.price || 83.50;
+
+    // Convert US Dollar commodities to MCX Indian Rupee equivalent
+    if (quotes["CL=F"]) {
+      const mcxPrice = Number((quotes["CL=F"].price * usdInrRate).toFixed(2));
+      quotes["CL=F"] = {
+        price: mcxPrice,
+        change: quotes["CL=F"].change,
+        dir: quotes["CL=F"].dir
+      };
+    }
+
+    if (quotes["NG=F"]) {
+      const mcxPrice = Number((quotes["NG=F"].price * usdInrRate).toFixed(2));
+      quotes["NG=F"] = {
+        price: mcxPrice,
+        change: quotes["NG=F"].change,
+        dir: quotes["NG=F"].dir
+      };
+    }
+
     // Fallbacks if fetch fails
     const nifty = quotes["^NSEI"] || { price: 23539.60, change: 0.45, dir: "up" };
     const banknifty = quotes["^NSEBANK"] || { price: 51357.53, change: 0.62, dir: "up" };
     const crudeoil = quotes["CL=F"] || { price: 6862.21, change: 0.18, dir: "up" };
     const naturalgas = quotes["NG=F"] || { price: 211.53, change: -1.24, dir: "down" };
 
-    // Dynamic Top Gainers & Losers (predefined correct list or parsed)
     const gainers = [
       { name: "RELIANCE", change: "+2.45%" },
       { name: "TCS", change: "+1.89%" }
