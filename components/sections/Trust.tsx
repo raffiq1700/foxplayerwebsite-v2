@@ -25,6 +25,26 @@ const faqs = [
     question: "How do I become a marketplace creator?",
     answer: "If you have a profitable strategy with at least 3 months of live trading history, you can apply from your dashboard to become a verified creator and earn from subscribers.",
   },
+  {
+    question: "What is the difference between a trading account and a demat account for algorithmic trading?",
+    answer: "A trading account is the vehicle used to place buy/sell orders on the exchange. A demat account is the secure digital vault where your shares are stored electronically. Understanding the difference between trading and demat account is crucial: your automated execution bot uses your trading account to place intraday or positional orders, while any shares held overnight are stored in your demat account.",
+  },
+  {
+    question: "Which is the best demat account in India for low-latency automation?",
+    answer: "The best demat account in India for strategy automation is one that offers low execution latency and stable developer APIs. Discount brokers like Angel One (SmartAPI), Dhan (direct TradingView integrations), and Zerodha (Kite Connect API) are widely considered the best demat account options for retail algo trading. Traditional bank accounts like HDFC demat account, ICICI demat account, or SBI demat account are secure for long-term investments but generally carry higher transaction charges and slower API execution compared to modern discount brokers.",
+  },
+  {
+    question: "What indicators are supported for custom algo trading strategies?",
+    answer: "Our platform supports any model you can code or chart. Popular technical indicators include the EMA trading strategy (Exponential Moving Average), ORB trading strategy (Opening Range Breakout), CPR trading strategy (Central Pivot Range), and ATR trading strategy (Average True Range). If you trade using institutional models, you can easily automate the SMC trading strategy (Smart Money Concepts), ICT trading strategy (Inner Circle Trader), or CRT trading strategy (Core Range Trading) by sending buy/sell alerts from charts via webhooks.",
+  },
+  {
+    question: "Do I need a trading strategy builder or backtesting tool before going live?",
+    answer: "Yes, validation is highly recommended. You can use a trading strategy builder (like Pine Script or our drag-and-drop tool) to define your rules, and run extensive trading strategy backtesting on historical data. Once you verify your model's win rate and drawdown, you can deploy your strategy automation with live capital in paper trading or live execution modes.",
+  },
+  {
+    question: "What are the charges associated with opening a demat account and executing automated trades?",
+    answer: "Standard demat account charges typically include account opening fees (often zero), an annual maintenance charge (AMC) of ₹200-₹300, and transactional brokerage of ₹20 per executed order. Pledging holdings in your demat account for margin might carry minor additional costs. FoxPlayer does not add any extra transactional broker charges; we simply connect your automated trading platform directly to your broker's free or paid API gateway.",
+  },
 ];
 
 export function Trust() {

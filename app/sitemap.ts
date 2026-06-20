@@ -42,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/terms',
     '/privacy-policy',
     '/refund-policy',
+    '/glossary',
     '/services/algorithmic-trading-software-development',
     '/services/shoonya-api-trading-software',
     '/services/zerodha-kite-connect-development',
