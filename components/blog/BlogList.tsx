@@ -31,7 +31,8 @@ export function BlogList({ posts, featuredPost }: BlogListProps) {
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory =
-      activeCategory === "All" || post.category === activeCategory;
+      activeCategory === "All" || 
+      post.category?.trim().toLowerCase() === activeCategory.trim().toLowerCase();
     return matchesSearch && matchesCategory;
   });
 
