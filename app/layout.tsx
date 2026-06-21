@@ -4,13 +4,20 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
+import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#050816",
+};
+
 export const metadata: Metadata = {
   title: "FoxPlayer Algo Technologies",
-  description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade with AliceBlue, Shoonya, Angel One, Upstox, Groww, Motilal Oswal, Zerodha, and Dhan.",
+  description: "India's best Algorithmic Trading Platform. Custom Algo Development & Broker API Integration for Automated Trading Solutions.",
   keywords: ["algo trading platform India", "copy trading software India", "TradingView webhook India", "automated trading platform India", "strategy marketplace India", "Shoonya API trading", "Zerodha Kite Connect automation"],
   metadataBase: new URL("https://www.foxplayer.co.in"),
   icons: {
@@ -18,9 +25,16 @@ export const metadata: Metadata = {
     shortcut: "/icon.png",
     apple: "/apple-icon.png",
   },
+  alternates: {
+    canonical: "https://www.foxplayer.co.in/",
+    languages: {
+      "en-IN": "https://www.foxplayer.co.in/",
+      "x-default": "https://www.foxplayer.co.in/",
+    },
+  },
   openGraph: {
     title: "FoxPlayer Algo Technologies",
-    description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade.",
+    description: "India's best Algorithmic Trading Platform. Custom Algo Development & Broker API Integration for Automated Trading Solutions.",
     url: "https://www.foxplayer.co.in",
     siteName: "FoxPlayer Algo Technologies",
     images: ["/logo.png"],
@@ -30,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FoxPlayer Algo Technologies",
-    description: "Advanced automated trading platform in India. Execute Python strategies, use TradingView webhooks, and copy trade.",
+    description: "India's best Algorithmic Trading Platform. Custom Algo Development & Broker API Integration for Automated Trading Solutions.",
     images: ["/logo.png"],
   }
 };
@@ -43,6 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground min-h-screen flex flex-col">
+        {/* Organization Schema */}
         <Script id="org-schema" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -62,6 +77,21 @@ export default function RootLayout({
             }
           })}
         </Script>
+        {/* Website Search Schema */}
+        <Script id="website-schema" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "FoxPlayer Algo Technologies",
+            "url": "https://www.foxplayer.co.in",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.foxplayer.co.in/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </Script>
+        {/* Local Business Schema */}
         <Script id="local-schema" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -124,6 +154,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <FloatingWhatsApp />
+        <StickyMobileCTA />
 
         {/* Tawk.to Script */}
         <Script 

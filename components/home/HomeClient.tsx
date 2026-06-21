@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { pricingPlans } from "@/lib/pricing";
+import Link from "next/link";
 import { 
   ArrowRight, 
   Zap, 
@@ -12,7 +13,6 @@ import {
   Layers, 
   Check, 
   Activity, 
-  Play, 
   Star,
   Search,
   LineChart,
@@ -20,86 +20,13 @@ import {
   ShieldAlert,
   PlayCircle,
   Cpu,
-  MessageCircle
+  MessageCircle,
+  ChevronDown
 } from "lucide-react";
-
-function MarketOverviewWidget() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    if (containerRef.current.querySelector("script")) return;
-
-    const script = document.createElement("script");
-    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      colorTheme: "dark",
-      dateRange: "12M",
-      showChart: false,
-      locale: "en",
-      isTransparent: true,
-      showSymbolLogo: true,
-      showFloatingTooltip: false,
-      width: "100%",
-      height: "220",
-      tabs: [
-        {
-          name: "Live Rates",
-          symbols: [
-            { s: "NSE:NIFTY", d: "NIFTY 50" },
-            { s: "NSE:BANKNIFTY", d: "BANK NIFTY" },
-            { s: "MCX:CRUDEOIL1!", d: "CRUDE OIL" },
-            { s: "MCX:NATURALGAS1!", d: "NATURAL GAS" }
-          ]
-        }
-      ]
-    });
-    containerRef.current.appendChild(script);
-  }, []);
-
-  return (
-    <div ref={containerRef} className="tradingview-widget-container w-full h-[220px]">
-      <div className="tradingview-widget-container__widget w-full h-full"></div>
-    </div>
-  );
-}
-
-function MarketMoversWidget() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    if (containerRef.current.querySelector("script")) return;
-
-    const script = document.createElement("script");
-    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      colorTheme: "dark",
-      dateRange: "12M",
-      exchange: "NSE",
-      showChart: false,
-      locale: "en",
-      isTransparent: true,
-      showSymbolLogo: true,
-      width: "100%",
-      height: "220"
-    });
-    containerRef.current.appendChild(script);
-  }, []);
-
-  return (
-    <div ref={containerRef} className="tradingview-widget-container w-full h-[220px]">
-      <div className="tradingview-widget-container__widget w-full h-full"></div>
-    </div>
-  );
-}
 
 export default function HomeClient() {
   const [livePnl, setLivePnl] = useState(124530);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Initialize with correct rates so they render instantly on load
   const [marketData, setMarketData] = useState({
@@ -145,7 +72,6 @@ export default function HomeClient() {
     return () => clearInterval(interval);
   }, []);
 
-  // Testimonials list
   const testimonials = [
     {
       quote: "FoxPlayer's TradingView webhook bridge completely resolved my execution lag issues. My options strategy straddles fill instantly with minimal slippage. Highly recommended.",
@@ -167,12 +93,34 @@ export default function HomeClient() {
     }
   ];
 
+  const homepageFaqs = [
+    {
+      question: "What is FoxPlayer Algorithmic Trading Platform India?",
+      answer: "FoxPlayer is an advanced automated trading platform in India designed for retail and institutional traders. It enables custom algo development, strategy automation, and seamless broker API integration for rapid order execution."
+    },
+    {
+      question: "Can I automate options trading using FoxPlayer?",
+      answer: "Yes, FoxPlayer provides options trading automation. You can deploy multi-leg options strategies, execute Nifty Algo Trading and Bank Nifty Algo Trading, and implement auto-hedging with real-time Option Greeks calculations."
+    },
+    {
+      question: "Which brokers are supported for API trading solutions?",
+      answer: "We support major Indian stockbrokers including AliceBlue, Shoonya, Angel One, Upstox, Groww, Motilal Oswal, Zerodha, and Dhan. Our automated trading software processes orders in less than 15ms."
+    },
+    {
+      question: "Do you provide custom algo development services?",
+      answer: "Yes, we specialize in custom algo development. Our team of quant developers can build, backtest, and optimize your proprietary trading strategies in Python or Pine Script to connect directly with your broker APIs."
+    },
+    {
+      question: "How does TradingView Webhook Integration work?",
+      answer: "Our broker API integration lets you send instant webhook alerts from TradingView directly to our execution engine, turning your indicators into live trades instantly."
+    }
+  ];
+
   return (
     <main className="bg-background text-white min-h-screen">
 
       {/* ─── 1. HERO SECTION ─── */}
       <section className="relative overflow-hidden border-b border-white/[0.06] grid-pattern pt-20 pb-28 md:pt-36 md:pb-40">
-        {/* Subtle glow accents */}
         <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-primary/10 via-transparent to-transparent pointer-events-none" />
         <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute -left-40 top-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
@@ -181,63 +129,50 @@ export default function HomeClient() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             {/* Left Column: Headline and CTAs */}
             <div className="lg:col-span-6">
-              <motion.div 
-                initial={{ opacity: 0, y: 24 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(0,212,255,0.1)]"
-              >
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(0,212,255,0.1)]">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
                 Institutional Grade Algo Execution
-              </motion.div>
+              </div>
 
-              <motion.h1 
-                initial={{ opacity: 0, y: 24 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[2.6rem] sm:text-[3.5rem] md:text-[4.2rem] font-black leading-[1.05] tracking-tight mb-6"
-              >
-                Automate Your Trading.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-gradient">Trade Smarter.</span>
-              </motion.h1>
+              <h1 className="text-[2.6rem] sm:text-[3.5rem] md:text-[4.2rem] font-black leading-[1.05] tracking-tight mb-6">
+                Algorithmic Trading Platform India<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-gradient">&amp; Algo Trading Software</span>
+              </h1>
 
-              <motion.p 
-                initial={{ opacity: 0, y: 24 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mb-10 font-normal"
-              >
+              <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mb-10 font-normal">
                 FoxPlayer connects your custom indicators, Python strategies, and Pine Scripts directly to India&apos;s top stock brokers. Real-time execution with less than 15ms order latency.
-              </motion.p>
+              </p>
 
-              <motion.div 
-                initial={{ opacity: 0, y: 24 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-col sm:flex-row items-center gap-4 mb-12"
-              >
-                <a href="https://app.foxplayer.co.in/login" className="w-full sm:w-auto">
-                  <button className="btn-primary w-full gap-2 text-sm">
-                    Start Trading <ArrowRight className="w-4 h-4" />
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-12">
+                <a 
+                  href="https://wa.me/919983168522?text=Hello%20Foxplayer%2C%20I%20want%20to%20Book%20a%20Free%20Demo%20for%20algo%20trading." 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto"
+                  id="hero-cta-demo"
+                >
+                  <button className="btn-primary w-full gap-2 text-sm px-6 py-4">
+                    Book Free Demo <ArrowRight className="w-4 h-4" />
                   </button>
                 </a>
-                <a href="https://app.foxplayer.co.in" className="w-full sm:w-auto">
-                  <button className="btn-secondary w-full gap-2 text-sm">
-                    <Play className="w-4 h-4 fill-white text-white" /> Watch Demo
+                <a 
+                  href="https://wa.me/919983168522?text=Hello%20Foxplayer%2C%20I%20want%20to%20Talk%20to%20an%20Expert%20about%20automated%20trading." 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto"
+                  id="hero-cta-expert"
+                >
+                  <button className="btn-secondary w-full gap-2 text-sm px-6 py-4">
+                    Talk To Expert
                   </button>
                 </a>
-              </motion.div>
+              </div>
 
               {/* Social Proof Stats */}
-              <motion.div 
-                initial={{ opacity: 0, y: 24 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex items-center gap-8 text-xs text-slate-400 border-t border-white/[0.08] pt-8"
-              >
+              <div className="flex items-center gap-8 text-xs text-slate-400 border-t border-white/[0.08] pt-8">
                 <div>
                   <div className="text-xl md:text-2xl font-black text-white mb-0.5 tracking-tight">₹1,500Cr+</div>
                   <div className="font-medium text-slate-500">Monthly Vol. Executed</div>
@@ -252,16 +187,11 @@ export default function HomeClient() {
                   <div className="text-xl md:text-2xl font-black text-white mb-0.5 tracking-tight">12ms</div>
                   <div className="font-medium text-slate-500">Avg. Response Latency</div>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Right Column: Live Trading Dashboard Simulation */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.8, delay: 0.4 }} 
-              className="lg:col-span-6"
-            >
+            <div className="lg:col-span-6">
               <div className="bg-[#0F172A]/70 border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl overflow-hidden backdrop-blur-md hover:border-primary/20 transition-all duration-500 relative group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] rounded-full pointer-events-none" />
                 
@@ -285,11 +215,9 @@ export default function HomeClient() {
                   <div className="flex flex-col lg:flex-row items-center gap-8 font-sans">
                     {/* Left: 3D Holographic Card Graphic */}
                     <div className="relative w-44 h-[240px] rounded-2xl bg-gradient-to-br from-primary/30 via-[#0F172A] to-secondary/30 border border-white/10 p-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden group/card transition-all duration-500 hover:scale-[1.03] hover:rotate-3 hover:border-primary/40 shrink-0">
-                      {/* Glows */}
                       <div className="absolute -top-10 -left-10 w-28 h-28 bg-primary/20 rounded-full blur-2xl group-hover/card:bg-primary/40 transition-colors" />
                       <div className="absolute -bottom-10 -right-10 w-28 h-28 bg-secondary/20 rounded-full blur-2xl group-hover/card:bg-secondary/40 transition-colors" />
                       
-                      {/* Header */}
                       <div className="flex justify-between items-start z-10">
                         <div>
                           <div className="text-[10px] text-primary font-bold tracking-widest uppercase">FoxPlayer</div>
@@ -300,7 +228,6 @@ export default function HomeClient() {
                         </div>
                       </div>
 
-                      {/* Chip / Signal */}
                       <div className="my-auto z-10 flex items-center justify-between">
                         <div className="w-10 h-7 rounded bg-gradient-to-r from-amber-400/80 to-yellow-500/80 opacity-80 border border-white/10 shadow-inner" />
                         <div className="flex gap-0.5">
@@ -310,13 +237,11 @@ export default function HomeClient() {
                         </div>
                       </div>
 
-                      {/* Key */}
-                      <div className="z-10">
+                      <div>
                         <div className="text-[9px] font-mono text-slate-400 tracking-wider">SECURE CONNECTED KEY</div>
                         <div className="text-[11px] font-mono font-bold text-white tracking-widest mt-0.5">FOX •••• •••• 9A2B</div>
                       </div>
 
-                      {/* Grid overlay */}
                       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:10px_10px]" />
                     </div>
 
@@ -391,7 +316,7 @@ export default function HomeClient() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -401,7 +326,7 @@ export default function HomeClient() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">Algo Highlights</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Built for Modern Algorithmic Trading</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Automated Trading Software & API Trading Solutions</h2>
             <p className="text-base text-slate-400">Everything you need to automate your trade strategies, manage capital risk, and integrate multiple brokers in a single dashboard.</p>
           </div>
 
@@ -460,7 +385,7 @@ export default function HomeClient() {
             {/* Left Column: Stats and Info */}
             <div className="lg:col-span-5">
               <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Live Performance Preview</p>
-              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">Track Performance with Institutional Precision</h2>
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">Quantitative Trading Solutions & Performance Tracking</h2>
               <p className="text-base text-slate-400 leading-relaxed mb-8">
                 Monitor your cumulative performance metrics, verify your historical strategy win rate, and log execution metrics. Simple visualization built for retail and enterprise trading managers.
               </p>
@@ -569,7 +494,7 @@ export default function HomeClient() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Institutional Pillars</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Optimized for Trading Excellence</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Broker API Integration & Execution Speed</h2>
             <p className="text-base text-slate-400">Why experienced retail developers and institutional fund managers partner with FoxPlayer for trade automation.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -614,7 +539,6 @@ export default function HomeClient() {
 
       {/* ─── 5. STRATEGY DEVELOPMENT & OPTIMIZATION ─── */}
       <section className="py-24 px-6 border-t border-white/[0.06] bg-slate-900/40 relative overflow-hidden">
-        {/* Decorative background gradients */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute -right-40 bottom-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
 
@@ -624,7 +548,7 @@ export default function HomeClient() {
           <div className="text-center max-w-3xl mx-auto mb-20">
             <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">Structured Quantitative Process</p>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
-              Algorithmic Trading Strategy Development & Optimization
+              Custom Algo Development & Trading Strategy Optimization
             </h2>
             <p className="text-base text-slate-400">
               From Idea to Live Trading Automation. At Foxplayer, we don&apos;t rely on guesswork or unverified trading systems. Every strategy follows a structured quantitative development process designed to improve robustness, manage risk, and automate execution.
@@ -736,23 +660,25 @@ export default function HomeClient() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
               <a 
-                href="https://wa.me/919983168522?text=Hello%20Foxplayer,%20I%20want%20to%20Book%20a%20Demo%20for%20Algorithmic%20Trading%20Strategy%20Development%20%26%20Optimization." 
+                href="https://wa.me/919983168522?text=Hello%20Foxplayer%2C%20I%20want%20to%20Book%20a%20Free%20Demo%20for%20algo%20trading." 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full sm:w-auto"
+                id="content-cta-demo"
               >
                 <button className="btn-primary w-full gap-2 text-sm px-6 py-3.5">
-                  <MessageCircle className="w-4 h-4 fill-black text-black" /> Book a Demo
+                  <MessageCircle className="w-4 h-4 fill-black text-black" /> Book Free Demo
                 </button>
               </a>
               <a 
-                href="https://wa.me/919983168522?text=Hello%20Foxplayer,%20I%20want%20to%20Talk%20to%20an%20Expert%20about%20Algorithmic%20Trading%20Strategy%20Development%20%26%20Optimization." 
+                href="https://wa.me/919983168522?text=Hello%20Foxplayer%2C%20I%20want%20to%20Talk%20to%20an%20Expert%20about%20automated%20trading." 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full sm:w-auto"
+                id="content-cta-expert"
               >
                 <button className="btn-secondary w-full gap-2 text-sm px-6 py-3.5">
-                  <MessageCircle className="w-4 h-4" /> Talk to an Expert
+                  <MessageCircle className="w-4 h-4" /> Talk To Expert
                 </button>
               </a>
             </div>
@@ -764,12 +690,77 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── 6. TESTIMONIALS SECTION ─── */}
+      {/* ─── 6. SEO CONTENT SECTION ─── */}
+      <section className="py-24 px-6 border-t border-white/[0.06] bg-slate-900/10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-6 text-center">
+            Advanced Quantitative Trading Solutions &amp; Options Trading Automation
+          </h2>
+          <div className="space-y-6 text-sm text-slate-400 leading-relaxed font-light">
+            <p>
+              As a premier developer of <Link href="/services/algorithmic-trading-software-development" className="text-primary hover:underline font-medium">algorithmic trading software development India</Link>, FoxPlayer bridges the gap between complex quantitative ideas and split-second market execution. We specialize in providing complete, reliable <Link href="/services/options-trading-automation" className="text-secondary hover:underline font-medium">options trading automation</Link>, enabling retail traders and prop funds to automate multi-leg options strategies, execute custom spread calculations, and adjust hedges dynamically using real-time calculations.
+            </p>
+            <p>
+              Whether you are looking to run <Link href="/integrations/shoonya-api-algo-trading" className="text-primary hover:underline font-medium">Shoonya API trading</Link>, establish a latency-optimized <Link href="/integrations/aliceblue-algo-trading" className="text-secondary hover:underline font-medium">AliceBlue algo trading</Link> bridge, or connect your Pine Script alerts directly through the <Link href="/services/zerodha-kite-connect-development" className="text-primary hover:underline font-medium">Zerodha Kite Connect</Link> automation layer, FoxPlayer offers a singular dashboard with robust error handling and multi-broker support. Compare our performance and view our transparent <Link href="/pricing" className="text-secondary hover:underline font-medium">pricing plans</Link> to select the right execution structure for your strategy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 7. FAQ ACCORDION SECTION ─── */}
+      <section className="py-24 px-6 border-t border-white/[0.06] bg-background">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">FAQ</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+              Frequently Asked Questions: Algo Trading Software India
+            </h2>
+            <p className="text-sm text-slate-400">
+              Clear answers to the most common inquiries regarding automated trading, broker APIs, and custom strategies.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {homepageFaqs.map((faq, index) => (
+              <div 
+                key={index} 
+                className="bg-[#0F172A]/40 border border-white/[0.08] rounded-xl overflow-hidden transition-all duration-300"
+              >
+                <button
+                  className="w-full px-6 py-5 flex items-center justify-between font-bold text-left text-white hover:bg-white/5 transition-colors text-sm md:text-base min-h-[48px]"
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  aria-expanded={openFaq === index}
+                  id={`faq-btn-${index}`}
+                >
+                  <span>{faq.question}</span>
+                  <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${openFaq === index ? "rotate-180" : ""}`} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {openFaq === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="px-6 pb-5 pt-2 text-slate-400 text-xs md:text-sm leading-relaxed border-t border-white/10 bg-white/[0.01]">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 8. TESTIMONIALS SECTION ─── */}
       <section className="py-24 px-6 border-t border-white/[0.06] bg-slate-900/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">User Feedback</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Trusted by Professional Traders</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">Trusted by Indian Algorithmic Traders</h2>
             <p className="text-base text-slate-400">See how systematic traders in India utilize FoxPlayer to scale strategies and preserve discipline.</p>
           </div>
 
@@ -812,7 +803,8 @@ export default function HomeClient() {
               href="https://g.page/r/CWpBuqnApuXzEBM/review"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-primary text-black hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all items-center justify-center gap-2 active:scale-95"
+              className="inline-flex w-full py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-primary text-black hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all items-center justify-center gap-2 active:scale-95 min-h-[48px]"
+              title="Write a Google Review"
             >
               Write a Google Review
             </a>
@@ -820,13 +812,13 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── 7. PRICING PLANS ─── */}
+      {/* ─── 9. PRICING PLANS ─── */}
       <section className="py-24 px-6 border-t border-white/[0.06] bg-background relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] -z-10" />
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Transparent Plans</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Simple, predictable pricing</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Simple, predictable pricing plans</h2>
             <p className="text-base text-slate-400">Cancel or upgrade anytime. No hidden brokerage surcharges.</p>
           </div>
 
@@ -865,8 +857,12 @@ export default function HomeClient() {
                   </ul>
                 </div>
                 
-                <a href={plan.cta === "Contact Sales" ? "https://wa.me/919983168522?text=Hello,%20I%20am%20interested%20in%20the%20Institutional%20plan%20for%20FoxPlayer%20Algo%20Technologies." : "https://app.foxplayer.co.in/login"} className="block w-full">
-                  <button className={`w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                <a 
+                  href={plan.cta === "Contact Sales" ? "https://wa.me/919983168522?text=Hello,%20I%20am%20interested%20in%20the%20Institutional%20plan%20for%20FoxPlayer%20Algo%20Technologies." : "https://app.foxplayer.co.in/login"} 
+                  className="block w-full"
+                  title={plan.cta}
+                >
+                  <button className={`w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all min-h-[48px] ${
                     plan.highlight 
                       ? "bg-primary text-black hover:bg-primary/95 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]" 
                       : "bg-[#050816] text-slate-300 border border-white/[0.08] hover:bg-slate-900"
@@ -887,10 +883,10 @@ export default function HomeClient() {
                 <p className="text-sm text-slate-400 max-w-xl leading-relaxed font-light">We develop custom strategy APIs, multi-broker bridges, and high-frequency algorithms for SEBI-registered entities.</p>
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 w-full lg:w-auto">
-                <a href="tel:9983168522" className="w-full sm:w-auto text-center px-6 py-3 bg-secondary text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:opacity-95 transition-all">
+                <a href="tel:9983168522" className="w-full sm:w-auto text-center px-6 py-3.5 bg-secondary text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:opacity-95 transition-all min-h-[48px]" title="Call Expert">
                   Call Expert
                 </a>
-                <a href="mailto:raffiq_sr@yahoo.co.in" className="w-full sm:w-auto text-center px-6 py-3 bg-[#050816] text-slate-200 border border-white/[0.08] text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-900 transition-all">
+                <a href="mailto:raffiq_sr@yahoo.co.in" className="w-full sm:w-auto text-center px-6 py-3.5 bg-[#050816] text-slate-200 border border-white/[0.08] text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-900 transition-all min-h-[48px]" title="Email Us">
                   Email Us
                 </a>
               </div>

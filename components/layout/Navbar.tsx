@@ -3,11 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <motion.nav 
@@ -17,22 +22,25 @@ export default function Navbar() {
       className="sticky top-0 z-50 bg-[#050816]/75 backdrop-blur-md border-b border-white/[0.06]"
     >
       {/* TradingView Ticker Tape Widget */}
-      <div className="w-full h-12 border-b border-white/[0.06] bg-black/40 overflow-hidden relative z-50 flex items-center">
-        <iframe
-          src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=en&theme=dark&symbols=%5B%7B%22proName%22%3A%22BSE%3ASENSEX%22%2C%22title%22%3A%22SENSEX%22%7D%2C%7B%22proName%22%3A%22NSE%3ANIFTY%22%2C%22title%22%3A%22NIFTY%2050%22%7D%2C%7B%22proName%22%3A%22NSE%3ABANKNIFTY%22%2C%22title%22%3A%22BANK%20NIFTY%22%7D%2C%7B%22proName%22%3A%22MCX%3ACRUDEOIL1!%22%2C%22title%22%3A%22CRUDE%20OIL%22%7D%2C%7B%22proName%22%3A%22MCX%3ANATURALGAS1!%22%2C%22title%22%3A%22NATURAL%20GAS%22%7D%5D&showSymbolLogo=true&isTransparent=true&displayMode=adaptive"
-          width="100%"
-          height="100%"
-          style={{ border: "none" }}
-          allowTransparency={true}
-          scrolling="no"
-          loading="lazy"
-        ></iframe>
-      </div>
+      {mounted && (
+        <div className="w-full h-12 border-b border-white/[0.06] bg-black/40 overflow-hidden relative z-50 flex items-center">
+          <iframe
+            src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=en&theme=dark&symbols=%5B%7B%22proName%22%3A%22BSE%3ASENSEX%22%2C%22title%22%3A%22SENSEX%22%7D%2C%7B%22proName%22%3A%22NSE%3ANIFTY%22%2C%22title%22%3A%22NIFTY%2050%22%7D%2C%7B%22proName%22%3A%22NSE%3ABANKNIFTY%22%2C%22title%22%3A%22BANK%20NIFTY%22%7D%2C%7B%22proName%22%3A%22MCX%3ACRUDEOIL1!%22%2C%22title%22%3A%22CRUDE%20OIL%22%7D%2C%7B%22proName%22%3A%22MCX%3ANATURALGAS1!%22%2C%22title%22%3A%22NATURAL%20GAS%22%7D%5D&showSymbolLogo=true&isTransparent=true&displayMode=adaptive"
+            width="100%"
+            height="100%"
+            style={{ border: "none" }}
+            allowTransparency={true}
+            scrolling="no"
+            loading="lazy"
+            title="TradingView Ticker Tape Widget"
+          ></iframe>
+        </div>
+      )}
       <div className="max-w-7xl mx-auto px-6 h-20 md:h-32 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 md:gap-4 group shrink-0">
           <div className="relative w-12 h-12 md:w-20 md:h-20 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/40 transition-colors">
-            <Image src="/logo.webp" alt="Foxplayer Algo Technologies" fill sizes="80px" className="object-cover" />
+            <Image src="/logo.webp" alt="Foxplayer Algo Technologies Logo" fill sizes="80px" className="object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="text-base md:text-[20px] font-bold text-white leading-tight tracking-tight">Foxplayer</span>
@@ -64,11 +72,16 @@ export default function Navbar() {
 
         {/* Mobile Toggle & Direct Login */}
         <div className="flex items-center gap-3 md:hidden">
-          <a href="https://app.foxplayer.co.in/login" className="text-xs font-bold bg-primary text-black px-4 py-2 rounded-lg hover:shadow-[0_0_15px_rgba(0,212,255,0.4)] transition-all active:scale-95">
+          <a href="https://app.foxplayer.co.in/login" className="text-xs font-bold bg-primary text-black px-4 py-2 rounded-lg hover:shadow-[0_0_15px_rgba(0,212,255,0.4)] transition-all active:scale-95 min-h-[40px] flex items-center justify-center">
             Dashboard
           </a>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white/60 p-2">
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <button 
+            onClick={() => setMobileOpen(!mobileOpen)} 
+            className="text-white/60 w-12 h-12 flex items-center justify-center"
+            aria-label="Toggle navigation menu"
+            id="mobile-nav-toggle"
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -76,17 +89,17 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden bg-[#0F172A]/95 backdrop-blur-xl border-t border-white/[0.08] px-6 py-6 space-y-4">
-          <Link href="/features" className="block text-sm text-white/60 hover:text-white">Features</Link>
-          <Link href="/pricing" className="block text-sm text-white hover:text-primary">Pricing</Link>
-          <Link href="/brokers" className="block text-sm text-white hover:text-primary">Integrations</Link>
-          <Link href="/disclaimer" className="block text-sm text-amber-500 font-medium">⚠️ Disclaimer</Link>
-          <Link href="/marketplace" className="block text-sm text-white/60 hover:text-white">Marketplace</Link>
-          <Link href="/academy" className="block text-sm text-white hover:text-primary">Academy</Link>
-          <Link href="/blog" className="block text-sm text-white hover:text-primary">Blog</Link>
+          <Link href="/features" className="block text-base text-white/60 hover:text-white py-2" id="mobile-nav-features">Features</Link>
+          <Link href="/pricing" className="block text-base text-white hover:text-primary py-2" id="mobile-nav-pricing">Pricing</Link>
+          <Link href="/brokers" className="block text-base text-white hover:text-primary py-2" id="mobile-nav-brokers">Integrations</Link>
+          <Link href="/disclaimer" className="block text-base text-amber-500 font-medium py-2" id="mobile-nav-disclaimer">⚠️ Disclaimer</Link>
+          <Link href="/marketplace" className="block text-base text-white/60 hover:text-white py-2" id="mobile-nav-marketplace">Marketplace</Link>
+          <Link href="/academy" className="block text-base text-white hover:text-primary py-2" id="mobile-nav-academy">Academy</Link>
+          <Link href="/blog" className="block text-base text-white hover:text-primary py-2" id="mobile-nav-blog">Blog</Link>
           <div className="pt-4 border-t border-white/[0.08] space-y-3">
-            <a href="https://app.foxplayer.co.in/login" className="block text-sm text-white/50">Log in</a>
+            <a href="https://app.foxplayer.co.in/login" className="block text-base text-white/50 py-2" id="mobile-nav-login">Log in</a>
 
-            <a href="https://app.foxplayer.co.in/login" className="w-full text-center block text-sm font-semibold bg-white text-black px-5 py-2.5 rounded-lg">Get Started</a>
+            <a href="https://app.foxplayer.co.in/login" className="w-full text-center block text-base font-semibold bg-white text-black px-5 py-3 rounded-lg" id="mobile-nav-getstarted">Get Started</a>
           </div>
         </div>
       )}
