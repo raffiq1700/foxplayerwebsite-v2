@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     question: "Which brokers does FoxPlayer support?",
-    answer: "FoxPlayer currently integrates with AliceBlue, Shoonya, Angel One, and Upstox, with Zerodha Kite Connect automation also supported. Multiple brokers can be connected simultaneously from a single dashboard.",
+    answer: "FoxPlayer currently integrates with AliceBlue, Shoonya, Angel One, Upstox, Groww, Motilal Oswal, Zerodha, and Dhan. Multiple brokers can be connected simultaneously from a single dashboard.",
   },
   {
     question: "Do I need to know how to code to use FoxPlayer?",

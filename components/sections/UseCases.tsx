@@ -27,6 +27,30 @@ const brokers = [
     description: "Connect your Upstox account for reliable option selling automation.",
     color: "group-hover:border-purple-500/50 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]",
   },
+  {
+    id: "groww",
+    name: "Groww",
+    description: "Connect your Groww account to execute systematic trades using webhook alerts.",
+    color: "group-hover:border-green-500/50 group-hover:shadow-[0_0_20px_rgba(34,197,94,0.2)]",
+  },
+  {
+    id: "motilaloswal",
+    name: "Motilal Oswal",
+    description: "Automate your trades on Motilal Oswal using our ultra-low latency API bridge.",
+    color: "group-hover:border-yellow-500/50 group-hover:shadow-[0_0_20px_rgba(234,179,8,0.2)]",
+  },
+  {
+    id: "zerodha",
+    name: "Zerodha",
+    description: "Full support for Zerodha Kite Connect automation for retail and professional setups.",
+    color: "group-hover:border-red-500/50 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.2)]",
+  },
+  {
+    id: "dhan",
+    name: "Dhan",
+    description: "Deploy your automation strategies seamlessly on Dhan using superfast API links.",
+    color: "group-hover:border-emerald-500/50 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]",
+  },
 ];
 
 export function UseCases() {

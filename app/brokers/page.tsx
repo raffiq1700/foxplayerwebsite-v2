@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Supported Brokers | Foxplayer Algo Technologies",
-  description: "Connect your Demat account securely to Foxplayer Algo Technologies. We support AliceBlue, Angel One, Shoonya, and Upstox.",
+  description: "Connect your Demat account securely to Foxplayer Algo Technologies. We support AliceBlue, Angel One, Shoonya, Upstox, Groww, Motilal Oswal, Zerodha, and Dhan.",
   alternates: {
     canonical: "/brokers",
   },

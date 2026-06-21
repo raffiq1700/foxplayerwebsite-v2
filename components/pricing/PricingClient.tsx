@@ -27,7 +27,7 @@ export default function PricingClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`relative glass-card p-10 flex flex-col justify-between transition-all duration-300 ${plan.popular ? "bg-[#0F172A]/70 border-2 border-primary/45 shadow-[0_0_35px_rgba(0,212,255,0.06)] md:scale-105 md:z-10 z-0 scale-100" : "bg-[#0F172A]/40 border border-white/[0.08]"}`}
+              className={`relative glass-card p-6 sm:p-10 flex flex-col justify-between transition-all duration-300 ${plan.popular ? "bg-[#0F172A]/70 border-2 border-primary/45 shadow-[0_0_35px_rgba(0,212,255,0.06)] md:scale-105 md:z-10 z-0 scale-100" : "bg-[#0F172A]/40 border border-white/[0.08]"}`}
             >
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-black text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(0,212,255,0.3)]">

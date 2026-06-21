@@ -16,7 +16,7 @@ export default function Home() {
     "name": "FoxPlayer Algo Technologies",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
-    "description": "Automated algorithmic trading platform for Indian stock markets. Execute Python strategies, TradingView webhooks, and copy trading across AliceBlue, Shoonya, Angel One, and Upstox.",
+    "description": "Automated algorithmic trading platform for Indian stock markets. Execute Python strategies, TradingView webhooks, and copy trading across AliceBlue, Shoonya, Angel One, Upstox, Groww, Motilal Oswal, Zerodha, and Dhan.",
     "offers": [
       {
         "@type": "Offer",

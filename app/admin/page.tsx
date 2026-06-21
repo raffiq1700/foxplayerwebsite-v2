@@ -11,7 +11,7 @@ import CampaignsTab from "@/components/admin/CampaignsTab";
 import AcademyCategoriesTab from "@/components/admin/AcademyCategoriesTab";
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<"blogs" | "academy" | "categories" | "enquiries" | "campaigns">("blogs");
+  const [activeTab, setActiveTab] = useState<"blogs" | "academy" | "categories" | "enquiries" | "campaigns" | "jobs">("blogs");
 
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,10 +25,10 @@ export default function AdminPage() {
   }, [activeTab]);
 
   const fetchData = async () => {
-    if (activeTab === "enquiries" || activeTab === "campaigns") return;
+    if (activeTab === "enquiries" || activeTab === "campaigns" || activeTab === "categories") return;
     setLoading(true);
     try {
-      const endpoint = activeTab === "blogs" ? "/api/blogs" : "/api/academy";
+      const endpoint = activeTab === "blogs" ? "/api/blogs" : activeTab === "academy" ? "/api/academy" : "/api/jobs";
       const res = await fetch(endpoint);
       if (res.ok) {
         const result = await res.json();
@@ -44,7 +44,7 @@ export default function AdminPage() {
   const filteredAndSortedData = data
     .filter(item => 
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.slug.toLowerCase().includes(searchQuery.toLowerCase())
+      (item.slug && item.slug.toLowerCase().includes(searchQuery.toLowerCase()))
     )
     .sort((a, b) => {
       const dateA = new Date(a.createdAt || a.date).getTime();
@@ -56,7 +56,7 @@ export default function AdminPage() {
     if (!confirm("Are you sure you want to delete this entry?")) return;
     
     try {
-      const endpoint = activeTab === "blogs" ? `/api/blogs/${id}` : `/api/academy/${id}`;
+      const endpoint = activeTab === "blogs" ? `/api/blogs/${id}` : activeTab === "academy" ? `/api/academy/${id}` : `/api/jobs/${id}`;
       const res = await fetch(endpoint, { method: "DELETE" });
       if (res.ok) {
         setData(data.filter(item => item.id !== id));
@@ -149,6 +149,13 @@ export default function AdminPage() {
               >
                 <Mail className="w-5 h-5" /> Campaigns
               </button>
+              <button 
+                onClick={() => setActiveTab("jobs")}
+                className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all text-sm uppercase tracking-wider ${activeTab === "jobs" ? "bg-primary text-background shadow-[0_0_20px_rgba(34,211,238,0.3)]" : "hover:bg-white/5 text-white/40 hover:text-white"}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8"/><path d="M4 16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2"/><path d="M10 12h4"/><path d="M12 18v-6"/></svg>
+                Careers
+              </button>
               <div className="my-2 border-t border-white/5" />
               <Link 
                 href="/admin/settings"
@@ -182,7 +189,7 @@ export default function AdminPage() {
             <div className="glass-card border-white/5 overflow-hidden">
               <div className="p-8 border-b border-white/5 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1">
-                  <h2 className="text-xl font-black text-white uppercase tracking-tight whitespace-nowrap">{activeTab === "blogs" ? "Blog" : "Academy"} List</h2>
+                  <h2 className="text-xl font-black text-white uppercase tracking-tight whitespace-nowrap">{activeTab === "blogs" ? "Blog" : activeTab === "academy" ? "Academy" : "Jobs"} List</h2>
                   <div className="relative w-full max-w-md group">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-primary transition-colors">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
@@ -206,9 +213,9 @@ export default function AdminPage() {
                     <option value="oldest" className="bg-[#050505]">Oldest First</option>
                   </select>
                 </div>
-                <Link href={activeTab === "blogs" ? "/admin/editor/new" : "/admin/academy/editor/new"}>
+                <Link href={activeTab === "blogs" ? "/admin/editor/new" : activeTab === "academy" ? "/admin/academy/editor/new" : "/admin/jobs/editor/new"}>
                   <Button className="btn-primary py-3.5 px-8 text-[10px] uppercase tracking-widest gap-2">
-                    <Plus className="w-4 h-4" /> New {activeTab === "blogs" ? "Blog" : "Academy"}
+                    <Plus className="w-4 h-4" /> New {activeTab === "blogs" ? "Blog" : activeTab === "academy" ? "Academy" : "Job"}
                   </Button>
                 </Link>
               </div>
@@ -245,7 +252,7 @@ export default function AdminPage() {
                             </td>
                             <td className="px-8 py-6">
                               <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider bg-white/5 px-3 py-1 rounded-full border border-white/5">
-                                {item.category}
+                                {item.category || item.type}
                               </span>
                             </td>
                             <td className="px-8 py-6">
@@ -256,7 +263,7 @@ export default function AdminPage() {
                             </td>
                             <td className="px-8 py-6 text-right">
                               <div className="flex justify-end gap-3 opacity-40 group-hover:opacity-100 transition-opacity">
-                                <Link href={activeTab === "blogs" ? `/admin/editor/${item.id}` : `/admin/academy/editor/${item.id}`}>
+                                <Link href={activeTab === "blogs" ? `/admin/editor/${item.id}` : activeTab === "academy" ? `/admin/academy/editor/${item.id}` : `/admin/jobs/editor/${item.id}`}>
                                   <button className="p-2.5 rounded-xl glass hover:bg-primary/20 hover:text-primary transition-all">
                                     <Edit className="w-4 h-4" />
                                   </button>

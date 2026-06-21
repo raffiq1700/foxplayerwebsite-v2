@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // 2. Admin Protection
-  if (pathname.startsWith("/admin") || pathname.startsWith("/api/blogs") || pathname.startsWith("/api/academy")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/api/blogs") || pathname.startsWith("/api/academy") || pathname.startsWith("/api/jobs")) {
     // Exclude login page from protection loop
     if (pathname === "/admin/login" || pathname === "/api/auth/login") {
       return NextResponse.next();
@@ -55,5 +55,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*", "/api/blogs/:path*", "/api/academy/:path*", "/strategies", "/guide", "/about-us", "/contact-us"],
+  matcher: ["/admin", "/admin/:path*", "/api/blogs/:path*", "/api/academy/:path*", "/api/jobs/:path*", "/strategies", "/guide", "/about-us", "/contact-us"],
 };

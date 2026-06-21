@@ -23,7 +23,7 @@ const features = [
   },
   {
     title: "Multi-Broker Support",
-    description: "Execute trades simultaneously across AliceBlue, Angel One, Shoonya, and Upstox from a single dashboard.",
+    description: "Execute trades simultaneously across AliceBlue, Angel One, Shoonya, Upstox, Groww, Motilal Oswal, Zerodha, and Dhan from a single dashboard.",
     icon: Landmark,
   },
   {
