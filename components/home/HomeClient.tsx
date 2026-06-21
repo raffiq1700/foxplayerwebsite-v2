@@ -877,7 +877,7 @@ export default function HomeClient() {
                 key={idx} 
                 className={`rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 ${
                   plan.highlight 
-                    ? "bg-[#0F172A]/70 border-2 border-primary/45 shadow-[0_0_30px_rgba(0,212,255,0.06)] relative scale-105 z-10" 
+                    ? "bg-[#0F172A]/70 border-2 border-primary/45 shadow-[0_0_30px_rgba(0,212,255,0.06)] relative md:scale-105 md:z-10 z-0 scale-100" 
                     : "bg-[#0F172A]/40 border border-white/[0.08]"
                 }`}
               >
