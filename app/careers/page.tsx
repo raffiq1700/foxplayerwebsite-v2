@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, Clock, DollarSign, Loader2, Sparkles } from "lucide-react";
+import { Briefcase, MapPin, Clock, Loader2, Sparkles } from "lucide-react";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 interface Job {
@@ -140,7 +140,7 @@ export default function CareersPage() {
                     </div>
                     {job.stipend && (
                       <div className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4 text-white/30" /> {job.stipend}
+                        <span className="text-white/30 font-medium">Stipend:</span> {job.stipend}
                       </div>
                     )}
                   </div>
