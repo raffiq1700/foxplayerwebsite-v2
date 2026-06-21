@@ -1,0 +1,30 @@
+---
+title: "AliceBlue vs Shoonya for Algo Trading: API Comparison 2026"
+excerpt: "A factual comparison between AliceBlue and Shoonya developer APIs, covering costs, support segments, and user setup."
+author: "Raffiq SR"
+category: "Analysis"
+date: "2026-06-21"
+readTime: "5 min read"
+---
+
+AliceBlue and Shoonya are two of the most commonly used brokers among Indian algo traders, largely because both offer free or low-cost API access — a rarity among Indian discount brokers. Here's how they compare for someone building an automated strategy.
+
+## API access and cost
+
+Both AliceBlue and Shoonya provide API access at no additional cost beyond standard brokerage and exchange charges. Neither charges a separate "algo trading" subscription fee at the broker level — the cost differences traders usually run into come from the tooling layer they build or buy on top (strategy builders, webhook bridges, risk management), not the broker API itself.
+
+## Documentation and developer experience
+
+Both brokers publish API documentation covering REST endpoints for order placement, positions, and market data. If you're connecting through a platform like FoxPlayer rather than building your own integration from scratch, the underlying documentation differences matter less, since the platform handles authentication and order routing for you.
+
+## Segments supported
+
+Both support equity, F&O, and currency derivatives trading via API. [VERIFY current commodity/MCX support directly with each broker, as API segment coverage can change.]
+
+## Which one should you choose?
+
+If you're already trading manually with one of these brokers, it's usually simpler to stay on that broker's API rather than open a new account purely for algo trading — switching brokers adds KYC overhead without necessarily improving execution. If you're starting fresh and plan to run multiple strategies, consider testing both in paper trading mode through FoxPlayer, since you can connect more than one broker to the same dashboard and compare fill quality directly on your own strategies.
+
+## Running both at once
+
+You don't have to choose just one. FoxPlayer supports connecting AliceBlue and Shoonya simultaneously, so you can run different strategies on each, or use one as a backup execution path if the other has downtime.

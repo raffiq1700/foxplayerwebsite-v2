@@ -6,44 +6,32 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
-    question: "Do you need my broker password?",
-    answer: "No. We connect via API keys provided by your broker. We never ask for your broker login password or transaction PIN.",
+    question: "Is algo trading legal in India?",
+    answer: "Yes. Algorithmic trading is legal in India when executed through SEBI-registered brokers using approved APIs. FoxPlayer is a technology provider that connects your strategies to SEBI-regulated broker APIs — it does not place trades outside regulatory channels.",
   },
   {
-    question: "Is there any latency in trade execution?",
-    answer: "Our servers are co-located in Mumbai near the exchange servers. For TradingView webhooks, execution latency is typically under 50ms.",
+    question: "Which brokers does FoxPlayer support?",
+    answer: "FoxPlayer currently integrates with AliceBlue, Shoonya, Angel One, and Upstox, with Zerodha Kite Connect automation also supported. Multiple brokers can be connected simultaneously from a single dashboard.",
   },
   {
-    question: "Can I test my strategy before going live?",
-    answer: "Yes, our Free Trial and basic plans include paper trading mode. You can forward-test your strategies using real-time market data without risking actual capital.",
+    question: "Do I need to know how to code to use FoxPlayer?",
+    answer: "No. You can connect TradingView Pine Script alerts via webhook without writing backend code. Traders who do code can deploy custom Python strategies directly for more advanced logic.",
   },
   {
-    question: "Do you offer refunds?",
-    answer: "Since we provide a 7-day free trial with paper trading, we do not offer refunds on paid subscriptions. We encourage you to fully test the platform during the trial.",
+    question: "What is FoxPlayer's average order execution latency?",
+    answer: "FoxPlayer routes orders through dedicated bare-metal broker gateways with an average execution latency of approximately 12 milliseconds, reducing slippage on high-frequency entries.",
   },
   {
-    question: "How do I become a marketplace creator?",
-    answer: "If you have a profitable strategy with at least 3 months of live trading history, you can apply from your dashboard to become a verified creator and earn from subscribers.",
+    question: "Can I try FoxPlayer for free before paying?",
+    answer: "Yes. The Retail Basic plan is free and includes one active strategy with full paper trading simulation across all supported brokers, so you can test the platform before upgrading.",
   },
   {
-    question: "What is the difference between a trading account and a demat account for algorithmic trading?",
-    answer: "A trading account is the vehicle used to place buy/sell orders on the exchange. A demat account is the secure digital vault where your shares are stored electronically. Understanding the difference between trading and demat account is crucial: your automated execution bot uses your trading account to place intraday or positional orders, while any shares held overnight are stored in your demat account.",
+    question: "Does FoxPlayer offer white-label solutions?",
+    answer: "Yes, the Enterprise plan includes white-label brand layouts, dedicated infrastructure, and a multi-client copy trading bridge, built for sub-brokers and PMS firms.",
   },
   {
-    question: "Which is the best demat account in India for low-latency automation?",
-    answer: "The best demat account in India for strategy automation is one that offers low execution latency and stable developer APIs. Discount brokers like Angel One (SmartAPI), Dhan (direct TradingView integrations), and Zerodha (Kite Connect API) are widely considered the best demat account options for retail algo trading. Traditional bank accounts like HDFC demat account, ICICI demat account, or SBI demat account are secure for long-term investments but generally carry higher transaction charges and slower API execution compared to modern discount brokers.",
-  },
-  {
-    question: "What indicators are supported for custom algo trading strategies?",
-    answer: "Our platform supports any model you can code or chart. Popular technical indicators include the EMA trading strategy (Exponential Moving Average), ORB trading strategy (Opening Range Breakout), CPR trading strategy (Central Pivot Range), and ATR trading strategy (Average True Range). If you trade using institutional models, you can easily automate the SMC trading strategy (Smart Money Concepts), ICT trading strategy (Inner Circle Trader), or CRT trading strategy (Core Range Trading) by sending buy/sell alerts from charts via webhooks.",
-  },
-  {
-    question: "Do I need a trading strategy builder or backtesting tool before going live?",
-    answer: "Yes, validation is highly recommended. You can use a trading strategy builder (like Pine Script or our drag-and-drop tool) to define your rules, and run extensive trading strategy backtesting on historical data. Once you verify your model's win rate and drawdown, you can deploy your strategy automation with live capital in paper trading or live execution modes.",
-  },
-  {
-    question: "What are the charges associated with opening a demat account and executing automated trades?",
-    answer: "Standard demat account charges typically include account opening fees (often zero), an annual maintenance charge (AMC) of ₹200-₹300, and transactional brokerage of ₹20 per executed order. Pledging holdings in your demat account for margin might carry minor additional costs. FoxPlayer does not add any extra transactional broker charges; we simply connect your automated trading platform directly to your broker's free or paid API gateway.",
+    question: "Does FoxPlayer provide investment advice?",
+    answer: "No. FoxPlayer is a technology provider offering strategy automation software. It does not provide investment advice, tips, or guaranteed returns.",
   },
 ];
 

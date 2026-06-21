@@ -1,0 +1,30 @@
+---
+title: "What Sub-15ms Execution Actually Means for Options Sellers"
+excerpt: "Understand how execution latency is measured and why sub-15ms speed is critical to options sellers who scalp premium in volatile markets."
+author: "Raffiq SR"
+category: "Infrastructure"
+date: "2026-06-21"
+readTime: "5 min read"
+---
+
+"Low latency" gets thrown around a lot in algo trading marketing, often without much explanation of why it matters or how it's measured. Here's a concrete breakdown.
+
+## What the number actually measures
+
+Execution latency, as FoxPlayer measures it, is the time between your strategy's signal firing (a webhook alert or a Python script's order call) and the order being acknowledged by the broker's system. FoxPlayer's infrastructure averages approximately 12 milliseconds end-to-end, using dedicated bare-metal servers connected directly to broker gateways rather than routing through shared cloud infrastructure with variable network hops.
+
+## Why it matters more for options than equity
+
+Options prices move in discrete steps, and bid-ask spreads on less liquid strikes can widen quickly during volatile moves. A few hundred milliseconds of delay between your signal and your fill can mean the difference between getting filled near your intended price and chasing a strike that's already moved against you — especially when selling premium into a fast-moving market, where the cost of a delayed exit is asymmetric.
+
+## What slows execution down (and what doesn't)
+
+Network hops between your strategy and the broker, queueing delays on shared infrastructure, and inefficient order-routing logic are the main contributors to latency. Your strategy's own decision-making time (the Pine Script or Python logic evaluating conditions) is usually negligible compared to network and routing latency — so the infrastructure layer matters more than how "fast" your code looks on paper.
+
+## Realistic expectations
+
+No platform can guarantee zero slippage — market conditions, liquidity, and order size all affect your actual fill versus your intended price, regardless of execution speed. What low latency infrastructure does is remove unnecessary delay from the parts of the process that are controllable, so the only slippage you're dealing with is the market's, not the platform's.
+
+## Testing it yourself
+
+Before relying on any platform's latency claims for live capital, run your strategy in paper trading and compare logged signal times against logged fill times over a few sessions. That gives you a real, strategy-specific number rather than a marketing average.

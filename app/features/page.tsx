@@ -3,8 +3,8 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Features | Foxplayer Algo Technologies",
-  description: "Explore the powerful automation features of Foxplayer Algo Technologies.",
+  title: "Algo Trading Features — Python, Webhooks & Risk Tools",
+  description: "Explore FoxPlayer's algo trading features: Python strategy execution, TradingView webhooks, Option Greeks auto-hedging, and multi-broker risk management.",
   alternates: {
     canonical: "/features",
   },

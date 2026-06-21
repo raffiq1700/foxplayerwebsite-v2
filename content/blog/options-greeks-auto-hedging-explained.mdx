@@ -1,0 +1,36 @@
+---
+title: "Options Greeks Auto-Hedging Explained: Delta, Theta, Gamma, Vega"
+excerpt: "How auto-hedging continuously balances your multi-leg option portfolios by managing Greek exposures automatically."
+author: "Raffiq SR"
+category: "Trading"
+date: "2026-06-21"
+readTime: "7 min read"
+---
+
+If you trade multi-leg options strategies, manually tracking how your position's risk changes as the underlying moves gets unmanageable fast. Auto-hedging tools exist to handle that recalculation and adjustment for you. Here's what each Greek means and how automated hedging uses them.
+
+## The four Greeks that matter most
+
+**Delta** measures how much your position's value changes for a ₹1 move in the underlying. A delta-neutral position is designed to be unaffected by small directional moves.
+
+**Theta** measures time decay — how much value your position loses (or gains, if you're a net seller) each day, all else equal. This is the core edge options sellers are trying to capture.
+
+**Gamma** measures how fast your delta changes as the underlying moves. High gamma means your position's directional risk can shift quickly, which is why gamma tends to spike near expiry.
+
+**Vega** measures sensitivity to implied volatility changes. A position can be delta-neutral and still lose money if volatility moves sharply against it.
+
+## What "auto-hedging" actually automates
+
+Manually, a trader would recalculate these Greeks throughout the day and place adjusting trades — buying or selling additional legs — to keep the position within a target risk range. FoxPlayer's auto-hedging continuously recalculates Greeks across your open multi-leg position and executes adjustment orders automatically when a Greek breaches a threshold you've set (for example, rebalancing delta back toward neutral once it exceeds a defined range).
+
+## Why this matters for strategies like straddles and iron condors
+
+These strategies start with a defined risk profile, but that profile drifts as the underlying moves and time passes. A straddle that was delta-neutral at entry won't stay that way once the market moves a few percent. Without active management, the position's actual risk can diverge significantly from what it looked like at entry. Auto-hedging keeps that drift in check without requiring you to watch the position constantly.
+
+## Setting it up
+
+In FoxPlayer's options automation panel, you define your target Greek ranges per strategy when you deploy a multi-leg structure. The system monitors live Greeks (calculated from real-time option chain data) and fires adjustment orders automatically when a threshold is crossed — you can review every adjustment in your trade log afterward.
+
+## A caveat worth stating plainly
+
+Auto-hedging manages risk within the parameters you set — it doesn't eliminate risk. Sharp, fast moves can still result in losses before an adjustment order executes, and every adjustment trade carries its own transaction costs. Treat it as a risk management tool, not a guarantee.

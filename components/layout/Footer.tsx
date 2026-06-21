@@ -6,9 +6,9 @@ export default function Footer() {
     <footer className="bg-[#050816] pt-24 pb-12 border-t border-white/[0.06] relative">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
           {/* Brand */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             <Link href="/" className="flex items-center gap-6 mb-8">
               <div className="relative w-28 h-28 rounded-full overflow-hidden border border-white/10">
                 <Image src="/logo.webp" alt="Foxplayer Algo Technologies" fill sizes="112px" className="object-cover" />
@@ -54,13 +54,24 @@ export default function Footer() {
               <li><Link href="/services/algorithmic-trading-software-development" className="hover:text-white/70 transition-colors">Algo Software</Link></li>
               <li><Link href="/services/white-label-trading-platform" className="hover:text-white/70 transition-colors">White Label</Link></li>
               <li><Link href="/services/options-trading-automation" className="hover:text-white/70 transition-colors">Options Auto</Link></li>
-              <li><Link href="/services/web-development" className="hover:text-white/70 transition-colors">Web Dev</Link></li>
-              <li><Link href="/services/mobile-app-development" className="hover:text-white/70 transition-colors">App Dev</Link></li>
+              <li><Link href="/services/pms-software-development" className="hover:text-white/70 transition-colors">PMS Software</Link></li>
+              <li><Link href="/services/ria-software-development" className="hover:text-white/70 transition-colors">RIA Software</Link></li>
+            </ul>
+          </div>
+
+          {/* Integrations */}
+          <div className="md:col-span-2">
+            <h4 className="text-[11px] font-bold text-white/40 uppercase tracking-wider mb-5">Integrations</h4>
+            <ul className="space-y-3 text-sm text-white/30">
+              <li><Link href="/integrations/shoonya-api-algo-trading" className="hover:text-white/70 transition-colors">Shoonya API</Link></li>
+              <li><Link href="/integrations/aliceblue-algo-trading" className="hover:text-white/70 transition-colors">AliceBlue API</Link></li>
+              <li><Link href="/services/zerodha-kite-connect-development" className="hover:text-white/70 transition-colors">Zerodha Kite</Link></li>
+              <li><Link href="/execution-speed" className="hover:text-white/70 transition-colors">Latency Claims</Link></li>
             </ul>
           </div>
 
           {/* Company */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-1.5">
             <h4 className="text-[11px] font-bold text-white/40 uppercase tracking-wider mb-5">Company</h4>
             <ul className="space-y-3 text-sm text-white/30">
               <li><Link href="/about" className="hover:text-white/70 transition-colors">About Us</Link></li>
@@ -70,7 +81,7 @@ export default function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-1.5">
             <h4 className="text-[11px] font-bold text-white/40 uppercase tracking-wider mb-5">Legal</h4>
             <ul className="space-y-3 text-sm text-white/30">
               <li><Link href="/disclaimer" className="hover:text-white/70 transition-colors">Disclaimer</Link></li>
@@ -87,13 +98,13 @@ export default function Footer() {
             <div>
               <h5 className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-4">Serving Clients Across India</h5>
               <p className="text-[11px] text-white/20 leading-relaxed font-medium">
-                Foxplayer Algo Technologies is a leading <span className="text-white/30 font-bold">algorithmic trading software development India</span> company. We specialize in <span className="text-white/30 font-bold">custom trading bot development</span>, <span className="text-white/30 font-bold">automated trading software</span>, and <span className="text-white/30 font-bold">broker API integration</span> for professionals in <span className="text-white/30 font-bold">Chennai</span>, <span className="text-white/30 font-bold">Coimbatore</span>, <span className="text-white/30 font-bold">Trichy</span>, <span className="text-white/30 font-bold">Bangalore</span>, and <span className="text-white/30 font-bold">Hyderabad</span>. From <span className="text-white/30 font-bold">Alice Blue free algo trading</span> to <span className="text-white/30 font-bold">Shoonya free algo trading</span> and <span className="text-white/30 font-bold">Zerodha free algo trading</span>, we empower traders nationwide with cutting-edge technology.
+                Foxplayer Algo Technologies is a leading <span className="text-white/30 font-bold">algorithmic trading software development India</span> company. We specialize in <span className="text-white/30 font-bold">custom trading bot development</span>, <span className="text-white/30 font-bold">automated trading software</span>, and <span className="text-white/30 font-bold">broker API integration</span> for professionals in <span className="text-white/30 font-bold">Chennai</span>, <span className="text-white/30 font-bold">Coimbatore</span>, <span className="text-white/30 font-bold">Trichy</span>, <span className="text-white/30 font-bold">Bangalore</span>, and <span className="text-white/30 font-bold">Hyderabad</span>. From <Link href="/integrations/aliceblue-algo-trading" className="text-white/30 font-bold hover:text-primary transition-colors hover:underline">Alice Blue free algo trading</Link> to <Link href="/integrations/shoonya-api-algo-trading" className="text-white/30 font-bold hover:text-primary transition-colors hover:underline">Shoonya free algo trading</Link> and <Link href="/services/zerodha-kite-connect-development" className="text-white/30 font-bold hover:text-primary transition-colors hover:underline">Zerodha free algo trading</Link>, we empower traders nationwide with cutting-edge technology.
               </p>
             </div>
             <div>
               <h5 className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-4">Regulatory Disclaimer</h5>
               <p className="text-[11px] text-white/20 leading-relaxed font-medium">
-                <strong className="text-white/40 font-bold">Disclaimer:</strong> Foxplayer Algo Technologies provides <span className="text-white/30 font-bold">quantitative trading software</span> and <span className="text-white/30 font-bold">strategy automation software</span>. We are a technology provider and do not offer investment advice, tips, or guaranteed returns. We provide <span className="text-white/30 font-bold">PMS software development</span> and <span className="text-white/30 font-bold">RIA software development</span> for SEBI registered entities. Trading in derivatives involves significant risk.
+                <strong className="text-white/40 font-bold">Disclaimer:</strong> Foxplayer Algo Technologies provides <span className="text-white/30 font-bold">quantitative trading software</span> and <span className="text-white/30 font-bold">strategy automation software</span>. We are a technology provider and do not offer investment advice, tips, or guaranteed returns. We provide <Link href="/services/pms-software-development" className="text-white/30 font-bold hover:text-primary transition-colors hover:underline">PMS software development</Link> and <Link href="/services/ria-software-development" className="text-white/30 font-bold hover:text-primary transition-colors hover:underline">RIA software development</Link> for SEBI registered entities. Trading in derivatives involves significant risk.
               </p>
             </div>
           </div>

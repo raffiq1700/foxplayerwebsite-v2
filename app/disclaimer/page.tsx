@@ -1,8 +1,8 @@
 import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
 
 export const metadata = {
-  title: "Important Disclaimer | Foxplayer Algo Technologies",
-  description: "Important safety and regulatory information regarding Foxplayer Algo Technologies.",
+  title: "Regulatory Disclaimer & Risk Disclosure | FoxPlayer Algo Technologies",
+  description: "Important safety and regulatory information regarding FoxPlayer Algo Technologies.",
   alternates: {
     canonical: "/disclaimer",
   },

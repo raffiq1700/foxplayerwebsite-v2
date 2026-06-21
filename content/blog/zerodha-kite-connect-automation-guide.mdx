@@ -1,0 +1,38 @@
+---
+title: "Zerodha Kite Connect Automation: Step-by-Step Setup Guide"
+excerpt: "Learn how to connect your TradingView alerts or Python scripts to Zerodha's Kite Connect API using FoxPlayer."
+author: "Raffiq SR"
+category: "Tutorials"
+date: "2026-06-21"
+readTime: "5 min read"
+---
+
+Zerodha's Kite Connect API is one of the most widely used trading APIs in India, in large part because Zerodha is the country's largest discount broker by user base. Here's how to set up automated execution on Zerodha through FoxPlayer.
+
+## Before you start
+
+You'll need a Zerodha trading account and a Kite Connect API subscription, which Zerodha provides for a separate monthly fee (unlike some other brokers, Zerodha charges for API access itself — confirm current pricing on Zerodha's developer portal, as it can change).
+
+## Step 1: Generate your Kite Connect API credentials
+
+Log in to the Kite Connect developer console, create an app, and note your API key and API secret.
+
+## Step 2: Connect Zerodha to FoxPlayer
+
+In your FoxPlayer dashboard, go to Broker Connections → Zerodha, and enter your API key and secret. Zerodha's API uses a daily login token refresh, so you'll need to re-authenticate once per trading day — FoxPlayer's dashboard will prompt you when this is needed.
+
+## Step 3: Choose your execution path
+
+You can either route TradingView Pine Script alerts through FoxPlayer's webhook bridge, or deploy a custom Python strategy directly, depending on what you've already built.
+
+## Step 4: Set risk parameters
+
+Configure stop-loss, position sizing, and daily max-loss limits before enabling live execution — these apply automatically regardless of which execution path you chose.
+
+## Step 5: Paper trade first
+
+Run the strategy in paper trading mode for several sessions to confirm order logic and sizing are correct before committing live capital.
+
+## A note on the daily token refresh
+
+This is a Zerodha API requirement, not a FoxPlayer limitation — Kite Connect access tokens expire daily for security reasons, so any platform connecting to Zerodha needs this same re-authentication step. Build it into your daily routine if you're running strategies that need to be live before market open.

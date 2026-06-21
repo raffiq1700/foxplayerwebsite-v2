@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import ContactClient from "@/components/contact/ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact Us | FoxPlayer Algo Technologies",
-  description: "Get in touch with FoxPlayer Algo Technologies. Inquire about customized systematic trading software, white-label solutions, or API bridges.",
+  title: "Contact FoxPlayer — Algo Trading Support India",
+  description: "Reach FoxPlayer Algo Technologies for demos, support, or enterprise/white-label algo trading inquiries.",
   alternates: {
     canonical: "/contact",
   },

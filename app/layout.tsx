@@ -50,21 +50,16 @@ export default function RootLayout({
             "name": "FoxPlayer Algo Technologies",
             "url": "https://www.foxplayer.co.in",
             "logo": "https://www.foxplayer.co.in/logo.png",
-            "founder": {
-              "@type": "Person",
-              "name": "Mohamed Raffiq"
-            },
+            "sameAs": [
+              "https://www.linkedin.com/in/mohamed-raffiq-6b97a6a7"
+            ],
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+91-9983168522",
-              "contactType": "customer service",
+              "telephone": "+91-99831-68522",
+              "contactType": "customer support",
               "areaServed": "IN",
-              "availableLanguage": ["en", "ta", "hi"]
-            },
-            "sameAs": [
-              "https://twitter.com/foxplayer_algo",
-              "https://linkedin.com/company/foxplayer-algo"
-            ]
+              "availableLanguage": "English"
+            }
           })}
         </Script>
         <Script id="local-schema" type="application/ld+json" strategy="afterInteractive">

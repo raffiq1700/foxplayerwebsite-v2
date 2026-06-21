@@ -3,8 +3,8 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Strategy Marketplace | Foxplayer Algo Technologies",
-  description: "Subscribe to top-performing verified trading strategies and copy their trades automatically.",
+  title: "Algo Strategy Marketplace India | FoxPlayer",
+  description: "Browse and deploy pre-built, backtested trading strategies on FoxPlayer's strategy marketplace for Indian stock and options markets.",
   alternates: {
     canonical: "/marketplace",
   },

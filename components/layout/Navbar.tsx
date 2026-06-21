@@ -25,6 +25,7 @@ export default function Navbar() {
           style={{ border: "none" }}
           allowTransparency={true}
           scrolling="no"
+          loading="lazy"
         ></iframe>
       </div>
       <div className="max-w-7xl mx-auto px-6 h-20 md:h-32 flex items-center justify-between">
@@ -44,6 +45,7 @@ export default function Navbar() {
           <div className="flex items-center gap-8 text-[13px] font-medium text-white/50">
             <Link href="/features" className="hover:text-white transition-colors">Features</Link>
             <Link href="/pricing" className="text-white hover:text-primary transition-colors">Pricing</Link>
+            <Link href="/brokers" className="text-white hover:text-primary transition-colors">Integrations</Link>
             <Link href="/disclaimer" className="text-white/60 hover:text-white transition-colors">Disclaimer</Link>
             <Link href="/marketplace" className="text-white hover:text-primary transition-colors">Marketplace</Link>
             <Link href="/academy" className="text-white hover:text-primary transition-colors">Academy</Link>
@@ -76,6 +78,7 @@ export default function Navbar() {
         <div className="md:hidden bg-[#0F172A]/95 backdrop-blur-xl border-t border-white/[0.08] px-6 py-6 space-y-4">
           <Link href="/features" className="block text-sm text-white/60 hover:text-white">Features</Link>
           <Link href="/pricing" className="block text-sm text-white hover:text-primary">Pricing</Link>
+          <Link href="/brokers" className="block text-sm text-white hover:text-primary">Integrations</Link>
           <Link href="/disclaimer" className="block text-sm text-amber-500 font-medium">⚠️ Disclaimer</Link>
           <Link href="/marketplace" className="block text-sm text-white/60 hover:text-white">Marketplace</Link>
           <Link href="/academy" className="block text-sm text-white hover:text-primary">Academy</Link>

@@ -2,8 +2,8 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us | Foxplayer Algo Technologies",
-  description: "Learn about the value, benefits, and reasons to choose Foxplayer Algo Technologies for your trading software development.",
+  title: "About FoxPlayer Algo Technologies",
+  description: "FoxPlayer Algo Technologies builds institutional-grade algorithmic trading infrastructure for Indian retail traders and SEBI-registered firms.",
   alternates: {
     canonical: "/about",
   },

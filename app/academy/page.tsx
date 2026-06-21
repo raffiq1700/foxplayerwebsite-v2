@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import AcademyIndexClient from "@/components/academy/AcademyIndexClient";
 
 export const metadata: Metadata = {
-  title: "Academy | FoxPlayer Algo Technologies",
-  description: "Learn algorithmic trading strategies, stock market automation concepts, Options strategy guides, and Pine Script bridges in India.",
+  title: "FoxPlayer Academy — Learn Algo Trading in India",
+  description: "Free educational resources on algorithmic trading, backtesting, and broker API integration for Indian retail traders.",
   alternates: {
     canonical: "/academy",
   },

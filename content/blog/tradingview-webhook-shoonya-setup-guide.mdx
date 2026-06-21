@@ -1,0 +1,42 @@
+---
+title: "How to Connect TradingView Webhooks to Shoonya in Under 10 Minutes"
+excerpt: "Learn how to connect your Pine Script strategy on TradingView directly to your Shoonya account using FoxPlayer's webhook bridge."
+author: "Raffiq SR"
+category: "Tutorials"
+date: "2026-06-21"
+readTime: "6 min read"
+---
+
+If you've built a strategy in Pine Script and want it to place real orders on Shoonya without manually watching charts all day, a webhook bridge is the missing piece. Here's the full setup, start to finish.
+
+## What a webhook actually does
+
+When your Pine Script strategy fires an alert, TradingView can send that alert as an HTTP POST request to a URL you specify. That URL needs to receive the alert, parse it, and place an order on your broker. Shoonya's API doesn't accept TradingView alerts directly — you need a bridge in between. That's what FoxPlayer's webhook endpoint does.
+
+## Step 1: Connect your Shoonya account
+
+In your FoxPlayer dashboard, go to Broker Connections → Shoonya, and enter your API key and secret. Run a paper-trade test order to confirm the connection works before moving on.
+
+## Step 2: Get your unique webhook URL
+
+FoxPlayer generates a unique webhook URL per strategy from your dashboard. This is the address TradingView will send alerts to.
+
+## Step 3: Set up your TradingView alert
+
+In TradingView, open your Pine Script strategy, click "Create Alert," and under the Notifications tab, paste your FoxPlayer webhook URL into the Webhook URL field. In the alert message box, use FoxPlayer's JSON message template (available in your dashboard) so the order details — symbol, quantity, order type, side — are parsed correctly.
+
+## Step 4: Configure risk rules
+
+Before going live, set your stop-loss, position sizing, and daily max-loss limits in FoxPlayer's risk management panel. These apply automatically to every order this webhook sends, regardless of what your Pine Script logic does.
+
+## Step 5: Test in paper mode, then go live
+
+Run the strategy in paper trading for at least a few sessions to confirm orders are firing correctly and at the right size. Once you're confident, switch the strategy to live execution from your dashboard.
+
+## Common mistakes to avoid
+
+- Forgetting to update the alert message format after editing your Pine Script's variable names
+- Not setting a daily max-loss limit before going live
+- Testing only during high-liquidity hours, then being surprised by slippage in illiquid contracts
+
+Once it's running, every alert your strategy fires gets routed through FoxPlayer's execution layer to Shoonya with sub-15ms average latency, so the gap between signal and fill stays tight.
