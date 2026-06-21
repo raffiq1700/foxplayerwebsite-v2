@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { Briefcase, MapPin, Clock, DollarSign, X, CheckCircle, Send, Loader2, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { Briefcase, MapPin, Clock, DollarSign, Loader2, Sparkles } from "lucide-react";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 interface Job {
@@ -28,10 +27,10 @@ const DEFAULT_JOBS: Job[] = [
     location: "Remote / Hybrid (Coimbatore)",
     type: "Internship",
     duration: "3-6 Months",
-    stipend: "₹5,000 - ₹12,000 / month",
-    description: "Work on low-latency trading integrations, APIs, and beautiful Next.js frontends.",
-    requirements: "Strong foundation in React, Next.js, TypeScript and Tailwind CSS.\nBasic understanding of REST APIs, databases, and version control (Git).\nInterest in financial markets and quantitative trading automation.",
-    benefits: "Stipend + performance-based bonuses.\nCertificate of internship and LOR.\nPossibility of conversion to a full-time role based on performance.",
+    stipend: "Paid Internship",
+    description: "Work on low-latency trading integrations, custom Python strategy execution, and API bridges.",
+    requirements: "Strong foundation in Python programming language.\nFamiliarity with data structures, algorithms, and REST APIs.\nInterest in stock markets, algorithmic trading, and quantitative systems.",
+    benefits: "Stipend + performance-based bonuses.\nCertificate of internship and LOR.\nPossibility of conversion to a full-time role.",
     published: true,
   },
   {
@@ -41,7 +40,7 @@ const DEFAULT_JOBS: Job[] = [
     location: "Remote / Hybrid (Coimbatore)",
     type: "Internship",
     duration: "3-6 Months",
-    stipend: "₹5,000 - ₹10,000 / month",
+    stipend: "Paid Internship",
     description: "Create engaging stock market content, video tutorials, social media shorts, and academy guides.",
     requirements: "Proficiency in video editing tools (Adobe Premiere Pro, After Effects, or DaVinci Resolve).\nAbility to create animations, subtitles, and engaging graphics.\nFamiliarity with financial themes and trading concepts is a plus.",
     benefits: "Stipend + creative freedom.\nProfessional portfolio enrichment.\nPossibility of conversion to a full-time role.",
@@ -52,18 +51,6 @@ const DEFAULT_JOBS: Job[] = [
 export default function CareersPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-  
-  // Application Form State
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formSubmitting, setFormSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    resumeLink: "",
-    message: "",
-  });
 
   useEffect(() => {
     fetchJobs();
@@ -75,7 +62,14 @@ export default function CareersPage() {
       if (res.ok) {
         const data = await res.json();
         const activeJobs = data.filter((j: Job) => j.published);
-        setJobs(activeJobs.length > 0 ? activeJobs : DEFAULT_JOBS);
+        
+        // Clean up stipend data if loaded from DB to not show specific amounts
+        const sanitizedJobs = activeJobs.map((job: Job) => ({
+          ...job,
+          stipend: job.stipend && job.stipend.includes("₹") ? "Paid Internship" : (job.stipend || "Paid Internship")
+        }));
+        
+        setJobs(sanitizedJobs.length > 0 ? sanitizedJobs : DEFAULT_JOBS);
       } else {
         setJobs(DEFAULT_JOBS);
       }
@@ -83,56 +77,6 @@ export default function CareersPage() {
       setJobs(DEFAULT_JOBS);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleApplySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedJob) return;
-    setFormSubmitting(true);
-
-    try {
-      const subject = `Job Application: ${selectedJob.title} - ${formData.name}`;
-      const messageBody = `
-        Candidate Phone: ${formData.phone}
-        Resume/Portfolio Link: ${formData.resumeLink}
-        
-        Cover Note:
-        ${formData.message}
-      `;
-
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: subject,
-          message: messageBody,
-        }),
-      });
-
-      if (res.ok) {
-        setFormSubmitted(true);
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          resumeLink: "",
-          message: "",
-        });
-      } else {
-        alert("Failed to submit application. Please try again.");
-      }
-    } catch (err) {
-      alert("An error occurred during submission.");
-    } finally {
-      setFormSubmitting(false);
     }
   };
 
@@ -234,15 +178,12 @@ export default function CareersPage() {
                 </div>
 
                 <div className="md:self-start shrink-0 mt-2">
-                  <Button 
-                    onClick={() => {
-                      setSelectedJob(job);
-                      setFormSubmitted(false);
-                    }} 
-                    className="btn-primary w-full md:w-auto py-3 px-8 text-xs uppercase tracking-widest"
+                  <a 
+                    href={`mailto:raffiq_sr@yahoo.co.in?subject=Job Application: ${job.title}`}
+                    className="inline-flex items-center justify-center btn-primary w-full md:w-auto py-3.5 px-8 text-xs uppercase tracking-widest text-black hover:text-black hover:scale-105 transition-all duration-300"
                   >
                     Apply Now
-                  </Button>
+                  </a>
                 </div>
               </motion.div>
             ))
@@ -251,138 +192,6 @@ export default function CareersPage() {
       </div>
 
       <FinalCTA />
-
-      {/* Application Modal Popup */}
-      <AnimatePresence>
-        {selectedJob && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-lg bg-[#0F172A] border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh]"
-            >
-              {/* Close Button */}
-              <button 
-                onClick={() => setSelectedJob(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              {!formSubmitted ? (
-                <>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Briefcase className="w-5 h-5 text-primary" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Internship Application</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-6">{selectedJob.title}</h3>
-
-                  <form onSubmit={handleApplySubmit} className="space-y-6">
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Full Name</label>
-                      <input 
-                        type="text" 
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="John Doe"
-                        className="w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-primary/50 text-sm font-medium transition-all"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Email</label>
-                        <input 
-                          type="email" 
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="john@example.com"
-                          className="w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-primary/50 text-sm font-medium transition-all"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Phone Number</label>
-                        <input 
-                          type="tel" 
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="+91 98765 43210"
-                          className="w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-primary/50 text-sm font-medium transition-all"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Resume / Portfolio Link</label>
-                      <input 
-                        type="url" 
-                        name="resumeLink"
-                        value={formData.resumeLink}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Google Drive, Github, or Dropbox URL"
-                        className="w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-primary/50 text-sm font-medium transition-all"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Why do you want to join us?</label>
-                      <textarea 
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        rows={4}
-                        required
-                        placeholder="Tell us about your skills, experience, and interest in algo trading..."
-                        className="w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-primary/50 text-sm font-medium transition-all resize-none"
-                      />
-                    </div>
-
-                    <Button 
-                      type="submit" 
-                      disabled={formSubmitting} 
-                      className="btn-primary w-full py-4 uppercase tracking-widest text-xs gap-2 mt-2"
-                    >
-                      {formSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" /> Submitting Application...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4" /> Submit Application
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </>
-              ) : (
-                <div className="text-center py-10 flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 bg-green-500/10 border border-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">Application Submitted!</h3>
-                  <p className="text-sm text-white/50 leading-relaxed font-light max-w-sm mb-8">
-                    Thanks for applying, {formData.name}. We have received your application for the {selectedJob.title} role and will get back to you shortly.
-                  </p>
-                  <Button 
-                    onClick={() => setSelectedJob(null)} 
-                    className="btn-secondary py-3 px-8 text-xs uppercase tracking-widest"
-                  >
-                    Close Window
-                  </Button>
-                </div>
-              )}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

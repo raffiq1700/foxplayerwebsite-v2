@@ -21,7 +21,7 @@ export default function JobEditor() {
     location: "Remote / Hybrid (Coimbatore)",
     type: "Internship",
     duration: "3-6 Months",
-    stipend: "₹5,000 - ₹12,000 / month",
+    stipend: "Paid Internship",
     description: "",
     requirements: "",
     benefits: "",
