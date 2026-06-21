@@ -12,7 +12,14 @@ import {
   Check, 
   Activity, 
   Play, 
-  Star
+  Star,
+  Search,
+  LineChart,
+  SlidersHorizontal,
+  ShieldAlert,
+  PlayCircle,
+  Cpu,
+  MessageCircle
 } from "lucide-react";
 
 function MarketOverviewWidget() {
@@ -604,7 +611,159 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── 5. TESTIMONIALS SECTION ─── */}
+      {/* ─── 5. STRATEGY DEVELOPMENT & OPTIMIZATION ─── */}
+      <section className="py-24 px-6 border-t border-white/[0.06] bg-slate-900/40 relative overflow-hidden">
+        {/* Decorative background gradients */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -right-40 bottom-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">Structured Quantitative Process</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
+              Algorithmic Trading Strategy Development & Optimization
+            </h2>
+            <p className="text-base text-slate-400">
+              From Idea to Live Trading Automation. At Foxplayer, we don&apos;t rely on guesswork or unverified trading systems. Every strategy follows a structured quantitative development process designed to improve robustness, manage risk, and automate execution.
+            </p>
+          </div>
+
+          {/* Development Framework Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+            {[
+              {
+                step: "01",
+                title: "Strategy Research & Design",
+                desc: "Transform trading concepts into rule-based strategies with clearly defined entry, exit, stop-loss, and risk management rules.",
+                icon: <Search className="w-6 h-6 text-primary" />,
+                keyword: "Algorithmic Trading Strategy Development"
+              },
+              {
+                step: "02",
+                title: "Historical Backtesting",
+                desc: "Validate strategy performance using historical market data across different market conditions.",
+                icon: <LineChart className="w-6 h-6 text-secondary" />,
+                keyword: "Trading Strategy Backtesting"
+              },
+              {
+                step: "03",
+                title: "Strategy Optimization",
+                desc: "Fine-tune parameters to identify robust configurations while avoiding overfitting.",
+                icon: <SlidersHorizontal className="w-6 h-6 text-primary" />,
+                keyword: "Strategy Optimization"
+              },
+              {
+                step: "04",
+                title: "Risk & Drawdown Analysis",
+                desc: "Evaluate win rate, profit factor, maximum drawdown, risk-reward ratio, and overall strategy stability.",
+                icon: <ShieldAlert className="w-6 h-6 text-secondary" />,
+                keyword: "Quantitative Trading Solutions"
+              },
+              {
+                step: "05",
+                title: "Paper Trading Validation",
+                desc: "Test strategies in live market conditions before deploying real capital to ensure execution logic parity.",
+                icon: <PlayCircle className="w-6 h-6 text-primary" />,
+                keyword: "Automated Trading Systems"
+              },
+              {
+                step: "06",
+                title: "Automated Live Deployment",
+                desc: "Connect strategies directly to broker APIs for fully automated trade execution and monitoring.",
+                icon: <Cpu className="w-6 h-6 text-secondary" />,
+                keyword: "Live Trading Automation"
+              }
+            ].map((step, idx) => (
+              <div 
+                key={idx} 
+                className="bg-[#0F172A]/50 border border-white/[0.08] rounded-2xl p-8 hover:border-primary/20 hover:shadow-[0_8px_30px_rgba(0,212,255,0.02)] transition-all group relative overflow-hidden"
+              >
+                <div className="absolute top-4 right-6 text-5xl font-black text-white/[0.02] group-hover:text-white/[0.04] transition-colors font-mono select-none">
+                  {step.step}
+                </div>
+                <div className="w-12 h-12 rounded-xl bg-black/45 border border-white/[0.08] flex items-center justify-center mb-6 group-hover:border-primary/30 transition-colors">
+                  {step.icon}
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed mb-4">{step.desc}</p>
+                <span className="text-[10px] uppercase tracking-wider text-slate-600 font-bold block font-sans">
+                  {step.keyword}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Checklist Grid */}
+          <div className="bg-[#0F172A]/30 border border-white/[0.08] rounded-3xl p-8 md:p-12 mb-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-[85px] rounded-full pointer-events-none" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-5">
+                <p className="text-secondary text-xs font-bold uppercase tracking-widest mb-3">Enterprise Standard</p>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4">Why Traders Choose Foxplayer</h3>
+                <p className="text-sm text-slate-400 leading-relaxed font-light">
+                  Our comprehensive suite of <span className="text-primary font-medium">Algorithmic Trading Software</span> simplifies the journey from concept to live trading. We deliver institutional-grade execution speed coupled with advanced <span className="text-secondary font-medium">Broker API Integration</span>.
+                </p>
+              </div>
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  "Custom Strategy Development",
+                  "Historical Backtesting & Reporting",
+                  "Advanced Optimization Frameworks",
+                  "Risk Management Integration",
+                  "Broker API Automation",
+                  "Live Trading Deployment"
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-3 bg-black/20 border border-white/[0.04] p-4 rounded-xl">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    </div>
+                    <span className="text-sm font-medium text-slate-300 font-sans">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Actions (CTAs) */}
+          <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-primary/10 via-[#0F172A] to-secondary/10 border border-white/[0.08] rounded-3xl p-8 md:p-12 shadow-[0_15px_50px_rgba(0,0,0,0.4)] relative">
+            <div className="absolute inset-0 bg-grid-pattern opacity-10 rounded-3xl" />
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4 relative z-10 font-sans">Ready to Build Your Strategy?</h3>
+            <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed font-light mb-8 relative z-10 font-sans">
+              Whether you have a trading idea or need a complete algorithmic trading solution, our team can help design, test, optimize, and deploy your strategy.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+              <a 
+                href="https://wa.me/919983168522?text=Hello%20Foxplayer,%20I%20want%20to%20Book%20a%20Demo%20for%20Algorithmic%20Trading%20Strategy%20Development%20%26%20Optimization." 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full sm:w-auto"
+              >
+                <button className="btn-primary w-full gap-2 text-sm px-6 py-3.5">
+                  <MessageCircle className="w-4 h-4 fill-black text-black" /> Book a Demo
+                </button>
+              </a>
+              <a 
+                href="https://wa.me/919983168522?text=Hello%20Foxplayer,%20I%20want%20to%20Talk%20to%20an%20Expert%20about%20Algorithmic%20Trading%20Strategy%20Development%20%26%20Optimization." 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full sm:w-auto"
+              >
+                <button className="btn-secondary w-full gap-2 text-sm px-6 py-3.5">
+                  <MessageCircle className="w-4 h-4" /> Talk to an Expert
+                </button>
+              </a>
+            </div>
+            <div className="mt-4 text-[10px] text-slate-500 font-mono">
+              WhatsApp Support: +91 99831 68522
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── 6. TESTIMONIALS SECTION ─── */}
       <section className="py-24 px-6 border-t border-white/[0.06] bg-slate-900/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
@@ -660,7 +819,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── 6. PRICING PLANS ─── */}
+      {/* ─── 7. PRICING PLANS ─── */}
       <section className="py-24 px-6 border-t border-white/[0.06] bg-background relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] -z-10" />
         <div className="max-w-5xl mx-auto relative z-10">
