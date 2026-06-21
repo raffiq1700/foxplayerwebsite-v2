@@ -22,12 +22,12 @@ const faqs = [
     answer: "FoxPlayer routes orders through dedicated bare-metal broker gateways with an average execution latency of approximately 12 milliseconds, reducing slippage on high-frequency entries.",
   },
   {
-    question: "Can I try FoxPlayer for free before paying?",
-    answer: "Yes. The Retail Basic plan is free and includes one active strategy with full paper trading simulation across all supported brokers, so you can test the platform before upgrading.",
+    question: "Does FoxPlayer offer a free trial?",
+    answer: "Yes. FoxPlayer offers a free trial on both Retail and Professional plans. You can sign up and test the platform with full features before starting your subscription.",
   },
   {
     question: "Does FoxPlayer offer white-label solutions?",
-    answer: "Yes, the Enterprise plan includes white-label brand layouts, dedicated infrastructure, and a multi-client copy trading bridge, built for sub-brokers and PMS firms.",
+    answer: "Yes, the Institutional plan includes white-label brand layouts, dedicated infrastructure, and a multi-client copy trading bridge, built for sub-brokers and PMS firms.",
   },
   {
     question: "Does FoxPlayer provide investment advice?",

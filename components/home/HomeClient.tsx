@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { pricingPlans } from "@/lib/pricing";
 import { 
   ArrowRight, 
   Zap, 
@@ -830,49 +831,7 @@ export default function HomeClient() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { 
-                name: "Retail Basic", 
-                price: "Free", 
-                desc: "Perfect for testing and system configurations.", 
-                features: [
-                  "1 Active Strategy", 
-                  "Paper Trading Simulator", 
-                  "All supported Indian brokers", 
-                  "Basic Discord alerts"
-                ], 
-                cta: "Get Started", 
-                highlight: false 
-              },
-              { 
-                name: "Professional", 
-                price: "₹1,999/mo", 
-                desc: "Our most popular tier for active retail traders.", 
-                features: [
-                  "5 Active Strategies", 
-                  "Live Broker Execution", 
-                  "Unlimited TradingView Webhooks", 
-                  "Option Greeks Auto-hedges", 
-                  "Priority WhatsApp Support"
-                ], 
-                cta: "Start Free Trial", 
-                highlight: true 
-              },
-              { 
-                name: "Enterprise Custom", 
-                price: "Custom", 
-                desc: "Built for sub-brokers and PMS firms.", 
-                features: [
-                  "Unlimited active strategies", 
-                  "White-label brand layouts", 
-                  "Dedicated bare-metal servers", 
-                  "Multi-client copy trading bridge", 
-                  "24/7 dedicated support desk"
-                ], 
-                cta: "Contact Sales", 
-                highlight: false 
-              },
-            ].map((plan, idx) => (
+            {pricingPlans.map((plan, idx) => (
               <div 
                 key={idx} 
                 className={`rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 ${
@@ -889,7 +848,10 @@ export default function HomeClient() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-2">{plan.name}</h3>
                   <p className="text-xs text-slate-400 leading-relaxed mb-6 font-light">{plan.desc}</p>
-                  <div className="text-3xl font-extrabold text-white mb-8">{plan.price}</div>
+                  <div className="text-3xl font-extrabold text-white mb-8 border-none p-0 bg-transparent">
+                    {plan.price}
+                    {plan.period && <span className="text-sm font-medium text-slate-500">{plan.period}</span>}
+                  </div>
                   
                   <div className="w-full h-px bg-white/[0.08] mb-8" />
                   
@@ -903,7 +865,7 @@ export default function HomeClient() {
                   </ul>
                 </div>
                 
-                <a href={plan.cta === "Contact Sales" ? "https://wa.me/919983168522?text=Hello,%20I%20am%20interested%20in%20the%20Enterprise%20Custom%20plan%20for%20FoxPlayer%20Algo%20Technologies." : "https://app.foxplayer.co.in/login"} className="block w-full">
+                <a href={plan.cta === "Contact Sales" ? "https://wa.me/919983168522?text=Hello,%20I%20am%20interested%20in%20the%20Institutional%20plan%20for%20FoxPlayer%20Algo%20Technologies." : "https://app.foxplayer.co.in/login"} className="block w-full">
                   <button className={`w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                     plan.highlight 
                       ? "bg-primary text-black hover:bg-primary/95 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]" 

@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import PricingClient from "@/components/pricing/PricingClient";
 
 export const metadata: Metadata = {
-  title: "FoxPlayer Pricing — Free to Enterprise Algo Trading Plans",
-  description: "Compare FoxPlayer's Retail Basic (free), Professional (₹1,999/mo), and Enterprise Custom plans for algo trading in India.",
+  title: "FoxPlayer Pricing — Retail to Institutional Algo Trading Plans",
+  description: "Compare FoxPlayer's Retail (₹1,999/mo), Professional (₹4,999/mo), and Institutional (Custom) plans for algo trading in India.",
   alternates: {
     canonical: "/pricing",
   },
@@ -20,24 +20,24 @@ export default function PricingPage() {
     "offers": [
       {
         "@type": "Offer",
-        "name": "Retail Basic",
-        "price": "0",
+        "name": "Retail",
+        "price": "1999",
         "priceCurrency": "INR",
-        "description": "1 active strategy, paper trading simulator, all supported Indian brokers, basic Discord alerts."
+        "description": "1 active strategy, TradingView webhooks, 1 broker connection, standard support."
       },
       {
         "@type": "Offer",
         "name": "Professional",
-        "price": "1999",
+        "price": "4999",
         "priceCurrency": "INR",
-        "description": "5 active strategies, live broker execution, unlimited TradingView webhooks, Option Greeks auto-hedges, priority WhatsApp support."
+        "description": "5 active strategies, Python strategy bridge, 3 broker connections, priority support, backtesting access."
       },
       {
         "@type": "Offer",
-        "name": "Enterprise Custom",
+        "name": "Institutional",
         "price": "0",
         "priceCurrency": "INR",
-        "description": "Unlimited active strategies, white-label brand layouts, dedicated bare-metal servers, multi-client copy trading bridge, 24/7 dedicated support desk. Custom pricing — contact sales."
+        "description": "Unlimited active strategies, white-label options, multi-client management, 24/7 dedicated support, custom API development. Custom pricing — contact sales."
       }
     ]
   };

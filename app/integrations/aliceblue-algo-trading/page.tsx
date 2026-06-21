@@ -137,7 +137,7 @@ export default function AliceBlueIntegrationPage() {
               AliceBlue's API access is free for account holders. The tool setup depends on the platform subscription tier.
             </p>
             <p className="text-xs text-white/40 leading-relaxed font-light">
-              FoxPlayer's <Link href="/pricing" className="text-primary hover:underline font-bold">Retail Basic plan (free)</Link> lets you test one strategy live on AliceBlue with full paper trading; <Link href="/pricing" className="text-primary hover:underline font-bold">Professional (₹1,999/month)</Link> adds concurrent strategies, unlimited webhooks, and Option Greeks auto-hedging on top.
+              FoxPlayer's <Link href="/pricing" className="text-primary hover:underline font-bold">Retail plan (₹1,999/month)</Link> lets you run one live strategy on AliceBlue with full paper trading and TradingView webhooks; <Link href="/pricing" className="text-primary hover:underline font-bold">Professional (₹4,999/month)</Link> unlocks five concurrent strategies, Python strategy bridge, and priority support.
             </p>
           </div>
         </section>
@@ -150,7 +150,7 @@ export default function AliceBlueIntegrationPage() {
           <div className="space-y-6">
             {[
               { q: "Does AliceBlue charge for API access?", a: "No, API access is included for AliceBlue account holders; standard brokerage applies to trades." },
-              { q: "Can I copy trade across multiple AliceBlue accounts?", a: "Yes, FoxPlayer's Enterprise plan supports a multi-client copy trading bridge across AliceBlue accounts." },
+              { q: "Can I copy trade across multiple AliceBlue accounts?", a: "Yes, FoxPlayer's Institutional plan supports a multi-client copy trading bridge across AliceBlue accounts." },
               { q: "Is my AliceBlue API key secure with FoxPlayer?", a: "Yes, all broker credentials are encrypted at rest and never shared with third parties." }
             ].map((f, idx) => (
               <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">

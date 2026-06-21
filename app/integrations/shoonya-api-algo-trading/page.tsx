@@ -137,7 +137,7 @@ export default function ShoonyaIntegrationPage() {
               Shoonya's API access itself is free — there's no brokerage-side subscription fee to place algorithmic orders. The cost difference comes from the tooling layer on top of it.
             </p>
             <p className="text-xs text-white/40 leading-relaxed font-light">
-              FoxPlayer's <Link href="/pricing" className="text-primary hover:underline font-bold">Retail Basic plan (free)</Link> lets you run one live strategy on Shoonya with full paper trading; the <Link href="/pricing" className="text-primary hover:underline font-bold">Professional plan (₹1,999/month)</Link> unlocks five concurrent strategies, unlimited TradingView webhooks, and Option Greeks auto-hedging.
+              FoxPlayer's <Link href="/pricing" className="text-primary hover:underline font-bold">Retail plan (₹1,999/month)</Link> lets you run one live strategy on Shoonya with full paper trading and TradingView webhooks; the <Link href="/pricing" className="text-primary hover:underline font-bold">Professional plan (₹4,999/month)</Link> unlocks five concurrent strategies, Python strategy bridge, and priority support.
             </p>
           </div>
         </section>
@@ -150,7 +150,7 @@ export default function ShoonyaIntegrationPage() {
           <div className="space-y-6">
             {[
               { q: "Is the Shoonya API free?", a: "Yes, Shoonya does not charge for API access itself, though standard brokerage and exchange charges apply to executed trades." },
-              { q: "Can I run multiple strategies on Shoonya at once through FoxPlayer?", a: "Yes, depending on your FoxPlayer plan — Retail Basic supports one active strategy, Professional supports five, and Enterprise is unlimited." },
+              { q: "Can I run multiple strategies on Shoonya at once through FoxPlayer?", a: "Yes, depending on your FoxPlayer plan — Retail supports one active strategy, Professional supports five, and Institutional is unlimited." },
               { q: "Does FoxPlayer store my Shoonya API credentials securely?", a: "Yes, credentials are encrypted at rest and never shared with third parties." }
             ].map((f, idx) => (
               <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">

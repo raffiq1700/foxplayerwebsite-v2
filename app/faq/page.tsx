@@ -49,10 +49,10 @@ export default function FAQPage() {
       },
       {
         "@type": "Question",
-        "name": "Can I try FoxPlayer for free before paying?",
+        "name": "Does FoxPlayer offer a free trial?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. The Retail Basic plan is free and includes one active strategy with full paper trading simulation across all supported brokers, so you can test the platform before upgrading."
+          "text": "Yes. FoxPlayer offers a free trial on both Retail and Professional plans. You can sign up and test the platform with full features before starting your subscription."
         }
       }
     ]

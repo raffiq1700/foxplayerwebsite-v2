@@ -104,7 +104,7 @@ export default function CompareTradetronPage() {
                   <tr>
                     <td className="py-4 px-4 font-bold text-white">Pricing Model</td>
                     <td className="py-4 px-4">Tiered by strategies/clients & variables</td>
-                    <td className="py-4 px-4 text-primary font-semibold">Simple flat pricing (Retail Free, Pro ₹1,999/mo)</td>
+                    <td className="py-4 px-4 text-primary font-semibold">Simple flat pricing (Retail ₹1,999/mo, Pro ₹4,999/mo)</td>
                   </tr>
                 </tbody>
               </table>
